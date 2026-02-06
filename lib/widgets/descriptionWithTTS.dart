@@ -1,4 +1,4 @@
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -54,7 +54,7 @@ class _DescriptionWithTtsState extends State<DescriptionWithTts> {
           'details.description'.tr(),
           style: TextStyle(
             color: widget.theme.text,
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -63,7 +63,7 @@ class _DescriptionWithTtsState extends State<DescriptionWithTts> {
           _isExpanded ? fullText : truncatedText,
           style: TextStyle(
             color: widget.theme.text,
-            fontSize: 16,
+            fontSize: 14,
             height: 1.5,
           ),
         ),
@@ -84,7 +84,7 @@ class _DescriptionWithTtsState extends State<DescriptionWithTts> {
                       : 'details.show_more'.tr(),
                   style: TextStyle(
                     color: widget.theme.primary,
-                    fontSize: 14,
+                    fontSize: 13,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

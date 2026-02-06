@@ -1,5 +1,5 @@
 {
-  "app_name": "CarthagoGuide",
+  "app_name": "TunisiaBook",
   "home": {
     "search_placeholder": "搜索目的地、酒店...",
     "categories": {
@@ -51,7 +51,7 @@
     "sponsors": "合作伙伴",
     "choose_theme": "选择主题",
     "exit_title": "退出应用？",
-    "exit_message": "确定要退出 Carthago Guide 吗？",
+    "exit_message": "确定要退出 Tunisia Book 吗？",
     "exit_confirm": "是的，退出"
   },
   "language": "语言",
@@ -116,7 +116,7 @@
     "contact_us": "联系我们了解更多"
   },
   "chatbot": {
-    "welcome": "您好！我是 Carthago Guide 智能助手，如何帮助您探索突尼斯？",
+    "welcome": "您好！我是 Tunisia Book 智能助手，如何帮助您探索突尼斯？",
     "new_conversation": "新对话",
     "history": "历史记录"
   },

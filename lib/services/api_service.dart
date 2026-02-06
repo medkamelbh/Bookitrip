@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:CarthagoGuide/models/guestHouse.dart';
-import 'package:CarthagoGuide/models/hotel_details.dart';
-import 'package:CarthagoGuide/models/state.dart';
-import 'package:CarthagoGuide/models/voyage.dart';
+import 'package:TunisiaBook/models/guestHouse.dart';
+import 'package:TunisiaBook/models/hotel_details.dart';
+import 'package:TunisiaBook/models/state.dart';
+import 'package:TunisiaBook/models/story.dart';
+import 'package:TunisiaBook/models/voyage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/activity.dart';
@@ -18,7 +19,7 @@ import '../models/restaurant.dart';
 
 
 class ApiService {
-  static const String _baseUrl = 'https://testguide.tunisiagotravel.com';
+  static const String _baseUrl = 'https://backend.tunisiabook.com';
   final String _cachevoy = 'cached_voyages';
 
   Future<List<Destination>> getDestinations() async {
@@ -549,4 +550,27 @@ class ApiService {
       return [];
     }
   }
+  Future<List<Story>> fetchStories() async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/utilisateur/story'),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> jsonData = json.decode(response.body);
+        return jsonData
+            .map((json) => Story.fromJson(json))
+            .where((story) => story.status)
+            .toList();
+      } else {
+        throw Exception('Failed to load stories: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching stories: $e');
+    }
+  }
 }
+

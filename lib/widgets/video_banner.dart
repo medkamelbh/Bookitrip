@@ -1,4 +1,4 @@
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
@@ -18,11 +18,17 @@ class VideoBanner extends StatefulWidget {
 class _VideoBannerState extends State<VideoBanner> {
   late VideoPlayerController _controller;
 
+  static const double _videoAspectRatio = 1920 / 600; // 3.2
+
   @override
   void initState() {
     super.initState();
 
-    _controller = VideoPlayerController.asset("assets/videos/tgt.mp4")
+    _controller = VideoPlayerController.networkUrl(
+      Uri.parse(
+        "https://cdn.tunisiabook.com/videos/home/tunisiabook_web.mp4",
+      ),
+    )
       ..setLooping(true)
       ..setVolume(0)
       ..initialize().then((_) {
@@ -43,36 +49,44 @@ class _VideoBannerState extends State<VideoBanner> {
   Widget build(BuildContext context) {
     final theme = widget.theme;
 
-    // RTL detection (easy_localization compatible)
-    final bool isRTL =
-        context.locale.languageCode == 'ar';
+    final bool isRTL = context.locale.languageCode == 'ar';
+
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double bannerHeight =
+    (screenWidth / _videoAspectRatio).clamp(150, 200);
 
     return Stack(
       children: [
-        // VIDEO
+        // ================= VIDEO =================
         ClipRRect(
           borderRadius: BorderRadius.circular(20),
-          child: _controller.value.isInitialized
-              ? SizedBox(
-            height: 170,
+          child: Container(
+            height: bannerHeight,
             width: double.infinity,
-            child: VideoPlayer(_controller),
-          )
-              : Container(
-            height: 170,
-            width: double.infinity,
-            color: Colors.black12,
+            color: Colors.black,
+            child: _controller.value.isInitialized
+                ? FittedBox(
+              fit: BoxFit.cover,
+              child: SizedBox(
+                width: _controller.value.size.width,
+                height: _controller.value.size.height,
+                child: VideoPlayer(_controller),
+              ),
+            )
+                : Container(
+              color: Colors.black12,
+            ),
           ),
         ),
 
-        // GRADIENT OVERLAY
+        // ================= GRADIENT =================
         Container(
-          height: 170,
+          height: bannerHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
               colors: [
-                Colors.black.withOpacity(0.6),
+                Colors.black.withOpacity(0.65),
                 Colors.transparent,
               ],
               begin: Alignment.bottomCenter,
@@ -81,14 +95,13 @@ class _VideoBannerState extends State<VideoBanner> {
           ),
         ),
 
-        // TEXT CONTENT (RTL SAFE)
+        // ================= TEXT CONTENT =================
         Positioned(
           bottom: 20,
           left: isRTL ? null : 20,
           right: isRTL ? 20 : null,
           child: Column(
-            crossAxisAlignment:
-            isRTL ? CrossAxisAlignment.start : CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // FEATURED BADGE
               Container(
@@ -115,8 +128,7 @@ class _VideoBannerState extends State<VideoBanner> {
               // TITLE
               Text(
                 "video.discover_tunisia".tr(),
-                textAlign:
-                isRTL ? TextAlign.right : TextAlign.left,
+                textAlign: isRTL ? TextAlign.right : TextAlign.left,
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,

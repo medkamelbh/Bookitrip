@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/widgets/skeleton_box.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/widgets/skeleton_box.dart';
 
 class DestinationCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -76,7 +76,7 @@ class DestinationCardWidget extends StatelessWidget {
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 16,
+                                fontSize: 15,
                               ),
                             ),
                           ),

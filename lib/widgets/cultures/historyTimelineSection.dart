@@ -100,7 +100,7 @@ class _TunisiaHistoryTimelineState extends State<TunisiaHistoryTimeline> {
           child: Text(
             "cultures.tunisia_chronicles".tr(),
             style: TextStyle(
-              fontSize: 22,
+              fontSize: 19,
               fontWeight: FontWeight.bold,
               color: theme.text,
             ),
@@ -209,7 +209,7 @@ class _TunisiaHistoryTimelineState extends State<TunisiaHistoryTimeline> {
                 Text(
                   _eras[_selectedEraIndex]["title"].toUpperCase(),
                   style: GoogleFonts.poppins(
-                    fontSize: 18,
+                    fontSize: 17,
                     fontWeight: FontWeight.w500,
                     color: theme.primary,
                   ),
@@ -221,7 +221,7 @@ class _TunisiaHistoryTimelineState extends State<TunisiaHistoryTimeline> {
                   _eras[_selectedEraIndex]["desc"],
                   style: GoogleFonts.poppins(
                     color: theme.text,
-                    fontSize: 16,
+                    fontSize: 15,
                     height: 1.5,
                   ),
                 ),

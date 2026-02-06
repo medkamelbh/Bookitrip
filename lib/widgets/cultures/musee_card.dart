@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class MuseeCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -20,104 +20,111 @@ class MuseeCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Determine the scale factor (based on a standard 375px wide screen)
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double scale = screenWidth / 375;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 15),
+        margin: EdgeInsets.only(bottom: 16 * scale),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20 * scale),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+              blurRadius: 10 * scale,
+              offset: Offset(0, 4 * scale),
             ),
           ],
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Stack(
-            children: [
-              CachedNetworkImage(
-                imageUrl: imgUrl,
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => Container(
-                  height: 200,
-                  color: theme.primary.withOpacity(0.1),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
+        child: AspectRatio(
+          // 1.8 is a great sweet spot for "wide" cards in a list
+          aspectRatio: 1.8,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20 * scale),
+            child: Stack(
+              children: [
+                // Image - Set to fill the AspectRatio container
+                CachedNetworkImage(
+                  imageUrl: imgUrl,
+                  height: double.infinity,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(
+                    color: theme.primary.withOpacity(0.1),
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    color: theme.primary.withOpacity(0.1),
+                    child: Icon(Icons.broken_image, size: 40 * scale),
                   ),
                 ),
-                errorWidget: (context, url, error) => Container(
-                  height: 200,
-                  color: theme.primary.withOpacity(0.1),
-                  child: const Icon(Icons.broken_image, size: 50),
-                ),
-              ),
 
-              // Gradient overlay
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      theme.primary.withOpacity(0.7),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Content
-              Positioned(
-                bottom: 15,
-                left: 15,
-                right: 15,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    if (situation.isNotEmpty) ...[
-                      const SizedBox(height: 5),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.location_on,
-                            color: Colors.red,
-                            size: 16,
-                          ),
-                          const SizedBox(width: 5),
-                          Expanded(
-                            child: Text(
-                              situation,
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 14,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
+                // Gradient overlay using Positioned.fill to match the image size
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          theme.primary.withOpacity(0.8),
                         ],
                       ),
-                    ],
-                  ],
+                    ),
+                  ),
                 ),
-              ),
-            ],
+
+                // Content
+                Positioned(
+                  bottom: 15 * scale,
+                  left: 15 * scale,
+                  right: 15 * scale,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15 * scale, // Scaled font size
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (situation.isNotEmpty) ...[
+                        SizedBox(height: 4 * scale),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              color: Colors.redAccent,
+                              size: 14 * scale,
+                            ),
+                            SizedBox(width: 4 * scale),
+                            Expanded(
+                              child: Text(
+                                situation,
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.85),
+                                  fontSize: 13 * scale,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

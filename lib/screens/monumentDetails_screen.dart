@@ -1,6 +1,6 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/monument.dart';
-import 'package:CarthagoGuide/utils/open_googlemaps.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/monument.dart';
+import 'package:TunisiaBook/utils/open_googlemaps.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -111,7 +111,7 @@ class _MonumentDetailsScreenState extends State<MonumentDetailsScreen> {
                             widget.monument.getName(locale),
                             style: TextStyle(
                               color: theme.text,
-                              fontSize: 28,
+                              fontSize: 21,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -132,7 +132,7 @@ class _MonumentDetailsScreenState extends State<MonumentDetailsScreen> {
                           widget.monument.getCategories(locale),
                           style: TextStyle(
                             color: theme.primary,
-                            fontSize: 14,
+                            fontSize: 13,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -142,14 +142,14 @@ class _MonumentDetailsScreenState extends State<MonumentDetailsScreen> {
                     // Destination
                     Row(
                       children: [
-                        Icon(Icons.location_on_outlined, color: theme.primary, size: 20),
+                        Icon(Icons.location_on_outlined, color: theme.primary, size: 18),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
                             widget.monument.destination.getName(locale),
                             style: TextStyle(
                               color: theme.text.withOpacity(0.7),
-                              fontSize: 15,
+                              fontSize: 14,
                             ),
                           ),
                         ),
@@ -176,7 +176,7 @@ class _MonumentDetailsScreenState extends State<MonumentDetailsScreen> {
                       'details.description'.tr(),
                       style: TextStyle(
                         color: theme.text,
-                        fontSize: 20,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -195,8 +195,8 @@ class _MonumentDetailsScreenState extends State<MonumentDetailsScreen> {
                               _isDescriptionExpanded ? fullText : truncatedText,
                               style: TextStyle(
                                 color: theme.text,
-                                fontSize: 16,
-                                height: 1.5,
+                                fontSize: 14,
+                                height: 1.4,
                               ),
                             ),
                             if (fullText.length > 220)
@@ -212,7 +212,7 @@ class _MonumentDetailsScreenState extends State<MonumentDetailsScreen> {
                                     _isDescriptionExpanded ? 'details.show_less'.tr() : 'details.show_more'.tr(),
                                     style: TextStyle(
                                       color: theme.primary,
-                                      fontSize: 14,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -270,7 +270,7 @@ class _GallerySection extends StatelessWidget {
           'details.gallery'.tr(),
           style: TextStyle(
             color: theme.text,
-            fontSize: 20,
+            fontSize: 17,
             fontWeight: FontWeight.bold,
           ),
         ),

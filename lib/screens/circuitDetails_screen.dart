@@ -1,7 +1,7 @@
 import 'dart:async'; // Required for Timer
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/voyage.dart';
-import 'package:CarthagoGuide/widgets/contact_section.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/voyage.dart';
+import 'package:TunisiaBook/widgets/contact_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';

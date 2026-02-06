@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class ArtisanatCardWidget extends StatelessWidget {
   final AppTheme theme;

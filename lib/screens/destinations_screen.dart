@@ -1,8 +1,8 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/screens/destinationDetails_screen.dart';
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
-import 'package:CarthagoGuide/widgets/destination_card.dart';
-import 'package:CarthagoGuide/widgets/hotels/hotel_searchbar.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/screens/destinationDetails_screen.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/widgets/destination_card.dart';
+import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';

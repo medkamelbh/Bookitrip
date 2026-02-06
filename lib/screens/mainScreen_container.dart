@@ -1,8 +1,8 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/providers/guestHouse_provider.dart';
-import 'package:CarthagoGuide/providers/hotel_provider.dart';
-import 'package:CarthagoGuide/providers/restaurant_provider.dart';
-import 'package:CarthagoGuide/widgets/language_selector.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/providers/guestHouse_provider.dart';
+import 'package:TunisiaBook/providers/hotel_provider.dart';
+import 'package:TunisiaBook/providers/restaurant_provider.dart';
+import 'package:TunisiaBook/widgets/language_selector.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,26 +34,34 @@ class MainScreenContainerState extends State<MainScreenContainer>
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Dynamic responsiveness based on screen width
+    final screenWidth = MediaQuery.of(context).size.width;
+    final drawerWidth = screenWidth * 0.75; // Drawer takes 75% of screen
+
     _scaleAnimation = Tween<double>(begin: 1.0, end: 0.85).animate(
       CurvedAnimation(parent: _drawerController, curve: Curves.easeOutCubic),
     );
-    _slideAnimation = Tween<double>(begin: 0.0, end: 250.0).animate(
+
+    _slideAnimation = Tween<double>(begin: 0.0, end: drawerWidth).animate(
       CurvedAnimation(parent: _drawerController, curve: Curves.easeOutCubic),
     );
   }
 
   void toggleDrawer() {
     if (!mounted) return;
-
     if (_drawerController.isDismissed) {
       _drawerController.forward();
       setState(() => isDrawerOpen = true);
     } else {
       _drawerController.reverse();
       Future.delayed(const Duration(milliseconds: 300), () {
-        if (mounted) {
-          setState(() => isDrawerOpen = false);
-        }
+        if (mounted) setState(() => isDrawerOpen = false);
       });
     }
   }
@@ -82,17 +90,9 @@ class MainScreenContainerState extends State<MainScreenContainer>
         builder: (context) => AlertDialog(
           backgroundColor: theme.background,
           surfaceTintColor: theme.CardBG,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          title: Text(
-            'drawer.exit_title'.tr(),
-            style: TextStyle(color: theme.text, fontWeight: FontWeight.bold),
-          ),
-          content: Text(
-            'drawer.exit_message'.tr(),
-            style: TextStyle(color: theme.text),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          title: Text('drawer.exit_title'.tr(), style: TextStyle(color: theme.text, fontWeight: FontWeight.bold)),
+          content: Text('drawer.exit_message'.tr(), style: TextStyle(color: theme.text)),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
@@ -109,7 +109,7 @@ class MainScreenContainerState extends State<MainScreenContainer>
           ],
         ),
       );
-      return false;
+      return shouldExit ?? false;
     }
     return true;
   }
@@ -118,6 +118,7 @@ class MainScreenContainerState extends State<MainScreenContainer>
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
     final isRTL = context.locale.languageCode == 'ar';
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return WillPopScope(
       onWillPop: () => _onWillPop(context, theme),
@@ -125,18 +126,21 @@ class MainScreenContainerState extends State<MainScreenContainer>
         backgroundColor: theme.secondary,
         body: Stack(
           children: [
+            // Responsive Drawer Position
             Positioned(
               top: 0,
               bottom: 0,
               left: isRTL ? null : 0,
               right: isRTL ? 0 : null,
-              width: 280,
+              width: screenWidth * 0.75,
               child: CustomDrawerMenu(
                 onThemeSwitch: toggleDrawer,
                 toggleDrawer: toggleDrawer,
                 isRTL: isRTL,
               ),
             ),
+
+            // Main Content with Animation
             AnimatedBuilder(
               animation: _drawerController,
               builder: (context, child) {
@@ -148,9 +152,7 @@ class MainScreenContainerState extends State<MainScreenContainer>
                   child: GestureDetector(
                     onTap: isDrawerOpen ? toggleDrawer : null,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(
-                        isDrawerOpen ? 30 : 0,
-                      ),
+                      borderRadius: BorderRadius.circular(isDrawerOpen ? 30 : 0),
                       child: Container(
                         decoration: BoxDecoration(
                           boxShadow: isDrawerOpen
@@ -160,7 +162,8 @@ class MainScreenContainerState extends State<MainScreenContainer>
                               blurRadius: 30,
                               offset: Offset(isRTL ? 10 : -10, 10),
                             ),
-                          ] : [],
+                          ]
+                              : [],
                         ),
                         child: widget.child,
                       ),
@@ -200,165 +203,137 @@ class CustomDrawerMenu extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final theme = themeProvider.currentTheme;
     final textColor = theme.isSpec ? Colors.black : Colors.white;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
       color: theme.secondary,
-      padding: EdgeInsets.only(
-        left: isRTL ? 20 : 30,
-        right: isRTL ? 20 : 15,
-        top: 70,
-        bottom: 50,
-      ),
-      child: Column(
-        crossAxisAlignment: isRTL ? CrossAxisAlignment.start : CrossAxisAlignment.start,
-        children: [
-          Text(
-            "drawer.settings".tr(),
-            style: GoogleFonts.montserrat(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: textColor,
-            ),
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            horizontal: isRTL ? 20 : 25,
+            vertical: 20,
           ),
-          const SizedBox(height: 35),
-
-          DrawerItem(
-            icon: Icons.home_outlined,
-            label: "drawer.home".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () => _navigateAndClose(context, '/home'),
-          ),
-          DrawerItem(
-            icon: Icons.place_outlined,
-            label: "drawer.destinations".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () => _navigateAndClose(context, '/destinations'),
-          ),
-          DrawerItem(
-            icon: Icons.hotel,
-            label: "drawer.hotels".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () {
-              Provider.of<HotelProvider>(context, listen: false).clearFilters();
-              _navigateAndClose(context, '/hotels');
-            },
-          ),
-          DrawerItem(
-            icon: Icons.apartment_outlined,
-            label: "drawer.guest_houses".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () {
-              Provider.of<GuestHouseProvider>(context, listen: false).clearFilters();
-              _navigateAndClose(context, '/guest-houses');
-            },
-          ),
-          DrawerItem(
-            icon: Icons.restaurant_menu,
-            label: "drawer.restaurants".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () {
-              Provider.of<RestaurantProvider>(context, listen: false).clearFilters();
-              _navigateAndClose(context, '/restaurants');
-            },
-          ),
-          DrawerItem(
-            icon: Icons.local_activity_outlined,
-            label: "drawer.activities".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () => _navigateAndClose(context, '/activities'),
-          ),
-          DrawerItem(
-            icon: Icons.event_available_outlined,
-            label: "drawer.events".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () => _navigateAndClose(context, '/events'),
-          ),
-          DrawerItem(
-            icon: Icons.account_balance_outlined,
-            label: "drawer.cultures".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () => _navigateAndClose(context, '/cultures'),
-          ),
-          DrawerItem(
-            icon: Icons.route_outlined,
-            label: "drawer.circuits".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () => _navigateAndClose(context, '/circuits'),
-          ),
-          DrawerItem(
-            icon: Icons.star_border,
-            label: "drawer.sponsors".tr(),
-            color: textColor,
-            isRTL: isRTL,
-            onTap: () => _navigateAndClose(context, '/sponsors'),
-          ),
-
-          const Spacer(),
-
-          Row(
-            mainAxisAlignment: isRTL ? MainAxisAlignment.start : MainAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              LanguageSelector(
-                showInTopMenu: false,
-                onLanguageChanged: toggleDrawer, // Pass toggleDrawer callback
+              Text(
+                "drawer.settings".tr(),
+                style: GoogleFonts.montserrat(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: textColor,
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              // Nav Items
+              _buildNavItems(context, textColor),
+
+              // Spacer replacement for scrollable view
+              SizedBox(height: screenHeight * 0.05),
+
+              Row(
+                children: [
+                  LanguageSelector(
+                    showInTopMenu: false,
+                    onLanguageChanged: toggleDrawer,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+
+              Text(
+                "drawer.choose_theme".tr(),
+                style: TextStyle(
+                  color: textColor.withOpacity(0.6),
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 15),
+
+              // Theme Selector
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: List.generate(5, (index) {
+                  return GestureDetector(
+                    onTap: () {
+                      themeProvider.switchTheme(index);
+                      onThemeSwitch?.call();
+                    },
+                    child: Container(
+                      width: 35,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _getThemeColor(index),
+                        border: Border.all(color: Colors.white, width: 2),
+                      ),
+                    ),
+                  );
+                }),
               ),
             ],
           ),
-          const SizedBox(height: 20),
-
-          Text(
-            "drawer.choose_theme".tr(),
-            style: TextStyle(
-              color: textColor.withOpacity(0.6),
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 15),
-
-          Row(
-            mainAxisAlignment: isRTL ? MainAxisAlignment.start : MainAxisAlignment.start,
-            children: List.generate(4, (index) {
-              return GestureDetector(
-                onTap: () {
-                  themeProvider.switchTheme(index);
-                  onThemeSwitch?.call();
-                },
-                child: Container(
-                  margin: EdgeInsets.only(
-                    right: isRTL ? 0 : 15,
-                    left: isRTL ? 15 : 0,
-                  ),
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: index == 0
-                        ? const Color(0xFF2B7EA8)
-                        : index == 1
-                        ? const Color(0xFFC17A3A)
-                        : index == 2
-                        ? const Color(0xFF8B5CF6)
-                        : const Color(0xFF214E34),
-                    border: Border.all(color: Colors.white, width: 2),
-                  ),
-                ),
-              );
-            }),
-          ),
-          const Spacer(flex: 2),
-        ],
+        ),
       ),
     );
+  }
+
+  Widget _buildNavItems(BuildContext context, Color textColor) {
+    return Column(
+      children: [
+        DrawerItem(icon: Icons.home_outlined, label: "drawer.home".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/home')),
+        DrawerItem(icon: Icons.place_outlined, label: "drawer.destinations".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/destinations')),
+        DrawerItem(
+          icon: Icons.hotel,
+          label: "drawer.hotels".tr(),
+          color: textColor,
+          isRTL: isRTL,
+          onTap: () {
+            Provider.of<HotelProvider>(context, listen: false).clearFilters();
+            _navigateAndClose(context, '/hotels');
+          },
+        ),
+        DrawerItem(
+          icon: Icons.apartment_outlined,
+          label: "drawer.guest_houses".tr(),
+          color: textColor,
+          isRTL: isRTL,
+          onTap: () {
+            Provider.of<GuestHouseProvider>(context, listen: false).clearFilters();
+            _navigateAndClose(context, '/guest-houses');
+          },
+        ),
+        DrawerItem(
+          icon: Icons.restaurant_menu,
+          label: "drawer.restaurants".tr(),
+          color: textColor,
+          isRTL: isRTL,
+          onTap: () {
+            Provider.of<RestaurantProvider>(context, listen: false).clearFilters();
+            _navigateAndClose(context, '/restaurants');
+          },
+        ),
+        DrawerItem(icon: Icons.local_activity_outlined, label: "drawer.activities".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/activities')),
+        DrawerItem(icon: Icons.event_available_outlined, label: "drawer.events".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/events')),
+        DrawerItem(icon: Icons.account_balance_outlined, label: "drawer.cultures".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/cultures')),
+        DrawerItem(icon: Icons.route_outlined, label: "drawer.circuits".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/circuits')),
+        //DrawerItem(icon: Icons.star_border, label: "drawer.sponsors".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/sponsors')),
+      ],
+    );
+  }
+
+  Color _getThemeColor(int index) {
+    switch (index) {
+      case 0: return const Color(0xFFdc2626);
+      case 1: return const Color(0xFF2B7EA8);
+      case 2: return const Color(0xFFC17A3A);
+      case 3: return const Color(0xFF8B5CF6);
+      case 4: return const Color(0xFF214E34);
+      default: return Colors.transparent;
+    }
   }
 }
 
@@ -381,22 +356,20 @@ class DrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 25),
-      child: GestureDetector(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: InkWell( // Added InkWell for better touch feedback
         onTap: onTap,
         child: Row(
-          mainAxisAlignment: isRTL ? MainAxisAlignment.start : MainAxisAlignment.start,
           children: [
-            if (!isRTL) ...[
-              Icon(icon, color: color),
-              const SizedBox(width: 15),
-              Text(label, style: TextStyle(color: color, fontSize: 18)),
-            ],
-            if (isRTL) ...[
-              Icon(icon, color: color),
-              const SizedBox(width: 15),
-              Text(label, style: TextStyle(color: color, fontSize: 18)),
-            ],
+            Icon(icon, color: color, size: 22),
+            const SizedBox(width: 15),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(color: color, fontSize: 16),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         ),
       ),

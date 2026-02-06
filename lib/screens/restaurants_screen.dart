@@ -1,16 +1,16 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/providers/restaurant_provider.dart';
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
-import 'package:CarthagoGuide/screens/restaurantDetails_screen.dart';
-import 'package:CarthagoGuide/widgets/hotels/filters/filter_section.dart';
-import 'package:CarthagoGuide/widgets/hotels/hotel_searchbar.dart';
-import 'package:CarthagoGuide/widgets/pagination_controls.dart';
-import 'package:CarthagoGuide/widgets/restaurant_card.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/providers/restaurant_provider.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/screens/restaurantDetails_screen.dart';
+import 'package:TunisiaBook/widgets/hotels/filters/filter_section.dart';
+import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
+import 'package:TunisiaBook/widgets/pagination_controls.dart';
+import 'package:TunisiaBook/widgets/restaurant_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:CarthagoGuide/utils/list_transformations.dart';
+import 'package:TunisiaBook/utils/list_transformations.dart';
 import '../widgets/skeleton_box.dart';
 
 class RestaurantScreen extends StatefulWidget {

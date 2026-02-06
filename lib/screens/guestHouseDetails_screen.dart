@@ -1,8 +1,8 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/guestHouse.dart';
-import 'package:CarthagoGuide/utils/open_googlemaps.dart';
-import 'package:CarthagoGuide/widgets/contact_section.dart';
-import 'package:CarthagoGuide/widgets/hotels/gallery_section_details.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/guestHouse.dart';
+import 'package:TunisiaBook/utils/open_googlemaps.dart';
+import 'package:TunisiaBook/widgets/contact_section.dart';
+import 'package:TunisiaBook/widgets/hotels/gallery_section_details.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -87,7 +87,7 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                   },
                 ),
                 // Image Counter
-                Positioned(
+                /*Positioned(
                   bottom: 60,
                   right: 20,
                   child: Container(
@@ -117,7 +117,7 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                       ],
                     ),
                   ),
-                ),
+                ),*/
               ],
             )
                 : const Center(
@@ -162,7 +162,7 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                             widget.guestHouse.getName(context.locale),
                             style: TextStyle(
                               color: theme.text,
-                              fontSize: 26,
+                              fontSize: 21,
                               fontWeight: FontWeight.bold,
                               height: 1.2,
                             ),
@@ -175,14 +175,14 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                     // Location
                     Row(
                       children: [
-                        Icon(Icons.location_on_outlined, color: theme.primary, size: 20),
+                        Icon(Icons.location_on_outlined, color: theme.primary, size: 18),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
                             widget.guestHouse.getVille(context.locale),
                             style: TextStyle(
                               color: theme.text.withOpacity(0.7),
-                              fontSize: 15,
+                              fontSize: 14,
                             ),
                           ),
                         ),
@@ -194,7 +194,7 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.map_outlined, color: theme.text.withOpacity(0.5), size: 20),
+                        Icon(Icons.map_outlined, color: theme.text.withOpacity(0.5), size: 18),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
@@ -230,7 +230,7 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                       'details.amenities'.tr(),
                       style: TextStyle(
                         color: theme.text,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -322,7 +322,7 @@ class _AmenityItem extends StatelessWidget {
             color: theme.primary.withOpacity(0.15),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Icon(icon, color: theme.primary, size: 24),
+          child: Icon(icon, color: theme.primary, size: 22),
         ),
         const SizedBox(height: 8),
         Text(
@@ -353,7 +353,7 @@ class _ContactSection extends StatelessWidget {
           'details.contact'.tr(),
           style: TextStyle(
             color: theme.text,
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),

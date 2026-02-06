@@ -1,8 +1,8 @@
-import 'package:CarthagoGuide/widgets/gallery_images.dart';
-import 'package:CarthagoGuide/widgets/section_title.dart';
+import 'package:TunisiaBook/widgets/gallery_images.dart';
+import 'package:TunisiaBook/widgets/section_title.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class GallerySectionWidget extends StatefulWidget {
   final AppTheme theme;

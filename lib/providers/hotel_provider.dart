@@ -12,7 +12,7 @@ class HotelProvider with ChangeNotifier {
   bool _hasStartedFetching = false;
   bool get hasStartedFetching => _hasStartedFetching;
 
-  /// Hotels currently displayed
+  /// Hotels currently displayed on the current UI page
   List<Hotel> _hotels = [];
   List<Hotel> get hotels => _hotels;
 
@@ -22,16 +22,18 @@ class HotelProvider with ChangeNotifier {
   String? _selectedDestinationId;
   String? get selectedDestinationId => _selectedDestinationId;
 
-  /// Pagination state
-  int _currentPage = 1;
+  /// API Pagination state (Fetching from Server)
   int _lastFetchedPage = 0;
   bool _hasMorePages = true;
   bool get hasMorePages => _hasMorePages;
 
-  /// Display pagination
-  int _displayPageSize = 15;
+  /// UI Pagination state (Displaying local filtered list)
+  final int _displayPageSize = 15;
   int get pageSize => _displayPageSize;
+
   int _currentDisplayPage = 1;
+  // --- ADDED GETTER FOR UI ---
+  int get currentPage => _currentDisplayPage;
 
   /// Hotels matching all active filters
   List<Hotel> _currentlyFilteredHotels = [];
@@ -62,7 +64,7 @@ class HotelProvider with ChangeNotifier {
   List<Hotel> get hotelsByState =>
       _currentState != null ? _hotelsByState[_currentState!] ?? [] : [];
 
-  ///search API
+  /// Search API
   List<Hotel> _searchResults = [];
   bool _isSearching = false;
   String? _error;
@@ -70,6 +72,9 @@ class HotelProvider with ChangeNotifier {
   List<Hotel> get searchResults => _searchResults;
   bool get isSearching => _isSearching;
   String? get error => _error;
+
+  // --- ADDED GETTER FOR TOTAL PAGES ---
+  int get totalPages => (_currentlyFilteredHotels.length / _displayPageSize).ceil();
 
   // ---------------------------------------------------------------------------
   // INITIAL FETCH
@@ -81,7 +86,6 @@ class HotelProvider with ChangeNotifier {
     _isLoading = true;
     _errorDetail = null;
     _allHotels = [];
-    _currentPage = 1;
     _lastFetchedPage = 0;
     _hasMorePages = true;
     notifyListeners();
@@ -133,8 +137,7 @@ class HotelProvider with ChangeNotifier {
       if (nextHotels.isNotEmpty) {
         _allHotels.addAll(nextHotels);
         _lastFetchedPage = nextPage;
-
-        applyFilters();
+        applyFilters(); // Re-apply filters to include new items
       }
     } catch (e) {
       debugPrint("❌ Error loading more hotels: $e");
@@ -144,6 +147,9 @@ class HotelProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // ---------------------------------------------------------------------------
+  // 🔍 FILTER LOGIC
+  // ---------------------------------------------------------------------------
   void setSearchQuery(String value) {
     searchQuery = value.trim().toLowerCase();
     applyFilters();
@@ -164,24 +170,23 @@ class HotelProvider with ChangeNotifier {
     applyFilters();
   }
 
-  // Apply search + stars + destination filters
   void applyFilters() {
     _currentlyFilteredHotels = _allHotels.where((hotel) {
       final matchesSearch =
           hotel.name.toLowerCase().contains(searchQuery) ||
-          (hotel.destinationName?.toLowerCase().contains(searchQuery) ?? false);
+              (hotel.destinationName?.toLowerCase().contains(searchQuery) ?? false);
 
       final matchesStars =
           selectedStars == null ||
-          (hotel.categoryCode?.toInt() ?? 0) == selectedStars;
+              (hotel.categoryCode?.toInt() ?? 0) == selectedStars;
 
       final matchesDestinationId =
           _selectedDestinationId == null ||
-          hotel.destinationId == _selectedDestinationId;
+              hotel.destinationId == _selectedDestinationId;
 
       final matchesDestination =
           selectedDestination == null ||
-          hotel.destinationName == selectedDestination;
+              hotel.destinationName == selectedDestination;
 
       return matchesSearch &&
           matchesStars &&
@@ -189,12 +194,11 @@ class HotelProvider with ChangeNotifier {
           matchesDestinationId;
     }).toList();
 
-    // Reset to first display page
+    // Always reset to first display page when filters change
     _currentDisplayPage = 1;
     _updateDisplayedHotels();
   }
 
-  /// Reinitialize all filters
   void clearFilters() {
     selectedStars = null;
     selectedDestination = null;
@@ -204,7 +208,7 @@ class HotelProvider with ChangeNotifier {
   }
 
   // ---------------------------------------------------------------------------
-  // 📊 DISPLAY PAGINATION (for filtered results)
+  // 📊 DISPLAY PAGINATION (Local Logic)
   // ---------------------------------------------------------------------------
   void loadPage(int page) {
     _currentDisplayPage = page;
@@ -224,37 +228,11 @@ class HotelProvider with ChangeNotifier {
         end > filteredLength ? filteredLength : end,
       );
     }
-
     notifyListeners();
   }
 
   // ---------------------------------------------------------------------------
-  // 🌍 FILTER BY DESTINATION CACHE
-  // ---------------------------------------------------------------------------
-  List<Hotel> getHotelsByDestination(String destId) {
-    return _hotelsByDestination[destId] ?? [];
-  }
-
-  void setHotelsByDestination(String? destId) {
-    _hotels = _hotelsByDestination[destId] ?? [];
-    notifyListeners();
-  }
-
-  String? getDestinationIdByCity(String cityName) {
-    try {
-      return _allHotels
-          .firstWhere(
-            (hotel) =>
-                hotel.destinationName?.toLowerCase() == cityName.toLowerCase(),
-          )
-          .destinationId;
-    } catch (_) {
-      return null;
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-  // 🨠HOTEL DETAILS
+  // 🛏️ HOTEL DETAILS & UTILS
   // ---------------------------------------------------------------------------
   Future<void> fetchHotelDetail(String slug) async {
     _isLoadingDetail = true;
@@ -263,11 +241,8 @@ class HotelProvider with ChangeNotifier {
 
     try {
       final detail = await _apiService.gethoteldetail(slug);
-      if (detail != null) {
-        _selectedHotel = detail;
-      } else {
-        _errorDetail = "Hotel details not found.";
-      }
+      _selectedHotel = detail;
+      if (detail == null) _errorDetail = "Hotel details not found.";
     } catch (e) {
       _errorDetail = "Error: $e";
     }
@@ -282,9 +257,6 @@ class HotelProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  // ---------------------------------------------------------------------------
-  // HOTELS BY STATE
-  // ---------------------------------------------------------------------------
   Future<void> fetchHotelsByState(String state) async {
     _isLoading = true;
     _currentState = state;
@@ -296,7 +268,6 @@ class HotelProvider with ChangeNotifier {
       _hotels = hotels;
     } catch (e) {
       _hotels = [];
-      _hotelsByState[state] = [];
       debugPrint("❌ Error fetching hotels by state '$state': $e");
     }
 
@@ -304,34 +275,20 @@ class HotelProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<Hotel> getCurrentStateHotels() {
-    if (_currentState == null) return [];
-    return _hotelsByState[_currentState!] ?? [];
-  }
-
-  ///////////////////////////////////Search API
-
   Future<void> searchHotels(String query) async {
     if (query.isEmpty) {
       clearSearch();
       return;
     }
-
     _isSearching = true;
     _error = null;
     notifyListeners();
-
     try {
-      debugPrint("🔍 Searching hotels with query: $query");
-      final results = await _apiService.searchHotels(query);
-      debugPrint("✅ Search returned ${results.length} hotels");
-      _searchResults = results;
+      _searchResults = await _apiService.searchHotels(query);
     } catch (e) {
-      debugPrint("❌ Search error: $e");
-      _error = "Failed to search hotels: ${e.toString()}";
+      _error = "Failed to search hotels";
       _searchResults = [];
     }
-
     _isSearching = false;
     notifyListeners();
   }
@@ -342,6 +299,4 @@ class HotelProvider with ChangeNotifier {
     _isSearching = false;
     notifyListeners();
   }
-
-
 }

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'package:CarthagoGuide/models/destination.dart';
-import 'package:CarthagoGuide/screens/destinationDetails_screen.dart';
-import 'package:CarthagoGuide/widgets/homeDestCard.dart';
+import 'package:TunisiaBook/models/destination.dart';
+import 'package:TunisiaBook/screens/destinationDetails_screen.dart';
+import 'package:TunisiaBook/widgets/homeDestCard.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

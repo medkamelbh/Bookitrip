@@ -1,5 +1,5 @@
 {
-  "app_name": "CarthagoGuide",
+  "app_name": "TunisiaBook",
   "home": {
     "search_placeholder": "Поиск направлений, отелей...",
     "categories": {
@@ -51,7 +51,7 @@
     "sponsors": "Партнёры",
     "choose_theme": "Выбрать тему",
     "exit_title": "Выйти из приложения?",
-    "exit_message": "Вы уверены, что хотите выйти из Carthago Guide?",
+    "exit_message": "Вы уверены, что хотите выйти из Tunisia Book?",
     "exit_confirm": "Да, выйти"
   },
   "language": "Язык",
@@ -117,7 +117,7 @@
     "contact_us": "Свяжитесь с нами для подробностей"
   },
   "chatbot": {
-    "welcome": "Здравствуйте! Я ваш помощник Carthago Guide. Чем могу помочь вам открыть Тунис?",
+    "welcome": "Здравствуйте! Я ваш помощник Tunisia Book. Чем могу помочь вам открыть Тунис?",
     "new_conversation": "Новый разговор",
     "history": "История"
   },

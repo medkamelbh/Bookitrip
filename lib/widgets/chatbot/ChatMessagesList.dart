@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:CarthagoGuide/models/chat_message.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/models/chat_message.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 import 'package:provider/provider.dart';
 
 class ChatMessagesList extends StatelessWidget {

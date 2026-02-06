@@ -1,5 +1,5 @@
 {
-  "app_name": "CarthagoGuide",
+  "app_name": "TunisiaBook",
   "home": {
     "search_placeholder": "目的地・ホテルを検索...",
     "categories": {
@@ -51,7 +51,7 @@
     "sponsors": "スポンサー",
     "choose_theme": "テーマを選択",
     "exit_title": "アプリを終了しますか？",
-    "exit_message": "Carthago Guide を終了してもよろしいですか？",
+    "exit_message": "Tunisia Book を終了してもよろしいですか？",
     "exit_confirm": "はい、終了"
   },
   "language": "言語",
@@ -117,7 +117,7 @@
     "contact_us": "詳細はお問い合わせください"
   },
   "chatbot": {
-    "welcome": "こんにちは！Carthago Guide のアシスタントです。チュニジア探索をお手伝いします。",
+    "welcome": "こんにちは！Tunisia Book のアシスタントです。チュニジア探索をお手伝いします。",
     "new_conversation": "新しい会話",
     "history": "履歴"
   },

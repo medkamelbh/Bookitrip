@@ -1,12 +1,12 @@
-import 'package:CarthagoGuide/screens/circuitDetails_screen.dart';
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
-import 'package:CarthagoGuide/widgets/circuit_card_ver.dart';
+import 'package:TunisiaBook/screens/circuitDetails_screen.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/widgets/circuit_card_ver.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/providers/voyage_provider.dart';
-import 'package:CarthagoGuide/models/voyage.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/providers/voyage_provider.dart';
+import 'package:TunisiaBook/models/voyage.dart';
 
 class CircuitScreen extends StatefulWidget {
   const CircuitScreen({super.key});

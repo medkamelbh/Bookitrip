@@ -1,16 +1,16 @@
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
-import 'package:CarthagoGuide/screens/monumentDetails_screen.dart';
-import 'package:CarthagoGuide/widgets/cultures/monument_card.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/screens/monumentDetails_screen.dart';
+import 'package:TunisiaBook/widgets/cultures/monument_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/providers/monument_provider.dart';
-import 'package:CarthagoGuide/widgets/hotels/hotel_searchbar.dart';
-import 'package:CarthagoGuide/widgets/skeleton_box.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/providers/monument_provider.dart';
+import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
+import 'package:TunisiaBook/widgets/skeleton_box.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:CarthagoGuide/utils/list_transformations.dart';
+import 'package:TunisiaBook/utils/list_transformations.dart';
 
 class MonumentScreen extends StatefulWidget {
   const MonumentScreen({super.key});

@@ -1,21 +1,32 @@
 import 'dart:async';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/hotel.dart';
-import 'package:CarthagoGuide/providers/hotel_provider.dart';
-import 'package:CarthagoGuide/utils/open_googlemaps.dart';
-import 'package:CarthagoGuide/widgets/InfoRaw.dart';
-import 'package:CarthagoGuide/widgets/MediaPlayerStack.dart';
-import 'package:CarthagoGuide/widgets/descriptionWithTTS.dart';
-import 'package:CarthagoGuide/widgets/hotels/contact_section.dart';
-import 'package:CarthagoGuide/widgets/hotels/detail_action_button.dart';
-import 'package:CarthagoGuide/widgets/hotels/facility_item.dart';
-import 'package:CarthagoGuide/widgets/hotels/gallery_section_details.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/hotel.dart';
+import 'package:TunisiaBook/providers/hotel_provider.dart';
+import 'package:TunisiaBook/utils/open_googlemaps.dart';
+import 'package:TunisiaBook/widgets/InfoRaw.dart';
+import 'package:TunisiaBook/widgets/MediaPlayerStack.dart';
+import 'package:TunisiaBook/widgets/descriptionWithTTS.dart';
+import 'package:TunisiaBook/widgets/hotels/contact_section.dart';
+import 'package:TunisiaBook/widgets/hotels/detail_action_button.dart';
+import 'package:TunisiaBook/widgets/hotels/facility_item.dart';
+import 'package:TunisiaBook/widgets/hotels/gallery_section_details.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+
+/// Helper class for Responsiveness
+class Responsive {
+  static double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
+
+  // Scales text and dimensions based on a standard 375px width (iPhone 11/12/13)
+  static double scale(BuildContext context, double size) {
+    double factor = screenWidth(context) / 375;
+    return size * factor.clamp(0.85, 1.3);
+  }
+}
 
 class HotelDetailsScreen extends StatefulWidget {
   final Hotel hotel;
@@ -135,22 +146,14 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
 
   String _getTtsLanguageCode(String localeCode) {
     switch (localeCode.toLowerCase()) {
-      case 'ar':
-        return 'ar-SA';
-      case 'en':
-        return 'en-US';
-      case 'fr':
-        return 'fr-FR';
-      case 'ru':
-        return 'ru-RU';
-      case 'ko':
-        return 'ko-KR';
-      case 'zh':
-        return 'zh-CN';
-      case 'ja':
-        return 'ja-JP';
-      default:
-        return 'en-US';
+      case 'ar': return 'ar-SA';
+      case 'en': return 'en-US';
+      case 'fr': return 'fr-FR';
+      case 'ru': return 'ru-RU';
+      case 'ko': return 'ko-KR';
+      case 'zh': return 'zh-CN';
+      case 'ja': return 'ja-JP';
+      default: return 'en-US';
     }
   }
 
@@ -235,15 +238,18 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                 children: [
                   Icon(
                     Icons.error_outline,
-                    size: 60,
+                    size: Responsive.scale(context, 60),
                     color: theme.text.withOpacity(0.5),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: Responsive.scale(context, 16)),
                   Text(
                     hotelProvider.errorDetail!,
-                    style: TextStyle(color: theme.text, fontSize: 16),
+                    style: TextStyle(
+                        color: theme.text,
+                        fontSize: Responsive.scale(context, 16)
+                    ),
                   ),
-                  const SizedBox(height: 16),
+                  SizedBox(height: Responsive.scale(context, 16)),
                   ElevatedButton(
                     onPressed: _loadHotelDetails,
                     style: ElevatedButton.styleFrom(
@@ -257,23 +263,11 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
           }
 
           final hotelDetail = hotelProvider.selectedHotel;
-
-          final name = hotelDetail != null
-              ? hotelDetail.getName(locale)
-              : widget.hotel.getName(locale);
-
-          final description = hotelDetail != null
-              ? hotelDetail.getDescription(locale)
-              : widget.hotel.getDescription(locale);
-
+          final name = hotelDetail?.getName(locale) ?? widget.hotel.getName(locale);
+          final description = hotelDetail?.getDescription(locale) ?? widget.hotel.getDescription(locale);
           final destinationName = widget.hotel.getDestinationName(locale);
-
-          final address = hotelDetail != null
-              ? hotelDetail.getAddress(locale)
-              : widget.hotel.getAddress(locale);
-
+          final address = hotelDetail?.getAddress(locale) ?? widget.hotel.getAddress(locale);
           final categoryCode = widget.hotel.categoryCode;
-
           final email = hotelDetail?.email ?? widget.hotel.email;
           final phone = hotelDetail?.phone ?? widget.hotel.phone;
           final images = hotelDetail?.images ?? widget.hotel.images ?? [];
@@ -281,7 +275,6 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
 
           return Stack(
             children: [
-              // Media Stack (Video/Images)
               MediaPlayerStack(
                 screenSize: size,
                 showVideo: _showVideo && videoLink != null && videoLink.isNotEmpty,
@@ -290,21 +283,16 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                 images: images,
                 imagePageController: _imagePageController,
                 currentImageIndex: _currentImageIndex,
-                onPageChanged: (index) {
-                  setState(() {
-                    _currentImageIndex = index;
-                  });
-                },
+                onPageChanged: (index) => setState(() => _currentImageIndex = index),
                 heightRatio: 0.45,
                 showImageIcon: true,
               ),
 
-              // Back button and video toggle
               SafeArea(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 10.0,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Responsive.scale(context, 10),
+                    vertical: Responsive.scale(context, 10),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -316,9 +304,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           Navigator.pop(context);
                         },
                       ),
-                      if (!_showVideo &&
-                          videoLink != null &&
-                          videoLink.isNotEmpty)
+                      if (!_showVideo && videoLink != null && videoLink.isNotEmpty)
                         DetailActionButton(
                           icon: Icons.play_circle_outline,
                           onTap: _onPlayVideoTap,
@@ -328,59 +314,48 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                 ),
               ),
 
-              // Content
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   height: size.height * 0.60,
                   decoration: BoxDecoration(
                     color: theme.background,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(Responsive.scale(context, 40)),
+                      topRight: Radius.circular(Responsive.scale(context, 40)),
                     ),
                   ),
                   child: SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.only(
-                      top: 30,
-                      left: 20,
-                      right: 20,
-                      bottom: 20,
+                    padding: EdgeInsets.only(
+                      top: Responsive.scale(context, 30),
+                      left: Responsive.scale(context, 20),
+                      right: Responsive.scale(context, 20),
+                      bottom: Responsive.scale(context, 20),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Hotel name
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                name,
-                                style: TextStyle(
-                                  color: theme.text,
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
+                        Text(
+                          name,
+                          style: TextStyle(
+                            color: theme.text,
+                            fontSize: Responsive.scale(context, 20),
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        const SizedBox(height: 5),
+                        SizedBox(height: Responsive.scale(context, 6)),
 
-                        // Star rating
                         Text(
                           _buildStarRating(categoryCode?.toInt() ?? 0),
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.amber,
-                            fontSize: 22,
+                            fontSize: Responsive.scale(context, 22),
                             letterSpacing: 4.0,
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: Responsive.scale(context, 10)),
 
-                        // Destination
                         Column(
                           children: [
                             Row(
@@ -388,28 +363,25 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                 Icon(
                                   Icons.location_on,
                                   color: theme.primary,
-                                  size: 18,
+                                  size: Responsive.scale(context, 17),
                                 ),
-                                const SizedBox(width: 5),
+                                SizedBox(width: Responsive.scale(context, 5)),
                                 Text(
                                   destinationName ?? "",
                                   style: TextStyle(
                                     color: theme.text,
-                                    fontSize: 16,
+                                    fontSize: Responsive.scale(context, 14),
                                   ),
                                 ),
                               ],
                             ),
+                            SizedBox(height: Responsive.scale(context, 4)),
                             Row(
                               children: [
                                 Expanded(
                                   child: InfoRow(
                                     icon: Icons.map_outlined,
-                                    text:
-                                    widget.hotel.getAddress(
-                                      context.locale,
-                                    ) ??
-                                        'N/A',
+                                    text: address ?? 'N/A',
                                     theme: theme,
                                   ),
                                 ),
@@ -418,12 +390,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                                     icon: Icon(Icons.map, color: theme.primary),
                                     onPressed: () => openMap(
                                       context,
-                                      double.tryParse(
-                                        widget.hotel.lng?.toString() ?? '',
-                                      ),
-                                      double.tryParse(
-                                        widget.hotel.lat?.toString() ?? '',
-                                      ),
+                                      double.tryParse(widget.hotel.lng?.toString() ?? ''),
+                                      double.tryParse(widget.hotel.lat?.toString() ?? ''),
                                     ),
                                   ),
                               ],
@@ -431,28 +399,25 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           ],
                         ),
 
-                        const SizedBox(height: 30),
+                        SizedBox(height: Responsive.scale(context, 30)),
 
-                        // Gallery
                         GallerySection(
                           theme: theme,
                           galleryImages: images,
-                          onImageTap: (index) =>
-                              _onGalleryImageTap(index, images),
+                          onImageTap: (index) => _onGalleryImageTap(index, images),
                         ),
 
-                        const SizedBox(height: 30),
+                        SizedBox(height: Responsive.scale(context, 30)),
 
-                        // Amenities
                         Text(
                           'details.amenities'.tr(),
                           style: TextStyle(
                             color: theme.text,
-                            fontSize: 20,
+                            fontSize: Responsive.scale(context, 16),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        SizedBox(height: Responsive.scale(context, 15)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -475,9 +440,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           ],
                         ),
 
-                        const SizedBox(height: 30),
+                        SizedBox(height: Responsive.scale(context, 30)),
 
-                        // Description
                         DescriptionWithTts(
                           theme: theme,
                           description: description ?? "",
@@ -487,9 +451,8 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           ),
                         ),
 
-                        const SizedBox(height: 30),
+                        SizedBox(height: Responsive.scale(context, 30)),
 
-                        // Contact Information
                         ContactSection(
                           theme: theme,
                           email: email,

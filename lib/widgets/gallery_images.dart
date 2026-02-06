@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class GalleryImageWidget extends StatelessWidget {
   final AppTheme theme;

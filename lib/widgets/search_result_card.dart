@@ -1,6 +1,6 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/hotel.dart';
-import 'package:CarthagoGuide/models/restaurant.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/hotel.dart';
+import 'package:TunisiaBook/models/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 

@@ -1,16 +1,16 @@
-import 'package:CarthagoGuide/models/hotel.dart';
-import 'package:CarthagoGuide/models/restaurant.dart';
-import 'package:CarthagoGuide/providers/restaurant_provider.dart';
-import 'package:CarthagoGuide/screens/hotelDetails_screen.dart';
-import 'package:CarthagoGuide/screens/hotels_screen.dart';
-import 'package:CarthagoGuide/screens/restaurantDetails_screen.dart';
-import 'package:CarthagoGuide/screens/restaurants_screen.dart';
-import 'package:CarthagoGuide/widgets/hotels/hotel_card.dart';
-import 'package:CarthagoGuide/widgets/restaurant_card.dart';
+import 'package:TunisiaBook/models/hotel.dart';
+import 'package:TunisiaBook/models/restaurant.dart';
+import 'package:TunisiaBook/providers/restaurant_provider.dart';
+import 'package:TunisiaBook/screens/hotelDetails_screen.dart';
+import 'package:TunisiaBook/screens/hotels_screen.dart';
+import 'package:TunisiaBook/screens/restaurantDetails_screen.dart';
+import 'package:TunisiaBook/screens/restaurants_screen.dart';
+import 'package:TunisiaBook/widgets/hotels/hotel_card.dart';
+import 'package:TunisiaBook/widgets/restaurant_card.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/widgets/section_title.dart';
-import 'package:CarthagoGuide/providers/hotel_provider.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/widgets/section_title.dart';
+import 'package:TunisiaBook/providers/hotel_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -133,7 +133,7 @@ class _DestinationDetailsScreenState extends State<DestinationDetailsScreen> {
               'details.destination_details'.tr(),
               style: TextStyle(
                 color: theme.text,
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.start,
@@ -143,7 +143,7 @@ class _DestinationDetailsScreenState extends State<DestinationDetailsScreen> {
               displayedDescription,
               style: TextStyle(
                 color: theme.text.withOpacity(0.7),
-                fontSize: 16,
+                fontSize: 14,
                 height: 1.5,
               ),
               textAlign: TextAlign.justify,

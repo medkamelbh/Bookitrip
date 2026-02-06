@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppTheme theme;
@@ -58,10 +58,10 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Carthago Assistant IA',
+                  'TunisiaBook Assistant IA',
                   style: TextStyle(
                     color: theme.text,
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -84,10 +84,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             icon: Icon(Icons.close, color: theme.text),
             onPressed: onBack,
           ),
-        IconButton(
-          icon: Icon(Icons.more_vert, color: theme.text),
-          onPressed: () {},
-        ),
+
       ],
     );
   }

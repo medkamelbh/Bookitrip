@@ -1,5 +1,5 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/widgets/contact_section.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/widgets/contact_section.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class ContactSection extends StatelessWidget {
           'details.contact'.tr(),
           style: TextStyle(
             color: theme.text,
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),

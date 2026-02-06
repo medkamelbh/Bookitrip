@@ -1,12 +1,12 @@
-import 'package:CarthagoGuide/helpers/chatbot_helpers.dart';
-import 'package:CarthagoGuide/services/api_chatbot.dart';
-import 'package:CarthagoGuide/widgets/chatbot/ChatMessagesList.dart';
-import 'package:CarthagoGuide/widgets/chatbot/chat_appBar.dart';
+import 'package:TunisiaBook/helpers/chatbot_helpers.dart';
+import 'package:TunisiaBook/services/api_chatbot.dart';
+import 'package:TunisiaBook/widgets/chatbot/ChatMessagesList.dart';
+import 'package:TunisiaBook/widgets/chatbot/chat_appBar.dart';
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/chat_message.dart';
-import 'package:CarthagoGuide/widgets/chatbot/chat_input_field.dart';
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/chat_message.dart';
+import 'package:TunisiaBook/widgets/chatbot/chat_input_field.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -176,14 +176,14 @@ class _ChatBotScreenState extends State<ChatBotScreen>
                         ),
                       ),
                       const Spacer(),
-                      TextButton.icon(
+                      /*TextButton.icon(
                         onPressed: _showConversationHistory,
                         icon: Icon(Icons.history, color: theme.primary),
                         label: Text(
                           'chatbot.history'.tr(),
                           style: TextStyle(color: theme.primary),
                         ),
-                      ),
+                      ),*/
                     ],
                   ),
 

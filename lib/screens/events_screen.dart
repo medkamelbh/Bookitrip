@@ -1,10 +1,10 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/providers/event_provider.dart';
-import 'package:CarthagoGuide/screens/eventDetails_screen.dart';
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
-import 'package:CarthagoGuide/widgets/event_card.dart';
-import 'package:CarthagoGuide/widgets/hotels/filters/filter_section.dart';
-import 'package:CarthagoGuide/widgets/hotels/hotel_searchbar.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/providers/event_provider.dart';
+import 'package:TunisiaBook/screens/eventDetails_screen.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/widgets/event_card.dart';
+import 'package:TunisiaBook/widgets/hotels/filters/filter_section.dart';
+import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -33,6 +33,7 @@ class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
+    final locale = Localizations.localeOf(context);
 
     return Scaffold(
       backgroundColor: theme.background,

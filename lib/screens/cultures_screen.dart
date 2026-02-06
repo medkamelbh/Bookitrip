@@ -1,13 +1,13 @@
 import 'dart:async';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/screens/home_screen.dart';
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
-import 'package:CarthagoGuide/screens/monument_screen.dart';
-import 'package:CarthagoGuide/screens/musee_screen.dart';
-import 'package:CarthagoGuide/screens/festival_screen.dart';
-import 'package:CarthagoGuide/screens/artisanat_screen.dart';
-import 'package:CarthagoGuide/widgets/cultures/historyTimelineSection.dart';
-import 'package:CarthagoGuide/widgets/experiences_section.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/screens/home_screen.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/screens/monument_screen.dart';
+import 'package:TunisiaBook/screens/musee_screen.dart';
+import 'package:TunisiaBook/screens/festival_screen.dart';
+import 'package:TunisiaBook/screens/artisanat_screen.dart';
+import 'package:TunisiaBook/widgets/cultures/historyTimelineSection.dart';
+import 'package:TunisiaBook/widgets/experiences_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -62,10 +62,7 @@ class _CulturesScreenState extends State<CulturesScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: ExperiencesReelSection(
-                theme: theme,
-                experiencesReels: experiencesReels,
-              ),
+              child: ExperiencesReelSection(theme: theme),
             ),
 
             const SizedBox(height: 16),
@@ -73,7 +70,7 @@ class _CulturesScreenState extends State<CulturesScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
                 'cultures.discover'.tr(),
-                style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w600),
               ),
             ),
             Circular3DCarousel(
@@ -440,7 +437,7 @@ class _Circular3DCarouselState extends State<Circular3DCarousel>
         child: Text(
           widget.categories[index]['title']!,
           style: const TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),

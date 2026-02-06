@@ -1,5 +1,5 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';

@@ -1,5 +1,5 @@
 {
-  "app_name": "CarthagoGuide",
+  "app_name": "TunisiaBook",
   "home": {
     "search_placeholder": "여행지, 호텔 검색...",
     "categories": {
@@ -51,7 +51,7 @@
     "sponsors": "스폰서",
     "choose_theme": "테마 선택",
     "exit_title": "앱을 종료할까요?",
-    "exit_message": "Carthago Guide 앱을 종료하시겠습니까?",
+    "exit_message": "Tunisia Book 앱을 종료하시겠습니까?",
     "exit_confirm": "예, 종료"
   },
   "language": "언어",
@@ -117,7 +117,7 @@
     "contact_us": "자세한 내용은 문의하세요"
   },
   "chatbot": {
-    "welcome": "안녕하세요! Carthago Guide 도우미입니다. 튀니지를 탐험하는 데 도움을 드릴게요.",
+    "welcome": "안녕하세요! Tunisia Book 도우미입니다. 튀니지를 탐험하는 데 도움을 드릴게요.",
     "new_conversation": "새 대화",
     "history": "기록"
   },

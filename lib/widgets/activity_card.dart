@@ -1,4 +1,4 @@
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
@@ -36,171 +36,146 @@ class ActivityCardWidget extends StatelessWidget {
     final destinationProvider = Provider.of<DestinationProvider>(context);
     final destinationName = _getDestinationName(context, destinationProvider);
 
-    const double cardHeight = 180;
-    const double borderRadius = 16;
-    const double padding = 16;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // --- RESPONSIVE DIMENSIONS ---
+        // Instead of hardcoded 180, we use a ratio of the available width (approx 0.5 to 0.6)
+        // We clamp it to ensure it stays within a beautiful range (160 to 240)
+        final double responsiveHeight = (constraints.maxWidth * 0.55).clamp(160.0, 240.0);
+        final double borderRadius = 16;
+        final double padding = 16;
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: cardHeight,
-        margin: const EdgeInsets.only(bottom: 16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Stack(
-          children: [
-            CachedNetworkImage(
-              imageUrl: imgUrl,
-              imageBuilder: (context, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
-                  ),
+        return GestureDetector(
+          onTap: onTap,
+          child: Container(
+            height: responsiveHeight,
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadius),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
                 ),
-                child: Container(
-                  decoration: BoxDecoration(
+              ],
+            ),
+            child: Stack(
+              children: [
+                // 1. Background Image with Gradient
+                Positioned.fill(
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(borderRadius),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black.withOpacity(0.8),
-                        Colors.transparent,
+                    child: CachedNetworkImage(
+                      imageUrl: imgUrl,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey.shade300,
+                        child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+                      ),
+                      errorWidget: (context, url, error) => Container(
+                        color: Colors.grey.shade300,
+                        child: const Icon(Icons.broken_image, size: 40, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // 2. The UI Gradients (Preserving your exact Look)
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(borderRadius),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          theme.primary.withOpacity(0.7),
+                        ],
+                        stops: const [0.3, 1.0],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // 3. Category Badge (Top Right)
+                Positioned(
+                  top: padding,
+                  right: padding,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: theme.primary.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 5,
+                          offset: const Offset(0, 2),
+                        ),
                       ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.center,
+                    ),
+                    child: Text(
+                      category,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                  padding: const EdgeInsets.all(15),
                 ),
-              ),
-              placeholder: (context, url) => Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
-                child: const Center(child: CircularProgressIndicator()),
-              ),
-              errorWidget: (context, url, error) => Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(borderRadius),
-                ),
-                child: const Icon(Icons.broken_image, size: 40, color: Colors.grey),
-              ),
-            ),
 
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadius),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    theme.primary.withOpacity(0.7),
-                  ],
-                  stops: const [0.3, 1.0],
-                ),
-              ),
-            ),
-
-            Positioned(
-              top: padding,
-              right: padding,
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 5,
-                ),
-                decoration: BoxDecoration(
-                  color: theme.primary.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 5,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: Text(
-                  category,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
-
-            Positioned(
-              left: padding,
-              bottom: 40,
-              right: padding,
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-
-            Positioned(
-              bottom: padding,
-              left: Directionality.of(context) == TextDirection.ltr ? padding : null,
-              right: Directionality.of(context) == TextDirection.rtl ? padding : null,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: Directionality.of(context) == TextDirection.ltr
-                    ? [
-                  Icon(Icons.location_on, color: Colors.red.withOpacity(0.8), size: 14),
-                  const SizedBox(width: 4),
-                  Text(
-                    destinationName,
+                // 4. Activity Title
+                Positioned(
+                  left: padding,
+                  bottom: 40,
+                  right: padding,
+                  child: Text(
+                    title,
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.8),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
+                      // Scale font slightly based on card size
+                      fontSize: (responsiveHeight * 0.1).clamp(15.0, 19.0),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                ]
-                    : [
-                  Icon(Icons.location_on, color: Colors.red.withOpacity(0.8), size: 14),
-                  const SizedBox(width: 4),
-                  Text(
-                    destinationName,
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.8),
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                ),
+
+                // 5. Location Row (RTL/LTR Compatible)
+                Positioned(
+                  bottom: padding,
+                  left: padding,
+                  right: padding,
+                  child: Row(
+                    children: [
+                      Icon(Icons.location_on, color: Colors.red.withOpacity(0.8), size: 14),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Text(
+                          destinationName,
+                          style: TextStyle(
+                            color: Colors.white.withOpacity(0.8),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

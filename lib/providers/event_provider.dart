@@ -1,5 +1,5 @@
-import 'package:CarthagoGuide/models/event.dart';
-import 'package:CarthagoGuide/services/api_service.dart';
+import 'package:TunisiaBook/models/event.dart';
+import 'package:TunisiaBook/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class EventProvider with ChangeNotifier {

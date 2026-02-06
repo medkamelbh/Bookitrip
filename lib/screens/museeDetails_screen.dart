@@ -1,6 +1,6 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/musee.dart';
-import 'package:CarthagoGuide/utils/open_googlemaps.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/musee.dart';
+import 'package:TunisiaBook/utils/open_googlemaps.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -107,7 +107,7 @@ class _MuseeDetailsScreenState extends State<MuseeDetailsScreen> {
                       widget.musee.getName(locale),
                       style: TextStyle(
                         color: theme.text,
-                        fontSize: 28,
+                        fontSize: 21,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -124,7 +124,7 @@ class _MuseeDetailsScreenState extends State<MuseeDetailsScreen> {
                               widget.musee.getSituation(locale),
                               style: TextStyle(
                                 color: theme.text,
-                                fontSize: 16,
+                                fontSize: 14,
                               ),
                             ),
                           ),
@@ -183,7 +183,7 @@ class _MuseeDetailsScreenState extends State<MuseeDetailsScreen> {
                       'details.description'.tr(),
                       style: TextStyle(
                         color: theme.text,
-                        fontSize: 20,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -202,7 +202,7 @@ class _MuseeDetailsScreenState extends State<MuseeDetailsScreen> {
                               _isDescriptionExpanded ? fullText : truncatedText,
                               style: TextStyle(
                                 color: theme.text,
-                                fontSize: 16,
+                                fontSize: 14,
                                 height: 1.5,
                               ),
                             ),
@@ -219,7 +219,7 @@ class _MuseeDetailsScreenState extends State<MuseeDetailsScreen> {
                                     _isDescriptionExpanded ? 'details.show_less'.tr() : 'details.show_more'.tr(),
                                     style: TextStyle(
                                       color: theme.primary,
-                                      fontSize: 14,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -301,7 +301,7 @@ class _GallerySection extends StatelessWidget {
           'details.gallery'.tr(),
           style: TextStyle(
             color: theme.text,
-            fontSize: 20,
+            fontSize: 17,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -354,13 +354,13 @@ class _InfoSection extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(icon, color: theme.primary, size: 20),
+            Icon(icon, color: theme.primary, size: 18),
             const SizedBox(width: 8),
             Text(
               title,
               style: TextStyle(
                 color: theme.text,
-                fontSize: 18,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -378,7 +378,7 @@ class _InfoSection extends StatelessWidget {
             content,
             style: TextStyle(
               color: theme.text,
-              fontSize: 16,
+              fontSize: 14,
               height: 1.5,
             ),
           ),

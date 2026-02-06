@@ -1,4 +1,4 @@
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedSearchBar extends StatefulWidget {

@@ -1,6 +1,6 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/activity.dart';
-import 'package:CarthagoGuide/widgets/contact_section.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/activity.dart';
+import 'package:TunisiaBook/widgets/contact_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -58,7 +58,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(0),
               child: CachedNetworkImage(
-                imageUrl: gallery[7],
+                imageUrl: gallery[1]??gallery[0],
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: size.height * 0.45,
@@ -110,7 +110,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
                             widget.activity.getName(Localizations.localeOf(context)),
                             style: TextStyle(
                               color: theme.text,
-                              fontSize: 26,
+                              fontSize: 21,
                               fontWeight: FontWeight.bold,
                               height: 1.2,
                             ),
@@ -123,14 +123,14 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
                     // LOCATION
                     Row(
                       children: [
-                        Icon(Icons.location_on_outlined, color: theme.primary, size: 20),
+                        Icon(Icons.location_on_outlined, color: theme.primary, size: 18),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
                             widget.activity.getAddress(context.locale) ?? 'details.location_unavailable'.tr(),
                             style: TextStyle(
                               color: theme.text.withOpacity(0.7),
-                              fontSize: 15,
+                              fontSize: 14,
                             ),
                           ),
                         ),
@@ -147,7 +147,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
                       'details.about'.tr(),
                       style: TextStyle(
                         color: theme.text,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -165,7 +165,7 @@ class _ActivityDetailsScreenState extends State<ActivityDetailsScreen> {
                             _isDescriptionExpanded ? fullText : truncatedText + (fullText.length > 220 ? "..." : ""),
                             style: TextStyle(
                               color: theme.text,
-                              fontSize: 16,
+                              fontSize: 15,
                               height: 1.5,
                             ),
                           ),
@@ -248,7 +248,7 @@ class _GallerySection extends StatelessWidget {
           'details.gallery'.tr(),
           style: TextStyle(
             color: theme.text,
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -305,7 +305,7 @@ class _ContactSection extends StatelessWidget {
           'details.contact'.tr(),
           style: TextStyle(
             color: theme.text,
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),

@@ -1,5 +1,5 @@
 {
-  "app_name": "CarthagoGuide",
+  "app_name": "TunisiaBook",
   "home": {
     "search_placeholder": "Rechercher destinations, hôtels...",
     "categories": {
@@ -50,7 +50,7 @@
     "sponsors": "Sponsors",
     "choose_theme": "Choisir Thème",
     "exit_title": "Quitter l'application ?",
-    "exit_message": "Êtes-vous sûr de vouloir quitter Carthago Guide ?",
+    "exit_message": "Êtes-vous sûr de vouloir quitter Tunisia Book ?",
     "exit_confirm": "Oui, Quitter"
   },
   "language": "Langue",
@@ -116,7 +116,7 @@
     "contact_us": "Contactez-nous pour en savoir plus"
   },
   "chatbot": {
-    "welcome": "Bonjour ! Je suis votre assistant Carthago Guide. Comment puis-je vous aider à explorer la Tunisie aujourd'hui ?",
+    "welcome": "Bonjour ! Je suis votre assistant Tunisia Book. Comment puis-je vous aider à explorer la Tunisie aujourd'hui ?",
     "new_conversation": "Nouvelle Conversation",
     "history": "Historique"
   },

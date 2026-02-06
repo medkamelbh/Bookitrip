@@ -1,7 +1,7 @@
 // /utils/voyage_data_mapper.dart
 
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/models/voyage.dart';
+import 'package:TunisiaBook/models/voyage.dart';
 
 // Helper function to convert Voyage model to circuit card data for presentation
 Map<String, dynamic> voyageToCircuitCardData(Voyage voyage, Locale locale) {
@@ -169,5 +169,5 @@ String _localizedText(String text, Locale locale) {
       break;
   }
 
-  return text; // fallback
+  return text;
 }

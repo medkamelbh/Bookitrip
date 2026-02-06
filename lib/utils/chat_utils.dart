@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:CarthagoGuide/models/chat_message.dart';
-import 'package:CarthagoGuide/services/api_chatbot.dart';
+import 'package:TunisiaBook/models/chat_message.dart';
+import 'package:TunisiaBook/services/api_chatbot.dart';
 
 /// Get assistant response from API only
 Future<ChatMessage> getAssistantResponse(

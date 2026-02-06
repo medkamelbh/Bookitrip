@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:CarthagoGuide/models/chat_message.dart';
-import 'package:CarthagoGuide/services/api_chatbot.dart';
+import 'package:TunisiaBook/models/chat_message.dart';
+import 'package:TunisiaBook/services/api_chatbot.dart';
 
 class ChatHelpers {
   /// Scroll to the bottom of the chat
@@ -107,7 +107,7 @@ class ChatHelpers {
     chatService.startNewConversation();
     return [
       ChatMessage(
-        text: "Bonjour ! Je suis votre assistant Carthago Guide. Comment puis-je vous aider à explorer la Tunisie aujourd'hui ?",
+        text: "Bonjour ! Je suis votre assistant. Comment puis-je vous aider à explorer la Tunisie aujourd'hui ?",
         isUser: false,
         timestamp: DateTime.now(),
         isMarkdown: false,

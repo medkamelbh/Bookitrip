@@ -1,5 +1,5 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/event.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -138,7 +138,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
       widget.event.getName(context.locale),
       style: TextStyle(
         color: theme.text,
-        fontSize: 28,
+        fontSize: 21,
         fontWeight: FontWeight.bold,
       ),
     );
@@ -153,7 +153,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         Expanded(
           child: Text(
             widget.event.startDate ?? 'details.date_unavailable'.tr(),
-            style: TextStyle(color: theme.text.withOpacity(0.7), fontSize: 16),
+            style: TextStyle(color: theme.text.withOpacity(0.7), fontSize: 14),
           ),
         ),
       ],
@@ -168,7 +168,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         Expanded(
           child: Text(
             widget.event.getAddress(context.locale) ?? 'details.location_unavailable'.tr(),
-            style: TextStyle(color: theme.text.withOpacity(0.7), fontSize: 16),
+            style: TextStyle(color: theme.text.withOpacity(0.7), fontSize: 14),
           ),
         ),
       ],
@@ -187,7 +187,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
           'details.description'.tr(),
           style: TextStyle(
             color: theme.text,
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -197,7 +197,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
           _isDescriptionExpanded ? fullText : truncatedText,
           style: TextStyle(
             color: theme.text,
-            fontSize: 16,
+            fontSize: 14,
             height: 1.5,
           ),
         ),

@@ -1,16 +1,16 @@
-import 'package:CarthagoGuide/widgets/InfoRaw.dart';
-import 'package:CarthagoGuide/widgets/MediaPlayerStack.dart';
+import 'package:TunisiaBook/widgets/InfoRaw.dart';
+import 'package:TunisiaBook/widgets/MediaPlayerStack.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:video_player/video_player.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/restaurant.dart';
-import 'package:CarthagoGuide/providers/restaurant_provider.dart';
-import 'package:CarthagoGuide/utils/open_googlemaps.dart';
-import 'package:CarthagoGuide/widgets/hotels/detail_action_button.dart';
-import 'package:CarthagoGuide/widgets/hotels/gallery_section_details.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/restaurant.dart';
+import 'package:TunisiaBook/providers/restaurant_provider.dart';
+import 'package:TunisiaBook/utils/open_googlemaps.dart';
+import 'package:TunisiaBook/widgets/hotels/detail_action_button.dart';
+import 'package:TunisiaBook/widgets/hotels/gallery_section_details.dart';
 
 class RestaurantDetailsScreen extends StatefulWidget {
   final Restaurant restaurant;
@@ -156,7 +156,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                 widget.restaurant.getName(context.locale),
                 style: TextStyle(
                   color: theme.text,
-                  fontSize: 26,
+                  fontSize: 21,
                   fontWeight: FontWeight.bold,
                 ),
               ),

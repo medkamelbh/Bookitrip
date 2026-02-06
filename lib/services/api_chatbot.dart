@@ -2,16 +2,16 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:CarthagoGuide/models/chat_message.dart';
+import 'package:TunisiaBook/models/chat_message.dart';
 
 class ChatService {
-  final String chatBaseUrl = 'http://79.137.78.79:3333';
+  final String chatBaseUrl = 'https://backend.tunisiabook.com';
 
   String? _sessionId;
   String? _userId;
 
   static const Duration requestTimeout = Duration(seconds: 80);
-  static const String _userIdKey = 'carthago_guide_user_id';
+  static const String _userIdKey = 'tunisiabook_user_id';
 
   Future<void> initialize() async {
     _userId = await _getOrCreateUserId();
@@ -70,7 +70,7 @@ class ChatService {
     try {
       final response = await http
           .post(
-        Uri.parse('$chatBaseUrl/chat'),
+        Uri.parse('$chatBaseUrl/utilisateur/chat'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -126,7 +126,7 @@ class ChatService {
     try {
       final response = await http
           .post(
-        Uri.parse('$chatBaseUrl/conversations/history'),
+        Uri.parse('$chatBaseUrl/utilisateur/conversations/history'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -161,7 +161,7 @@ class ChatService {
     try {
       final response = await http
           .post(
-        Uri.parse('$chatBaseUrl/conversations/load'),
+        Uri.parse('$chatBaseUrl/utilisateur/conversations/load'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -200,7 +200,7 @@ class ChatService {
     try {
       final response = await http
           .post(
-        Uri.parse('$chatBaseUrl/conversations/delete'),
+        Uri.parse('$chatBaseUrl/utilisateur/conversations/delete'),
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',

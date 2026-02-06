@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/providers/hotel_provider.dart';
-import 'package:CarthagoGuide/providers/restaurant_provider.dart';
-import 'package:CarthagoGuide/screens/hotelDetails_screen.dart';
-import 'package:CarthagoGuide/screens/restaurantDetails_screen.dart';
-import 'package:CarthagoGuide/widgets/search_result_card.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/providers/hotel_provider.dart';
+import 'package:TunisiaBook/providers/restaurant_provider.dart';
+import 'package:TunisiaBook/screens/hotelDetails_screen.dart';
+import 'package:TunisiaBook/screens/restaurantDetails_screen.dart';
+import 'package:TunisiaBook/widgets/search_result_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +80,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       children: [
         // SEARCH INPUT
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
           decoration: BoxDecoration(
             color: widget.theme.surface,
             borderRadius: BorderRadius.circular(25),
@@ -94,7 +94,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
           ),
           child: Row(
             children: [
-              Icon(Icons.search, color: widget.theme.primary),
+              Icon(Icons.search, color: widget.theme.primary,size: 16,),
               const SizedBox(width: 10),
               Expanded(
                 child: TextField(
@@ -104,7 +104,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                     hintText: 'common.search_placeholder'.tr(),
                     hintStyle: TextStyle(
                       color: widget.theme.text.withOpacity(0.5),
-                      fontSize: 16,
+                      fontSize: 15,
                     ),
                     border: InputBorder.none,
                   ),

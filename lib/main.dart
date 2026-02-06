@@ -1,18 +1,19 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/navigation/app_router.dart';
-import 'package:CarthagoGuide/providers/activity_provider.dart';
-import 'package:CarthagoGuide/providers/artisanat_provider.dart';
-import 'package:CarthagoGuide/providers/destination_provider.dart';
-import 'package:CarthagoGuide/providers/event_provider.dart';
-import 'package:CarthagoGuide/providers/festival_provider.dart';
-import 'package:CarthagoGuide/providers/guestHouse_provider.dart';
-import 'package:CarthagoGuide/providers/hotel_provider.dart';
-import 'package:CarthagoGuide/providers/monument_provider.dart';
-import 'package:CarthagoGuide/providers/musee_provider.dart';
-import 'package:CarthagoGuide/providers/restaurant_provider.dart';
-import 'package:CarthagoGuide/providers/voyage_provider.dart';
-import 'package:CarthagoGuide/screens/splash_screen.dart';
-import 'package:CarthagoGuide/services/api_service.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/navigation/app_router.dart';
+import 'package:TunisiaBook/providers/activity_provider.dart';
+import 'package:TunisiaBook/providers/artisanat_provider.dart';
+import 'package:TunisiaBook/providers/destination_provider.dart';
+import 'package:TunisiaBook/providers/event_provider.dart';
+import 'package:TunisiaBook/providers/festival_provider.dart';
+import 'package:TunisiaBook/providers/guestHouse_provider.dart';
+import 'package:TunisiaBook/providers/hotel_provider.dart';
+import 'package:TunisiaBook/providers/monument_provider.dart';
+import 'package:TunisiaBook/providers/musee_provider.dart';
+import 'package:TunisiaBook/providers/restaurant_provider.dart';
+import 'package:TunisiaBook/providers/story_provider.dart';
+import 'package:TunisiaBook/providers/voyage_provider.dart';
+import 'package:TunisiaBook/screens/splash_screen.dart';
+import 'package:TunisiaBook/services/api_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,6 +55,7 @@ void main() async {
           ChangeNotifierProvider(create: (_) => MonumentProvider()),
           ChangeNotifierProvider(create: (_) => FestivalProvider()),
           ChangeNotifierProvider(create: (_) => ArtisanatProvider()),
+          ChangeNotifierProvider(create: (_) => StoryProvider()),
         ],
         child: const MyApp(),
       ),
@@ -73,7 +75,7 @@ class MyApp extends StatelessWidget {
         locale: context.locale,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
-        title: 'Carthago Guide',
+        title: 'Tunisia Book',
         theme: ThemeData(
           primaryColor: theme.primary,
           scaffoldBackgroundColor: theme.background,

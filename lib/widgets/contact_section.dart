@@ -1,4 +1,4 @@
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 import 'package:flutter/material.dart';
 
 class ContactDetailRow extends StatelessWidget {
@@ -24,7 +24,7 @@ class ContactDetailRow extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 4.0),
-            child: Icon(icon, color: theme.primary, size: 20),
+            child: Icon(icon, color: theme.primary, size: 18),
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -32,7 +32,7 @@ class ContactDetailRow extends StatelessWidget {
               text,
               style: TextStyle(
                 color: isLink ? theme.primary : theme.text,
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: isLink ? FontWeight.w500 : FontWeight.normal,
               ),
             ),

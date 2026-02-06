@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/widgets/chatbot/chat_quick_chip.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/widgets/chatbot/chat_quick_chip.dart';
 
 class ChatQuickSuggestions extends StatelessWidget {
   final AppTheme theme;

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:CarthagoGuide/models/destination.dart';
+import 'package:TunisiaBook/models/destination.dart';
 import 'package:flutter/material.dart';
 
 class HotelDetail {

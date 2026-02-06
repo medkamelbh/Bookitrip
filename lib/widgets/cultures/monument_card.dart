@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class MonumentCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -22,125 +22,133 @@ class MonumentCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen width to calculate dynamic scaling factor
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double scale = screenWidth / 375;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 15),
+        margin: EdgeInsets.only(bottom: 15 * scale),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(20 * scale),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+              blurRadius: 10 * scale,
+              offset: Offset(0, 4 * scale),
             ),
           ],
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Stack(
-            children: [
-              // Image
-              CachedNetworkImage(
-                imageUrl: imgUrl,
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => Container(
-                  height: 200,
-                  color: theme.primary.withOpacity(0.1),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
+        child: AspectRatio(
+          aspectRatio: 1.8,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20 * scale),
+            child: Stack(
+              children: [
+                // Image
+                CachedNetworkImage(
+                  imageUrl: imgUrl,
+                  height: double.infinity,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(
+                    color: theme.primary.withOpacity(0.1),
+                    child: const Center(child: CircularProgressIndicator()),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    color: theme.primary.withOpacity(0.1),
+                    child: Icon(Icons.broken_image, size: 40 * scale),
                   ),
                 ),
-                errorWidget: (context, url, error) => Container(
-                  height: 200,
-                  color: theme.primary.withOpacity(0.1),
-                  child: const Icon(Icons.broken_image, size: 50),
-                ),
-              ),
 
-              // Gradient overlay
-              Container(
-                height: 200,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.transparent,
-                      theme.primary.withOpacity(0.7),
+                // Gradient overlay
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.transparent,
+                          theme.primary.withOpacity(0.8),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                // Category badge
+                if (category.isNotEmpty)
+                  Positioned(
+                    top: 12 * scale,
+                    right: 12 * scale,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10 * scale,
+                          vertical: 4 * scale
+                      ),
+                      decoration: BoxDecoration(
+                        color: theme.primary.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(20 * scale),
+                      ),
+                      child: Text(
+                        category,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 11 * scale,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                // Content
+                Positioned(
+                  bottom: 12 * scale,
+                  left: 15 * scale,
+                  right: 15 * scale,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 17 * scale,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(height: 4 * scale),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            color: Colors.redAccent,
+                            size: 14 * scale,
+                          ),
+                          SizedBox(width: 4 * scale),
+                          Expanded(
+                            child: Text(
+                              destination,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.9),
+                                fontSize: 13 * scale,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
-              ),
-
-              // Category badge
-              if (category.isNotEmpty)
-                Positioned(
-                  top: 15,
-                  right: 15,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: theme.primary.withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      category,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-
-              // Content
-              Positioned(
-                bottom: 15,
-                left: 15,
-                right: 15,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: Colors.red,
-                          size: 16,
-                        ),
-                        const SizedBox(width: 5),
-                        Expanded(
-                          child: Text(
-                            destination,
-                            style: const TextStyle(
-                              color: Colors.white70,
-                              fontSize: 14,
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

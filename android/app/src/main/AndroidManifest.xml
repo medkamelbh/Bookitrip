@@ -5,7 +5,7 @@
 
 
     <application
-        android:label="carthagoguide"
+        android:label="TunisiaBook"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

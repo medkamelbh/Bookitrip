@@ -1,17 +1,26 @@
 // screens/story_viewer_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:TunisiaBook/models/story.dart';
 import 'dart:async';
 
 class StoryViewerScreen extends StatefulWidget {
-  final List<Map<String, dynamic>> segments;
-  final String reelTitle;
+  // Support both old format (segments) and new format (story model)
+  final List<Map<String, dynamic>>? segments;
+  final String? reelTitle;
+  final Story? story;
+  final Locale? locale;
 
   const StoryViewerScreen({
     super.key,
-    required this.segments,
-    required this.reelTitle,
-  });
+    this.segments,
+    this.reelTitle,
+    this.story,
+    this.locale,
+  }) : assert(
+  (segments != null && reelTitle != null) || story != null,
+  'Either provide segments+reelTitle OR story',
+  );
 
   @override
   State<StoryViewerScreen> createState() => _StoryViewerScreenState();
@@ -22,12 +31,31 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
   int _currentStorySegmentIndex = 0;
   Timer? _timer;
   double _progress = 0.0;
-  Duration _storyDuration = const Duration(seconds:3);
+  Duration _storyDuration = const Duration(seconds: 3);
+
+  List<String> get _imageUrls {
+    if (widget.story != null) {
+      return widget.story!.images;
+    } else {
+      return widget.segments!.map((s) => s['url'] as String).toList();
+    }
+  }
+
+  String get _title {
+    if (widget.story != null && widget.locale != null) {
+      return widget.story!.getName(widget.locale!);
+    } else if (widget.story != null) {
+      return widget.story!.name;
+    } else {
+      return widget.reelTitle!;
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _storySegmentPageController = PageController(initialPage: _currentStorySegmentIndex);
+    _storySegmentPageController =
+        PageController(initialPage: _currentStorySegmentIndex);
     _startStoryTimer();
   }
 
@@ -58,8 +86,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
   }
 
   void _nextStorySegment() {
-    // Use widget.segments.length
-    if (_currentStorySegmentIndex < widget.segments.length - 1) {
+    if (_currentStorySegmentIndex < _imageUrls.length - 1) {
       _currentStorySegmentIndex++;
       _storySegmentPageController.animateToPage(
         _currentStorySegmentIndex,
@@ -68,7 +95,6 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
       );
       _startStoryTimer();
     } else {
-      // End of this reel's segments. Pop the screen.
       Navigator.of(context).pop();
     }
   }
@@ -88,7 +114,6 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +124,8 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
           _timer?.cancel();
         },
         onTapUp: (details) {
-          if (details.globalPosition.dx < MediaQuery.of(context).size.width / 2) {
+          if (details.globalPosition.dx <
+              MediaQuery.of(context).size.width / 2) {
             _previousStorySegment();
           } else {
             _nextStorySegment();
@@ -113,7 +139,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
             // Story Content (Image)
             PageView.builder(
               controller: _storySegmentPageController,
-              itemCount: widget.segments.length,
+              itemCount: _imageUrls.length,
               physics: const NeverScrollableScrollPhysics(),
               onPageChanged: (index) {
                 if (_currentStorySegmentIndex != index) {
@@ -122,14 +148,47 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
                 }
               },
               itemBuilder: (context, index) {
-                final segment = widget.segments[index];
                 return Center(
-                  child: Image.asset(
-                    segment['url']!,
-                    fit: BoxFit.cover,
+                  child: Image.network(
+                    _imageUrls[index],
+                    fit: BoxFit.contain,
                     height: double.infinity,
                     width: double.infinity,
                     alignment: Alignment.center,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                              : null,
+                          color: Colors.white,
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.broken_image_outlined,
+                              color: Colors.white.withOpacity(0.5),
+                              size: 80,
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              'Failed to load image',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.7),
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 );
               },
@@ -141,14 +200,17 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
               left: 10,
               right: 10,
               child: Row(
-                children: List.generate(widget.segments.length, (index) { // Use segments length
+                children: List.generate(_imageUrls.length, (index) {
                   return Expanded(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
                       child: LinearProgressIndicator(
-                        value: index == _currentStorySegmentIndex ? _progress : (index < _currentStorySegmentIndex ? 1.0 : 0.0),
+                        value: index == _currentStorySegmentIndex
+                            ? _progress
+                            : (index < _currentStorySegmentIndex ? 1.0 : 0.0),
                         backgroundColor: Colors.white.withOpacity(0.3),
-                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     ),
                   );
@@ -160,9 +222,21 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
             Positioned(
               top: 65,
               left: 10,
-              child: Text(
-                widget.reelTitle,
-                style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+              child: Container(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  _title,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
               ),
             ),
 

@@ -1,9 +1,9 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/providers/activity_provider.dart';
-import 'package:CarthagoGuide/providers/destination_provider.dart';
-import 'package:CarthagoGuide/providers/guestHouse_provider.dart';
-import 'package:CarthagoGuide/providers/hotel_provider.dart';
-import 'package:CarthagoGuide/providers/restaurant_provider.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/providers/activity_provider.dart';
+import 'package:TunisiaBook/providers/destination_provider.dart';
+import 'package:TunisiaBook/providers/guestHouse_provider.dart';
+import 'package:TunisiaBook/providers/hotel_provider.dart';
+import 'package:TunisiaBook/providers/restaurant_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -94,9 +94,9 @@ class _SplashScreenState extends State<SplashScreen>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset(
-                      'assets/images/carthagoguide.png',
+                      'assets/images/TunisiaBook.png',
                       fit: BoxFit.contain,
-                      scale: 3,
+                      height: 130,
                     ),
                   ],
                 ),

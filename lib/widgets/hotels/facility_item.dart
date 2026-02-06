@@ -1,4 +1,4 @@
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,12 +19,12 @@ class FacilityItem extends StatelessWidget {
             color: theme.primary.withOpacity(0.15),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: Icon(icon, color: theme.primary, size: 24),
+          child: Icon(icon, color: theme.primary, size: 20),
         ),
         const SizedBox(height: 5),
         Text(
           label,
-          style: TextStyle(color: theme.text, fontSize: 14),
+          style: TextStyle(color: theme.text, fontSize: 13),
         ),
       ],
     );

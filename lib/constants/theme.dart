@@ -28,8 +28,21 @@ class AppTheme {
 
 class ThemeProvider with ChangeNotifier {
   int _currentIndex = 0;
-
+  int get currentIndex => _currentIndex;
   final List<AppTheme> _themes = [
+    // Theme 0 : Default
+    AppTheme(
+        primary: const Color(0xFFDC0000),
+        secondary: const Color(0xFF8e3838),
+        background: const Color(0xFFfef7f7),
+        surface: const Color(0xFFFFFFFF),
+        text: const Color(0xFF000000),
+        shadow: const Color(0xFF000000),
+        CardBG: const Color(0xFFDFEFF6),
+        isDark: false,
+        isSpec: false
+    ),
+    // Theme 1 : Blue Theme
     AppTheme(
       primary: const Color(0xFF2B7EA8),
       secondary: const Color(0xFF122034),
@@ -54,6 +67,7 @@ class ThemeProvider with ChangeNotifier {
       isSpec: true,
 
     ),
+    // Theme 3: Dark
     AppTheme(
       primary: const Color(0xFF8B5CF6),
       secondary: const Color(0xFF201826),
@@ -78,7 +92,6 @@ class ThemeProvider with ChangeNotifier {
       text: const Color(0xFF1A3C29),
       isDark: false,
       isSpec: false
-
     ),
   ];
 

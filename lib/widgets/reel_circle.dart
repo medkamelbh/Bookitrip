@@ -1,5 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class ReelCircleWidget extends StatelessWidget {
   final AppTheme theme;
@@ -28,7 +29,12 @@ class ReelCircleWidget extends StatelessWidget {
               width: 2.5,
             ),
           ),
-          child: ClipOval(child: Image.asset(imgUrl, fit: BoxFit.cover)),
+          child: ClipOval(child: CachedNetworkImage(
+            imageUrl: imgUrl,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+          ),),
         ),
         const SizedBox(height: 8),
         Text(

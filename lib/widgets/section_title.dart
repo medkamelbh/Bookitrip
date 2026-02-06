@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class SectionTitleWidget extends StatelessWidget {
   final String title;
@@ -18,18 +18,31 @@ class SectionTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 1. Calculate responsive scale factor
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double scale = screenWidth / 375; // Normalized against standard mobile width
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: theme.text,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+        // 2. Wrap Title in Flexible to prevent overflow on small screens
+        Flexible(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: theme.text,
+              // Scaling font size: clamps between 16 and 24 to prevent extreme sizes
+              fontSize: (16 * scale).clamp(16.0, 24.0),
+              fontWeight: FontWeight.bold,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
-        if (showMore)
+
+        if (showMore) ...[
+          const SizedBox(width: 10), // Minimal spacing
           GestureDetector(
             onTap: onTap,
             child: Text(
@@ -37,10 +50,11 @@ class SectionTitleWidget extends StatelessWidget {
               style: TextStyle(
                 color: theme.primary,
                 fontWeight: FontWeight.w600,
-                fontSize: 14,
+                fontSize: (13 * scale).clamp(12.0, 16.0),
               ),
             ),
           ),
+        ],
       ],
     );
   }

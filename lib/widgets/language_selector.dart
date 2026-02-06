@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 import 'package:provider/provider.dart';
 
 class LanguageSelector extends StatelessWidget {
@@ -14,7 +14,7 @@ class LanguageSelector extends StatelessWidget {
     this.showInTopMenu = false,
     this.height = 40,
     this.iconColor,
-    this.onLanguageChanged
+    this.onLanguageChanged,
   }) : super(key: key);
 
   @override
@@ -23,7 +23,6 @@ class LanguageSelector extends StatelessWidget {
       return _buildTopMenuLanguageSelector(context);
     }
     return _buildPopupLanguageSelector(context);
-
   }
 
   Widget _buildTopMenuLanguageSelector(BuildContext context) {
@@ -39,15 +38,14 @@ class LanguageSelector extends StatelessWidget {
         icon: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.language, color: Colors.white, size: 20),
+            const Icon(Icons.language, color: Colors.white, size: 20),
             const SizedBox(width: 6),
             Text(
               context.locale.languageCode.toUpperCase(),
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 12,
-                  fontWeight: FontWeight.bold
-              ),
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -55,17 +53,22 @@ class LanguageSelector extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         onSelected: (Locale locale) {
           context.setLocale(locale);
-          onLanguageChanged?.call(); // Added callback
+          onLanguageChanged?.call();
         },
         itemBuilder: (BuildContext context) => _buildMenuItems(context),
       ),
     );
   }
 
-  // Version for the Drawer: Displays Flag + Language Name
   Widget _buildPopupLanguageSelector(BuildContext context) {
-    final theme = Provider.of<ThemeProvider>(context).currentTheme;
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final theme = themeProvider.currentTheme;
     final currentLocale = context.locale.languageCode;
+
+    // Logic: Use primary for theme 2 (Desert) and 3 (Dark), otherwise use background
+    final Color effectiveColor = (themeProvider.currentIndex == 2 || themeProvider.currentIndex == 3)
+        ? theme.primary
+        : theme.background;
 
     return PopupMenuButton<Locale>(
       child: Padding(
@@ -75,13 +78,13 @@ class LanguageSelector extends StatelessWidget {
           children: [
             Icon(
                 Icons.language,
-                color: iconColor ?? theme.primary
+                color: iconColor ?? effectiveColor
             ),
             const SizedBox(width: 10),
             Text(
               "${_getLanguageFlag(currentLocale)} ${_getLanguageName(currentLocale)}",
               style: TextStyle(
-                color: iconColor ?? theme.primary,
+                color: iconColor ?? effectiveColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -95,7 +98,7 @@ class LanguageSelector extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       onSelected: (Locale locale) {
         context.setLocale(locale);
-        onLanguageChanged?.call(); // Added callback
+        onLanguageChanged?.call();
       },
       itemBuilder: (BuildContext context) => _buildMenuItems(context),
     );
@@ -122,7 +125,8 @@ class LanguageSelector extends StatelessWidget {
             ),
             if (isSelected) ...[
               const Spacer(),
-              Icon(Icons.check_circle, color: Theme.of(context).primaryColor, size: 18),
+              Icon(Icons.check_circle,
+                  color: Theme.of(context).primaryColor, size: 18),
             ],
           ],
         ),

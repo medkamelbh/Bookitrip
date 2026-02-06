@@ -1,6 +1,6 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/models/festival.dart';
-import 'package:CarthagoGuide/utils/open_googlemaps.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/models/festival.dart';
+import 'package:TunisiaBook/utils/open_googlemaps.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -106,7 +106,7 @@ class _FestivalDetailsScreenState extends State<FestivalDetailsScreen> {
                       widget.festival.getName(locale),
                       style: TextStyle(
                         color: theme.text,
-                        fontSize: 28,
+                        fontSize: 21,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -122,7 +122,7 @@ class _FestivalDetailsScreenState extends State<FestivalDetailsScreen> {
                             widget.festival.getDestinationName(locale),
                             style: TextStyle(
                               color: theme.text,
-                              fontSize: 16,
+                              fontSize: 14,
                             ),
                           ),
                         ),
@@ -151,7 +151,7 @@ class _FestivalDetailsScreenState extends State<FestivalDetailsScreen> {
                       'details.description'.tr(),
                       style: TextStyle(
                         color: theme.text,
-                        fontSize: 20,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -170,7 +170,7 @@ class _FestivalDetailsScreenState extends State<FestivalDetailsScreen> {
                               _isDescriptionExpanded ? fullText : truncatedText,
                               style: TextStyle(
                                 color: theme.text,
-                                fontSize: 16,
+                                fontSize: 14,
                                 height: 1.5,
                               ),
                             ),
@@ -187,7 +187,7 @@ class _FestivalDetailsScreenState extends State<FestivalDetailsScreen> {
                                     _isDescriptionExpanded ? 'details.show_less'.tr() : 'details.show_more'.tr(),
                                     style: TextStyle(
                                       color: theme.primary,
-                                      fontSize: 14,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -245,7 +245,7 @@ class _GallerySection extends StatelessWidget {
           'details.gallery'.tr(),
           style: TextStyle(
             color: theme.text,
-            fontSize: 20,
+            fontSize: 17,
             fontWeight: FontWeight.bold,
           ),
         ),

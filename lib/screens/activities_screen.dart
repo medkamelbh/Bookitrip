@@ -1,15 +1,15 @@
-import 'package:CarthagoGuide/constants/theme.dart';
-import 'package:CarthagoGuide/screens/activityDetails_screen.dart';
-import 'package:CarthagoGuide/screens/mainScreen_container.dart';
-import 'package:CarthagoGuide/widgets/activity_card.dart';
-import 'package:CarthagoGuide/widgets/hotels/hotel_searchbar.dart';
-import 'package:CarthagoGuide/providers/activity_provider.dart';
+import 'package:TunisiaBook/constants/theme.dart';
+import 'package:TunisiaBook/screens/activityDetails_screen.dart';
+import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:TunisiaBook/widgets/activity_card.dart';
+import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
+import 'package:TunisiaBook/providers/activity_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // Transformations Imports
 import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:CarthagoGuide/utils/list_transformations.dart';
+import 'package:TunisiaBook/utils/list_transformations.dart';
 
 class ActivitiesScreen extends StatefulWidget {
   const ActivitiesScreen({super.key});
@@ -42,6 +42,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
+    final locale = Localizations.localeOf(context);
 
     return Scaffold(
       backgroundColor: theme.background,
@@ -60,7 +61,6 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
       ),
       body: Consumer<ActivityProvider>(
         builder: (context, provider, child) {
-          // --- LOADING STATE ---
           if (provider.isLoading && provider.activities.isEmpty) {
             return Padding(
               padding: const EdgeInsets.all(20.0),

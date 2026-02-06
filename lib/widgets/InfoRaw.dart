@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:CarthagoGuide/constants/theme.dart';
+import 'package:TunisiaBook/constants/theme.dart';
 
 class InfoRow extends StatelessWidget {
   final IconData icon;
@@ -17,14 +17,14 @@ class InfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, color: theme.primary, size: 20),
+        Icon(icon, color: theme.primary, size: 18),
         const SizedBox(width: 6),
         Expanded(
           child: Text(
             text,
             style: TextStyle(
-              color: theme.text.withOpacity(0.7),
-              fontSize: 15,
+              color: theme.text,
+              fontSize: 14,
             ),
           ),
         ),
