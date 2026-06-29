@@ -1,16 +1,12 @@
-import 'package:TunisiaBook/models/hotel.dart';
-import 'package:TunisiaBook/models/restaurant.dart';
-import 'package:TunisiaBook/providers/restaurant_provider.dart';
-import 'package:TunisiaBook/screens/hotelDetails_screen.dart';
-import 'package:TunisiaBook/screens/hotels_screen.dart';
-import 'package:TunisiaBook/screens/restaurantDetails_screen.dart';
-import 'package:TunisiaBook/screens/restaurants_screen.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_card.dart';
-import 'package:TunisiaBook/widgets/restaurant_card.dart';
+import 'package:BookiTrip/models/hotel.dart';
+import 'package:BookiTrip/models/restaurant.dart';
+import 'package:BookiTrip/providers/restaurant_provider.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_card.dart';
+import 'package:BookiTrip/widgets/restaurant_card.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/widgets/section_title.dart';
-import 'package:TunisiaBook/providers/hotel_provider.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/widgets/section_title.dart';
+import 'package:BookiTrip/providers/hotel_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -142,7 +138,7 @@ class _DestinationDetailsScreenState extends State<DestinationDetailsScreen> {
             Text(
               displayedDescription,
               style: TextStyle(
-                color: theme.text.withOpacity(0.7),
+                color: theme.text.withValues(alpha: 0.7),
                 fontSize: 14,
                 height: 1.5,
               ),
@@ -186,14 +182,14 @@ class _DestinationDetailsScreenState extends State<DestinationDetailsScreen> {
                     children: [
                       Icon(
                         Icons.hotel_outlined,
-                        color: theme.primary.withOpacity(0.5),
+                        color: theme.primary.withValues(alpha: 0.5),
                         size: 60,
                       ),
                       const SizedBox(height: 15),
                       Text(
                         'details.no_hotels'.tr(),
                         style: TextStyle(
-                          color: theme.text.withOpacity(0.6),
+                          color: theme.text.withValues(alpha: 0.6),
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.center,
@@ -221,13 +217,7 @@ class _DestinationDetailsScreenState extends State<DestinationDetailsScreen> {
                         rating: hotel.categoryCode?.toDouble() ?? 4.0,
                         isHotel: true,
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  HotelDetailsScreen(hotel: hotel),
-                            ),
-                          );
+                          context.pushNamed('hotelDetails', extra: hotel);
                         },
                       ),
                     );
@@ -259,14 +249,14 @@ class _DestinationDetailsScreenState extends State<DestinationDetailsScreen> {
                     children: [
                       Icon(
                         Icons.restaurant_outlined,
-                        color: theme.primary.withOpacity(0.5),
+                        color: theme.primary.withValues(alpha: 0.5),
                         size: 60,
                       ),
                       const SizedBox(height: 15),
                       Text(
                         'details.no_restaurants'.tr(),
                         style: TextStyle(
-                          color: theme.text.withOpacity(0.6),
+                          color: theme.text.withValues(alpha: 0.6),
                           fontSize: 16,
                         ),
                         textAlign: TextAlign.center,
@@ -292,13 +282,7 @@ class _DestinationDetailsScreenState extends State<DestinationDetailsScreen> {
                         imgUrl: restaurant.vignette!,
                         rating: restaurant.rate?.toDouble() ?? 4.0,
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  RestaurantDetailsScreen(restaurant: restaurant),
-                            ),
-                          );
+                          context.pushNamed('restaurantDetails', extra: restaurant);
                         },
                       ),
                     );

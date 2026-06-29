@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 class RestaurantCardWidget extends StatelessWidget {
@@ -41,7 +41,7 @@ class RestaurantCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
+                  color: Colors.black.withValues(alpha: 0.15),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -84,9 +84,9 @@ class RestaurantCardWidget extends StatelessWidget {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              Colors.black.withOpacity(0.1),
+                              Colors.black.withValues(alpha: 0.1),
                               Colors.transparent,
-                              theme.primary.withOpacity(0.8),
+                              theme.primary.withValues(alpha: 0.8),
                             ],
                             stops: const [0.0, 0.4, 1.0],
                           ),
@@ -107,7 +107,7 @@ class RestaurantCardWidget extends StatelessWidget {
                             vertical: width * 0.015,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.85),
+                            color: Colors.white.withValues(alpha: 0.85),
                             borderRadius: BorderRadius.circular(30),
                             //blurStyle: BlurStyle.outer,
                           ),

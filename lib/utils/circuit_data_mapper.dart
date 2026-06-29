@@ -1,7 +1,7 @@
 // /utils/voyage_data_mapper.dart
 
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/models/voyage.dart';
+import 'package:BookiTrip/models/voyage.dart';
 
 // Helper function to convert Voyage model to circuit card data for presentation
 Map<String, dynamic> voyageToCircuitCardData(Voyage voyage, Locale locale) {

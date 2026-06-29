@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:TunisiaBook/models/chat_message.dart';
-import 'package:TunisiaBook/services/api_chatbot.dart';
+import 'package:BookiTrip/models/chat_message.dart';
+import 'package:BookiTrip/services/api_chatbot.dart';
 
 /// Get assistant response from API only
 Future<ChatMessage> getAssistantResponse(

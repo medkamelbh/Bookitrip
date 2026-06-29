@@ -1,16 +1,16 @@
-import 'package:TunisiaBook/screens/hotelDetails_screen.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/widgets/hotels/filters/filter_section.dart';
-import 'package:TunisiaBook/widgets/pagination_controls.dart';
+import 'package:go_router/go_router.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/widgets/hotels/filters/filter_section.dart';
+import 'package:BookiTrip/widgets/pagination_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_card.dart';
-import 'package:TunisiaBook/providers/hotel_provider.dart';
-import 'package:TunisiaBook/providers/destination_provider.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
-import 'package:TunisiaBook/widgets/skeleton_box.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_card.dart';
+import 'package:BookiTrip/providers/hotel_provider.dart';
+import 'package:BookiTrip/providers/destination_provider.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_searchbar.dart';
+import 'package:BookiTrip/widgets/skeleton_box.dart';
 
 class HotelsScreen extends StatefulWidget {
   const HotelsScreen({super.key});
@@ -22,11 +22,12 @@ class HotelsScreen extends StatefulWidget {
 class _HotelsScreenState extends State<HotelsScreen> {
   late FixedExtentScrollController _wheelScrollController;
   bool _isFetchingMore = false;
+  bool _isAtBottom = false;
 
   @override
   void initState() {
     super.initState();
-    _wheelScrollController = FixedExtentScrollController(initialItem: 0);
+    _wheelScrollController = FixedExtentScrollController(initialItem: 1);
     WidgetsBinding.instance.addPostFrameCallback((_) => _autoLoadAllPages());
   }
 
@@ -69,7 +70,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
     // Responsive Logic
     final bool isTablet = size.width > 600;
     final double horizontalPadding = isTablet ? size.width * 0.06 : 18.0;
-    final double wheelExtent = size.height * 0.28; // Dynamic height for wheel items
+    final double wheelExtent = size.height * 0.28;
 
     return Scaffold(
       backgroundColor: theme.background,
@@ -120,29 +121,50 @@ class _HotelsScreenState extends State<HotelsScreen> {
                               _buildResultHeader(theme, hotelProvider.currentlyFilteredHotels.length, isLoadingMore),
                               const SizedBox(height: 10),
                               Expanded(
-                                child: isTablet
-                                    ? _buildGridView(hotelsList, theme, locale, size.width)
-                                    : _buildWheelView(hotelsList, theme, locale, wheelExtent),
-                              ),
-                            ],
+                                  child: isTablet
+                                      ? NotificationListener<ScrollNotification>(
+                                          onNotification: (scrollInfo) {
+                                            if (scrollInfo.metrics.pixels >= scrollInfo.metrics.maxScrollExtent - 20) {
+                                              if (!_isAtBottom) setState(() => _isAtBottom = true);
+                                            } else {
+                                              if (_isAtBottom) setState(() => _isAtBottom = false);
+                                            }
+                                            return false;
+                                          },
+                                          child: _buildGridView(hotelsList, theme, locale, size.width),
+                                        )
+                                      : NotificationListener<ScrollNotification>(
+                                          onNotification: (scrollInfo) {
+                                            if (scrollInfo.metrics.pixels >= scrollInfo.metrics.maxScrollExtent - 20) {
+                                              if (!_isAtBottom) setState(() => _isAtBottom = true);
+                                            } else {
+                                              if (_isAtBottom) setState(() => _isAtBottom = false);
+                                            }
+                                            return false;
+                                          },
+                                          child: _buildWheelView(hotelsList, theme, locale, wheelExtent),
+                                        ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
 
-                      // Responsive Pagination Wrapper
-                      Padding(
-                        padding: EdgeInsets.only(bottom: size.height * 0.02, top: 10),
-                        child: PaginationControls(
-                          totalPages: hotelProvider.totalPages,
-                          currentPage: hotelProvider.currentPage,
-                          primaryColor: theme.primary,
-                          textColor: theme.text,
-                          isEmptyOrLoading: isLoadingInitial,
-                          onPageChange: (page) => _onPageChanged(page, hotelProvider),
-                        ),
-                      ),
-                    ],
+                        // Responsive Pagination Wrapper
+                        if (_isAtBottom || hotelsList.length < 3)
+                          Padding(
+                            padding: EdgeInsets.only(bottom: size.height * 0.02, top: 10),
+                            child: PaginationControls(
+                              totalPages: hotelProvider.totalPages,
+                              currentPage: hotelProvider.currentPage,
+                              primaryColor: theme.primary,
+                              textColor: theme.text,
+                              isEmptyOrLoading: isLoadingInitial,
+                              onPageChange: (page) => _onPageChanged(page, hotelProvider),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           );
@@ -189,10 +211,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
       destination: hotel.getDestinationName(locale) ?? 'hotels.unknown_destination'.tr(),
       imgUrl: hotel.vignette ?? hotel.cover ?? "assets/images/placeholder.jpg",
       rating: hotel.categoryCode?.toDouble() ?? 4.0,
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(builder: (_) => HotelDetailsScreen(hotel: hotel)),
-      ),
+      onTap: () => context.pushNamed('hotelDetails', extra: hotel),
     );
   }
 
@@ -203,7 +222,7 @@ class _HotelsScreenState extends State<HotelsScreen> {
         Text(
           'activities.results'.tr(namedArgs: {'count': count.toString()}),
           style: TextStyle(
-              color: theme.text.withOpacity(0.6),
+              color: theme.text.withValues(alpha: 0.6),
               fontSize: 14,
               fontWeight: FontWeight.w500
           ),
@@ -223,12 +242,27 @@ class _HotelsScreenState extends State<HotelsScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.search_off_rounded, size: 70, color: theme.text.withOpacity(0.2)),
+          Icon(Icons.search_off_rounded, size: 70, color: theme.text.withValues(alpha: 0.2)),
           const SizedBox(height: 15),
           Text('hotels.no_results'.tr(), style: TextStyle(fontSize: 17, color: theme.text)),
-          TextButton(
-            onPressed: () => provider.clearFilters(),
-            child: Text('common.clear_filters'.tr(), style: TextStyle(color: theme.primary)),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () => provider.clearFilters(),
+                child: Text('common.clear_filters'.tr(), style: TextStyle(color: theme.primary)),
+              ),
+              const SizedBox(width: 16),
+              TextButton.icon(
+                onPressed: () => provider.fetchAllHotels(),
+                icon: Icon(Icons.refresh_rounded, color: theme.primary),
+                label: Text(
+                  'common.retry'.tr(),
+                  style: TextStyle(color: theme.primary, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
           ),
         ],
       ),

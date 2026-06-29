@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class GalleryImageWidget extends StatelessWidget {
   final AppTheme theme;
@@ -22,7 +22,7 @@ class GalleryImageWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -47,7 +47,7 @@ class GalleryImageWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.black.withOpacity(0.1),
+                      Colors.black.withValues(alpha: 0.1),
                       Colors.transparent
                     ],
                     begin: Alignment.bottomCenter,

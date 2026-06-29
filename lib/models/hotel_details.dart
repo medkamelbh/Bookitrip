@@ -1,7 +1,6 @@
-import 'dart:convert';
-
-import 'package:TunisiaBook/models/destination.dart';
+import 'package:BookiTrip/models/destination.dart';
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class HotelDetail {
   final String type;
@@ -239,6 +238,7 @@ class HotelDetail {
           : [],
       idCityMouradi: json['id_city_mouradi'] ?? '',
       idHotelMouradi: json['id_hotel_mouradi'] ?? '',
+      idHotelBhr: json['id_hotel_bhr'] ?? '',
 
     );
   }
@@ -298,90 +298,25 @@ class HotelDetail {
 
     };
   }
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (nameAr != null && nameAr!.isNotEmpty) ? nameAr! : name;
-      case 'en':
-        return (nameEn != null && nameEn!.isNotEmpty) ? nameEn! : name;
-      case 'ru':
-        return (nameRu != null && nameRu!.isNotEmpty) ? nameRu! : name;
-      case 'ko':
-        return (nameKo != null && nameKo!.isNotEmpty) ? nameKo! : name;
-      case 'zh':
-        return (nameZh != null && nameZh!.isNotEmpty) ? nameZh! : name;
-      case 'ja':
-        return (nameJa != null && nameJa!.isNotEmpty) ? nameJa! : name;
-      default:
-        return name;
-    }
-  }
-  String getAddress(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (addressAr != null && addressAr!.isNotEmpty) ? addressAr! : address;
-      case 'en':
-        return (addressEn != null && addressEn!.isNotEmpty) ? addressEn! : address;
-      case 'ru':
-        return (addressRu != null && addressRu!.isNotEmpty) ? addressRu! : address;
-      case 'ko':
-        return (addressKo != null && addressKo!.isNotEmpty) ? addressKo! : address;
-      case 'zh':
-        return (addressZh != null && addressZh!.isNotEmpty) ? addressZh! : address;
-      case 'ja':
-        return (addressJa != null && addressJa!.isNotEmpty) ? addressJa! : address;
-      default:
-        return address;
-    }
-  }
-  String getVille(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (villeAr != null && villeAr!.isNotEmpty) ? villeAr! : ville;
-      case 'en':
-        return (villeEn != null && villeEn!.isNotEmpty) ? villeEn! : ville;
-      case 'ru':
-        return (villeRu != null && villeRu!.isNotEmpty) ? villeRu! : ville;
-      case 'zh':
-        return (villeZh != null && villeZh!.isNotEmpty) ? villeZh! : ville;
-        case 'ko':
-        return (villeKo != null && villeKo!.isNotEmpty) ? villeKo! : ville;
-      case 'ja':
-        return (villeJa != null && villeJa!.isNotEmpty) ? villeJa! : ville;
-      default:
-        return ville;
-    }
-  }
-  String getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (descriptionAr != null && descriptionAr!.isNotEmpty)
-            ? descriptionAr!
-            : description;
-      case 'en':
-        return (descriptionEn != null && descriptionEn!.isNotEmpty)
-            ? descriptionEn!
-            : description;
-      case 'ru':
-        return (descriptionRu != null && descriptionRu!.isNotEmpty)
-            ? descriptionRu!
-            : description;
-      case 'zh':
-        return (descriptionZh != null && descriptionZh!.isNotEmpty)
-            ? descriptionZh!
-            : description;
-      case 'ko':
-        return (descriptionKo != null && descriptionKo!.isNotEmpty)
-            ? descriptionKo!
-            : description;
-      case 'ja':
-        return (descriptionJa != null && descriptionJa!.isNotEmpty)
-            ? descriptionJa!
-            : description;
-      default:
-        return description;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
+
+  String getAddress(Locale locale) => localizedValue(locale, address, {
+        'en': addressEn, 'ar': addressAr, 'ru': addressRu,
+        'zh': addressZh, 'ko': addressKo, 'ja': addressJa,
+      });
+
+  String getVille(Locale locale) => localizedValue(locale, ville, {
+        'en': villeEn, 'ar': villeAr, 'ru': villeRu,
+        'zh': villeZh, 'ko': villeKo, 'ja': villeJa,
+      });
+
+  String getDescription(Locale locale) => localizedValue(locale, description, {
+        'en': descriptionEn, 'ar': descriptionAr, 'ru': descriptionRu,
+        'zh': descriptionZh, 'ko': descriptionKo, 'ja': descriptionJa,
+      });
 
 
 
@@ -508,43 +443,15 @@ class Bio {
       'id': id,
     };
   }
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ru':
-        return nameRu.isNotEmpty ? nameRu : name;
-      case 'ar':
-        return nameAr.isNotEmpty ? nameAr : name;
-      case 'zh':
-        return nameZh.isNotEmpty ? nameZh : name;
-      case 'ko':
-        return nameKo.isNotEmpty ? nameKo : name;
-      case 'ja':
-        return nameJa.isNotEmpty ? nameJa : name;
-      case 'en':
-        return nameEn.isNotEmpty ? nameEn : name;
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
-  String getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ru':
-        return descriptionRu.isNotEmpty ? descriptionRu : description;
-      case 'ar':
-        return descriptionAr.isNotEmpty ? descriptionAr : description;
-      case 'zh':
-        return descriptionZh.isNotEmpty ? descriptionZh : description;
-      case 'ko':
-        return descriptionKo.isNotEmpty ? descriptionKo : description;
-      case 'ja':
-        return descriptionJa.isNotEmpty ? descriptionJa : description;
-      case 'en':
-        return descriptionEn.isNotEmpty ? descriptionEn : description;
-      default:
-        return description;
-    }
-  }
+  String getDescription(Locale locale) => localizedValue(locale, description, {
+        'en': descriptionEn, 'ar': descriptionAr, 'ru': descriptionRu,
+        'zh': descriptionZh, 'ko': descriptionKo, 'ja': descriptionJa,
+      });
 }
 
 class ReleaseHotel {

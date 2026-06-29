@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class SearchBarWidget extends StatelessWidget {
   final AppTheme theme;
@@ -28,7 +28,7 @@ class SearchBarWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -40,7 +40,7 @@ class SearchBarWidget extends StatelessWidget {
         decoration: InputDecoration(
           hintText: resolvedHint,
           hintStyle: TextStyle(
-            color: theme.text.withOpacity(0.5),
+            color: theme.text.withValues(alpha: 0.5),
             fontSize: 16,
           ),
           border: InputBorder.none,

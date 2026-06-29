@@ -1,9 +1,11 @@
-import 'package:TunisiaBook/models/event.dart';
-import 'package:TunisiaBook/services/api_service.dart';
+import 'package:BookiTrip/models/event.dart';
 import 'package:flutter/material.dart';
+import '../repositories/event_repository.dart';
 
 class EventProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final EventRepository _repository;
+
+  EventProvider(this._repository);
 
   List<Event> _allEvents = [];
   List<Event> _events = [];
@@ -26,10 +28,10 @@ class EventProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      _allEvents = await _apiService.getallevents();
+      _allEvents = await _repository.getAllEvents();
       _events = List.from(_allEvents); // Initialize with all events
     } catch (e, stackTrace) {
-      debugPrint("Error in fetchEvents (from ApiService): $e");
+      debugPrint("Error in fetchEvents (from Repository): $e");
       debugPrint("StackTrace: $stackTrace");
       _errorMessage = "Impossible de charger les événements";
       _allEvents = [];

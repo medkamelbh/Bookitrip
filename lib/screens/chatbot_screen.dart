@@ -1,12 +1,12 @@
-import 'package:TunisiaBook/helpers/chatbot_helpers.dart';
-import 'package:TunisiaBook/services/api_chatbot.dart';
-import 'package:TunisiaBook/widgets/chatbot/ChatMessagesList.dart';
-import 'package:TunisiaBook/widgets/chatbot/chat_appBar.dart';
+import 'package:BookiTrip/helpers/chatbot_helpers.dart';
+import 'package:BookiTrip/services/api_chatbot.dart';
+import 'package:BookiTrip/widgets/chatbot/ChatMessagesList.dart';
+import 'package:BookiTrip/widgets/chatbot/chat_appBar.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/chat_message.dart';
-import 'package:TunisiaBook/widgets/chatbot/chat_input_field.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/chat_message.dart';
+import 'package:BookiTrip/widgets/chatbot/chat_input_field.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -189,7 +189,7 @@ class _ChatBotScreenState extends State<ChatBotScreen>
 
                 ),
                 Divider(
-                    color: theme.text.withOpacity(0.1),
+                    color: theme.text.withValues(alpha: 0.1),
                     thickness: 1
                 ),
                 /*ChatQuickSuggestions(

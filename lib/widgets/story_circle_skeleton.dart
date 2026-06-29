@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class StoryCircleSkeleton extends StatefulWidget {
   final AppTheme theme;
@@ -48,10 +48,10 @@ class _StoryCircleSkeletonState extends State<StoryCircleSkeleton>
               width: 70,
               height: 70,
               decoration: BoxDecoration(
-                color: widget.theme.surface.withOpacity(_animation.value),
+                color: widget.theme.surface.withValues(alpha: _animation.value),
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: widget.theme.secondary.withOpacity(_animation.value),
+                  color: widget.theme.secondary.withValues(alpha: _animation.value),
                   width: 2,
                 ),
               ),
@@ -61,7 +61,7 @@ class _StoryCircleSkeletonState extends State<StoryCircleSkeleton>
               width: 60,
               height: 12,
               decoration: BoxDecoration(
-                color: widget.theme.surface.withOpacity(_animation.value),
+                color: widget.theme.surface.withValues(alpha: _animation.value),
                 borderRadius: BorderRadius.circular(4),
               ),
             ),

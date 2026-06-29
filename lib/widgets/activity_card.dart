@@ -1,4 +1,4 @@
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:provider/provider.dart';
@@ -54,7 +54,7 @@ class ActivityCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.black.withValues(alpha: 0.3),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -91,7 +91,7 @@ class ActivityCardWidget extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          theme.primary.withOpacity(0.7),
+                          theme.primary.withValues(alpha: 0.7),
                         ],
                         stops: const [0.3, 1.0],
                       ),
@@ -106,11 +106,11 @@ class ActivityCardWidget extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
-                      color: theme.primary.withOpacity(0.5),
+                      color: theme.primary.withValues(alpha: 0.5),
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
+                          color: Colors.black.withValues(alpha: 0.2),
                           blurRadius: 5,
                           offset: const Offset(0, 2),
                         ),
@@ -154,13 +154,13 @@ class ActivityCardWidget extends StatelessWidget {
                   right: padding,
                   child: Row(
                     children: [
-                      Icon(Icons.location_on, color: Colors.red.withOpacity(0.8), size: 14),
+                      Icon(Icons.location_on, color: Colors.red.withValues(alpha: 0.8), size: 14),
                       const SizedBox(width: 4),
                       Expanded(
                         child: Text(
                           destinationName,
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
                           ),

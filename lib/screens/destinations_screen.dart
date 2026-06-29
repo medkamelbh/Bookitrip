@@ -1,8 +1,8 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/screens/destinationDetails_screen.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/widgets/destination_card.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:go_router/go_router.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/widgets/destination_card.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_searchbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -39,8 +39,8 @@ class _SkeletonBoxState extends State<SkeletonBox>
       duration: const Duration(milliseconds: 1500),
     )..repeat(reverse: true);
 
-    final Color startColor = widget.theme.text.withOpacity(0.1);
-    final Color endColor = widget.theme.text.withOpacity(0.05);
+    final Color startColor = widget.theme.text.withValues(alpha: 0.1);
+    final Color endColor = widget.theme.text.withValues(alpha: 0.05);
 
     _animation = ColorTween(
       begin: startColor,
@@ -197,7 +197,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                 'activities.results'
                     .tr(namedArgs: {'count': destinations.length.toString()}),
                 style: TextStyle(
-                  color: theme.text.withOpacity(0.6),
+                  color: theme.text.withValues(alpha: 0.6),
                   fontWeight: FontWeight.w300,
                   fontSize: 16,
                 ),
@@ -221,16 +221,14 @@ class _DestinationScreenState extends State<DestinationScreen> {
                     imgUrl: d.vignette ?? "assets/images/placeholder.jpg",
                     onTap: () {
                       if (!mounted) return;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DestinationDetailsScreen(
-                            title: d.getName(locale) ?? 'activities.untitled'.tr(),
-                            description: d.getDescription(locale) ?? "",
-                            gallery: d.gallery,
-                            destinationId: d.id,
-                          ),
-                        ),
+                      context.pushNamed(
+                        'destinationDetails',
+                        extra: {
+                          'title': d.getName(locale) ?? 'activities.untitled'.tr(),
+                          'description': d.getDescription(locale) ?? "",
+                          'gallery': d.gallery,
+                          'destinationId': d.id,
+                        },
                       );
                     },
                   );

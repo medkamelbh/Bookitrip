@@ -1,16 +1,17 @@
-import 'package:TunisiaBook/widgets/InfoRaw.dart';
-import 'package:TunisiaBook/widgets/MediaPlayerStack.dart';
+import 'package:BookiTrip/widgets/InfoRaw.dart';
+import 'package:BookiTrip/widgets/MediaPlayerStack.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:video_player/video_player.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/restaurant.dart';
-import 'package:TunisiaBook/providers/restaurant_provider.dart';
-import 'package:TunisiaBook/utils/open_googlemaps.dart';
-import 'package:TunisiaBook/widgets/hotels/detail_action_button.dart';
-import 'package:TunisiaBook/widgets/hotels/gallery_section_details.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/restaurant.dart';
+import 'package:BookiTrip/providers/restaurant_provider.dart';
+import 'package:BookiTrip/utils/open_googlemaps.dart';
+import 'package:BookiTrip/widgets/hotels/detail_action_button.dart';
+import 'package:BookiTrip/widgets/hotels/gallery_section_details.dart';
+import 'package:go_router/go_router.dart';
 
 class RestaurantDetailsScreen extends StatefulWidget {
   final Restaurant restaurant;
@@ -106,7 +107,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
 
           _buildTopActions(restaurantProvider),
 
-          _buildContentCard(size, theme),
+          _buildContentCard(size, theme, restaurantProvider),
         ],
       ),
     );
@@ -137,7 +138,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
     );
   }
 
-  Widget _buildContentCard(Size size, AppTheme theme) {
+  Widget _buildContentCard(Size size, AppTheme theme, RestaurantProvider provider) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -162,6 +163,40 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
               ),
               const SizedBox(height: 15),
               _buildLocationRow(theme),
+              if (widget.restaurant.reservable) ...[
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  height: 50,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      context.pushNamed(
+                        'restaurant-reservation',
+                        extra: {
+                          'restaurant': widget.restaurant,
+                          'initialDate': provider.lastSearchDate,
+                          'initialGuests': provider.lastSearchNumber,
+                        },
+                      );
+                    },
+                    icon: const Icon(Icons.calendar_today_rounded, color: Colors.white, size: 20),
+                    label: const Text(
+                      'Réserver',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: theme.primary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
               const SizedBox(height: 30),
               if (widget.restaurant.images.length > 1) ...[
                 GallerySection(
@@ -210,7 +245,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                 Text(
                   widget.restaurant.getDescription(context.locale)!,
                   style: TextStyle(
-                    color: theme.text.withOpacity(0.8),
+                    color: theme.text.withValues(alpha: 0.8),
                     fontSize: 15,
                     height: 1.6,
                   ),
@@ -284,7 +319,7 @@ class _FeatureItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: theme.primary.withOpacity(0.1),
+            color: theme.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Icon(icon, color: theme.primary, size: 22),
@@ -292,7 +327,7 @@ class _FeatureItem extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           label,
-          style: TextStyle(color: theme.text.withOpacity(0.8), fontSize: 12),
+          style: TextStyle(color: theme.text.withValues(alpha: 0.8), fontSize: 12),
         ),
       ],
     );
@@ -323,7 +358,7 @@ class _OpeningHoursWidget extends StatelessWidget {
                 Text(
                   e.key,
                   style: TextStyle(
-                    color: theme.text.withOpacity(0.7),
+                    color: theme.text.withValues(alpha: 0.7),
                     fontSize: 14,
                   ),
                 ),
@@ -382,7 +417,7 @@ class _ContactSection extends StatelessWidget {
           const SizedBox(width: 12),
           Text(
             text,
-            style: TextStyle(color: theme.text.withOpacity(0.8), fontSize: 14),
+            style: TextStyle(color: theme.text.withValues(alpha: 0.8), fontSize: 14),
           ),
         ],
       ),

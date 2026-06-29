@@ -1,15 +1,14 @@
-import 'package:TunisiaBook/screens/festivalDetails_screen.dart';
-import 'package:TunisiaBook/widgets/cultures/festival_card.dart';
+import 'package:BookiTrip/widgets/cultures/festival_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/festival_provider.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
-import 'package:TunisiaBook/widgets/skeleton_box.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/festival_provider.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_searchbar.dart';
+import 'package:BookiTrip/widgets/skeleton_box.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:TunisiaBook/utils/list_transformations.dart';
+import 'package:BookiTrip/utils/list_transformations.dart';
 
 class FestivalScreen extends StatefulWidget {
   const FestivalScreen({super.key});
@@ -132,13 +131,13 @@ class _FestivalScreenState extends State<FestivalScreen> {
                                   Icon(
                                     Icons.celebration_outlined,
                                     size: 64,
-                                    color: theme.text.withOpacity(0.3),
+                                    color: theme.text.withValues(alpha: 0.3),
                                   ),
                                   const SizedBox(height: 16),
                                   Text(
                                     'common.check_connection'.tr(),
                                     style: TextStyle(
-                                      color: theme.text.withOpacity(0.6),
+                                      color: theme.text.withValues(alpha: 0.6),
                                       fontSize: 16,
                                     ),
                                   ),
@@ -151,6 +150,16 @@ class _FestivalScreenState extends State<FestivalScreen> {
                                         style: TextStyle(color: theme.primary),
                                       ),
                                     ),
+                                  ] else ...[
+                                    const SizedBox(height: 16),
+                                    TextButton.icon(
+                                      onPressed: () => festivalProvider.fetchFestivals(),
+                                      icon: Icon(Icons.refresh_rounded, color: theme.primary),
+                                      label: Text(
+                                        'common.retry'.tr(),
+                                        style: TextStyle(color: theme.primary, fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
                                   ],
                                 ],
                               ),
@@ -160,7 +169,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
                             Text(
                               'activities.results'.tr(namedArgs: {'count': festivalList.length.toString()}),
                               style: TextStyle(
-                                color: theme.text.withOpacity(0.6),
+                                color: theme.text.withValues(alpha: 0.6),
                                 fontWeight: FontWeight.w300,
                                 fontSize: 16,
                               ),
@@ -189,15 +198,7 @@ class _FestivalScreenState extends State<FestivalScreen> {
                                           ? festival.vignette
                                           : festival.cover,
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                FestivalDetailsScreen(
-                                                  festival: festival,
-                                                ),
-                                          ),
-                                        );
+                                        context.pushNamed('festivalDetails', extra: festival);
                                       },
                                     ),
                                   );

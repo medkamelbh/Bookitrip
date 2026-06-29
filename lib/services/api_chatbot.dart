@@ -1,21 +1,22 @@
 import 'dart:convert';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:TunisiaBook/models/chat_message.dart';
+import 'package:BookiTrip/models/chat_message.dart';
 
 class ChatService {
-  final String chatBaseUrl = 'https://backend.tunisiabook.com';
+  final String chatBaseUrl = 'https://backend.BookiTrip.com';
 
   String? _sessionId;
   String? _userId;
 
   static const Duration requestTimeout = Duration(seconds: 80);
-  static const String _userIdKey = 'tunisiabook_user_id';
+  static const String _userIdKey = 'BookiTrip_user_id';
 
   Future<void> initialize() async {
     _userId = await _getOrCreateUserId();
-    print('Initialized with user ID: $_userId');
+    debugPrint('Initialized with user ID: $_userId');
     _sessionId = 'session_${DateTime.now().millisecondsSinceEpoch}';
   }
 
@@ -26,18 +27,18 @@ class ChatService {
       String? existingUserId = prefs.getString(_userIdKey);
 
       if (existingUserId != null && existingUserId.isNotEmpty) {
-        print('Using existing user ID: $existingUserId');
+        debugPrint('Using existing user ID: $existingUserId');
         return existingUserId;
       } else {
         final newUserId = 'user_${DateTime.now().millisecondsSinceEpoch}_${DateTime.now().microsecond}';
 
         await prefs.setString(_userIdKey, newUserId);
-        print('Created new user ID: $newUserId');
+        debugPrint('Created new user ID: $newUserId');
 
         return newUserId;
       }
     } catch (e) {
-      print('Error managing user ID: $e');
+      debugPrint('Error managing user ID: $e');
       return 'user_${DateTime.now().millisecondsSinceEpoch}';
     }
   }
@@ -56,9 +57,9 @@ class ChatService {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_userIdKey);
       _userId = null;
-      print('User ID cleared');
+      debugPrint('User ID cleared');
     } catch (e) {
-      print('Error clearing user ID: $e');
+      debugPrint('Error clearing user ID: $e');
     }
   }
 
@@ -91,7 +92,7 @@ class ChatService {
       );
 
       if (response.statusCode == 200) {
-        print('RAW RESPONSE: ${response.body}');
+        debugPrint('RAW RESPONSE: ${response.body}');
         return jsonDecode(response.body) as Map<String, dynamic>;
 
       } else if (response.statusCode == 408) {
@@ -229,11 +230,11 @@ class ChatService {
     final messages = <ChatMessage>[];
 
     try {
-      print('Converting conversation: ${conversation.keys}');
+      debugPrint('Converting conversation: ${conversation.keys}');
 
       if (conversation.containsKey('history')) {
         final messageList = conversation['history'] as List;
-        print('Found ${messageList.length} messages in history');
+        debugPrint('Found ${messageList.length} messages in history');
 
         for (var msg in messageList) {
           try {
@@ -259,13 +260,13 @@ class ChatService {
               );
             }
           } catch (e) {
-            print('Error parsing individual message: $e');
+            debugPrint('Error parsing individual message: $e');
           }
         }
       }
       else if (conversation.containsKey('messages')) {
         final messageList = conversation['messages'] as List;
-        print('Found ${messageList.length} messages in messages array');
+        debugPrint('Found ${messageList.length} messages in messages array');
 
         for (var msg in messageList) {
           try {
@@ -297,11 +298,11 @@ class ChatService {
         }
       }
     } catch (e) {
-      print('Error parsing conversation messages: $e');
-      print('Conversation structure: $conversation');
+      debugPrint('Error parsing conversation messages: $e');
+      debugPrint('Conversation structure: $conversation');
     }
 
-    print('Converted ${messages.length} messages total');
+    debugPrint('Converted ${messages.length} messages total');
     return messages;
   }
 
@@ -314,7 +315,7 @@ class ChatService {
         return DateTime.fromMillisecondsSinceEpoch(timestamp);
       }
     } catch (e) {
-      print('Error parsing timestamp: $e for value: $timestamp');
+      debugPrint('Error parsing timestamp: $e for value: $timestamp');
     }
     return DateTime.now();
   }

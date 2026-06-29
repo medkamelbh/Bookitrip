@@ -1,8 +1,9 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/guestHouse_provider.dart';
-import 'package:TunisiaBook/providers/hotel_provider.dart';
-import 'package:TunisiaBook/providers/restaurant_provider.dart';
-import 'package:TunisiaBook/widgets/language_selector.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/auth_provider.dart';
+import 'package:BookiTrip/providers/guestHouse_provider.dart';
+import 'package:BookiTrip/providers/hotel_provider.dart';
+import 'package:BookiTrip/providers/restaurant_provider.dart';
+import 'package:BookiTrip/widgets/language_selector.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -72,22 +73,22 @@ class MainScreenContainerState extends State<MainScreenContainer>
     super.dispose();
   }
 
-  Future<bool> _onWillPop(BuildContext context, AppTheme theme) async {
+  Future<void> _handlePop(BuildContext context, AppTheme theme) async {
     if (isDrawerOpen) {
       toggleDrawer();
-      return false;
+      return;
     }
 
     final currentLocation = GoRouterState.of(context).matchedLocation;
     if (currentLocation != '/home') {
       context.go('/home');
-      return false;
+      return;
     }
 
     if (Platform.isAndroid || Platform.isFuchsia) {
       final shouldExit = await showDialog<bool>(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (ctx) => AlertDialog(
           backgroundColor: theme.background,
           surfaceTintColor: theme.CardBG,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -95,13 +96,13 @@ class MainScreenContainerState extends State<MainScreenContainer>
           content: Text('drawer.exit_message'.tr(), style: TextStyle(color: theme.text)),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
+              onPressed: () => Navigator.of(ctx).pop(false),
               child: Text('common.cancel'.tr(), style: TextStyle(color: theme.primary)),
             ),
             FilledButton(
               style: FilledButton.styleFrom(backgroundColor: theme.primary),
               onPressed: () {
-                Navigator.of(context).pop(true);
+                Navigator.of(ctx).pop(true);
                 SystemNavigator.pop();
               },
               child: Text('drawer.exit_confirm'.tr()),
@@ -109,9 +110,8 @@ class MainScreenContainerState extends State<MainScreenContainer>
           ],
         ),
       );
-      return shouldExit ?? false;
+      if (shouldExit == true && context.mounted) SystemNavigator.pop();
     }
-    return true;
   }
 
   @override
@@ -120,10 +120,13 @@ class MainScreenContainerState extends State<MainScreenContainer>
     final isRTL = context.locale.languageCode == 'ar';
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return WillPopScope(
-      onWillPop: () => _onWillPop(context, theme),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _handlePop(context, theme);
+      },
       child: Scaffold(
-        backgroundColor: theme.secondary,
+        backgroundColor: theme.drawerbg,
         body: Stack(
           children: [
             // Responsive Drawer Position
@@ -158,7 +161,7 @@ class MainScreenContainerState extends State<MainScreenContainer>
                           boxShadow: isDrawerOpen
                               ? [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
+                              color: Colors.black.withValues(alpha: 0.2),
                               blurRadius: 30,
                               offset: Offset(isRTL ? 10 : -10, 10),
                             ),
@@ -206,7 +209,7 @@ class CustomDrawerMenu extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      color: theme.secondary,
+      color: theme.drawerbg,
       child: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
@@ -245,7 +248,7 @@ class CustomDrawerMenu extends StatelessWidget {
               Text(
                 "drawer.choose_theme".tr(),
                 style: TextStyle(
-                  color: textColor.withOpacity(0.6),
+                  color: textColor.withValues(alpha: 0.6),
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
@@ -256,7 +259,7 @@ class CustomDrawerMenu extends StatelessWidget {
               Wrap(
                 spacing: 10,
                 runSpacing: 10,
-                children: List.generate(5, (index) {
+                children: List.generate(4, (index) {
                   return GestureDetector(
                     onTap: () {
                       themeProvider.switchTheme(index);
@@ -318,20 +321,111 @@ class CustomDrawerMenu extends StatelessWidget {
         ),
         DrawerItem(icon: Icons.local_activity_outlined, label: "drawer.activities".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/activities')),
         DrawerItem(icon: Icons.event_available_outlined, label: "drawer.events".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/events')),
-        DrawerItem(icon: Icons.account_balance_outlined, label: "drawer.cultures".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/cultures')),
+        // [DISABLED] Cultures drawer item — temporarily replaced by Musée.
+        // DrawerItem(icon: Icons.account_balance_outlined, label: "drawer.cultures".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/cultures')),
+        DrawerItem(icon: Icons.museum_outlined, label: "drawer.musee".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/museums')),
         DrawerItem(icon: Icons.route_outlined, label: "drawer.circuits".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/circuits')),
-        //DrawerItem(icon: Icons.star_border, label: "drawer.sponsors".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/sponsors')),
+        _buildAuthSection(context, textColor),
+      ],
+    );
+  }
+
+  Widget _buildAuthSection(BuildContext context, Color textColor) {
+    final auth = Provider.of<AuthProvider>(context);
+
+    if (auth.isAuthenticated && auth.currentUser != null) {
+      final user = auth.currentUser!;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Divider
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Divider(color: textColor.withValues(alpha: 0.2)),
+          ),
+          // User chip
+          GestureDetector(
+            onTap: () => _navigateAndClose(context, '/profile'),
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 18,
+                    backgroundColor: textColor.withValues(alpha: 0.15),
+                    backgroundImage: user.photo != null && user.photo!.isNotEmpty
+                        ? NetworkImage(user.photo!) : null,
+                    child: (user.photo == null || user.photo!.isEmpty)
+                        ? Text(
+                            user.prenom.isNotEmpty ? user.prenom[0].toUpperCase() : '?',
+                            style: TextStyle(color: textColor, fontWeight: FontWeight.w700, fontSize: 14),
+                          )
+                        : null,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('${user.prenom} ${user.name}',
+                            style: TextStyle(color: textColor, fontWeight: FontWeight.w700, fontSize: 14),
+                            overflow: TextOverflow.ellipsis),
+                        Text(user.email,
+                            style: TextStyle(color: textColor.withValues(alpha: 0.6), fontSize: 11),
+                            overflow: TextOverflow.ellipsis),
+                      ],
+                    ),
+                  ),
+                  Icon(Icons.chevron_right_rounded, color: textColor.withValues(alpha: 0.5)),
+                ],
+              ),
+            ),
+          ),
+          DrawerItem(
+            icon: Icons.hotel_outlined,
+            label: 'Mes Réservations',
+            color: textColor,
+            isRTL: isRTL,
+            onTap: () => _navigateAndClose(context, '/profile'),
+          ),
+          DrawerItem(
+            icon: Icons.logout_rounded,
+            label: 'Déconnexion',
+            color: Colors.redAccent,
+            isRTL: isRTL,
+            onTap: () async {
+              await auth.logout();
+              if (context.mounted) _navigateAndClose(context, '/home');
+            },
+          ),
+        ],
+      );
+    }
+
+    // Unauthenticated
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Divider(color: textColor.withValues(alpha: 0.2)),
+        ),
+        /*DrawerItem(
+          icon: Icons.login_rounded,
+          label: 'Connexion',
+          color: textColor,
+          isRTL: isRTL,
+          onTap: () => _navigateAndClose(context, '/login'),
+        ),*/
       ],
     );
   }
 
   Color _getThemeColor(int index) {
     switch (index) {
-      case 0: return const Color(0xFFdc2626);
+      case 0: return const Color(0xFF214E34);
       case 1: return const Color(0xFF2B7EA8);
       case 2: return const Color(0xFFC17A3A);
       case 3: return const Color(0xFF8B5CF6);
-      case 4: return const Color(0xFF214E34);
       default: return Colors.transparent;
     }
   }

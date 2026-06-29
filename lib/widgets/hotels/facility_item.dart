@@ -1,4 +1,4 @@
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +16,7 @@ class FacilityItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: theme.primary.withOpacity(0.15),
+            color: theme.primary.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Icon(icon, color: theme.primary, size: 20),

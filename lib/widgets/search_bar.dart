@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/hotel_provider.dart';
-import 'package:TunisiaBook/providers/restaurant_provider.dart';
-import 'package:TunisiaBook/screens/hotelDetails_screen.dart';
-import 'package:TunisiaBook/screens/restaurantDetails_screen.dart';
-import 'package:TunisiaBook/widgets/search_result_card.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/hotel_provider.dart';
+import 'package:BookiTrip/providers/restaurant_provider.dart';
+import 'package:BookiTrip/widgets/search_result_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 class SearchBarWidget extends StatefulWidget {
@@ -86,7 +85,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             borderRadius: BorderRadius.circular(25),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -103,7 +102,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                   decoration: InputDecoration(
                     hintText: 'common.search_placeholder'.tr(),
                     hintStyle: TextStyle(
-                      color: widget.theme.text.withOpacity(0.5),
+                      color: widget.theme.text.withValues(alpha: 0.5),
                       fontSize: 15,
                     ),
                     border: InputBorder.none,
@@ -115,7 +114,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 IconButton(
                   icon: Icon(
                     Icons.clear,
-                    color: widget.theme.text.withOpacity(0.5),
+                    color: widget.theme.text.withValues(alpha: 0.5),
                   ),
                   onPressed: () {
                     _controller.clear();
@@ -170,7 +169,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
             child: Text(
               'common.no_data'.tr(),
-              style: TextStyle(color: widget.theme.text.withOpacity(0.6)),
+              style: TextStyle(color: widget.theme.text.withValues(alpha: 0.6)),
             ),
           ),
 
@@ -216,7 +215,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: widget.theme.primary.withOpacity(0.1),
+                              color: widget.theme.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
@@ -240,12 +239,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                           context.read<RestaurantProvider>().clearSearch();
                           _controller.clear();
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => HotelDetailsScreen(hotel: hotel),
-                            ),
-                          );
+                          context.pushNamed('hotelDetails', extra: hotel);
                         },
                       );
                     }).toList(),
@@ -283,7 +277,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: widget.theme.primary.withOpacity(0.1),
+                              color: widget.theme.primary.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             child: Text(
@@ -307,14 +301,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                           context.read<RestaurantProvider>().clearSearch();
                           _controller.clear();
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => RestaurantDetailsScreen(
-                                restaurant: restaurant,
-                              ),
-                            ),
-                          );
+                          context.pushNamed('restaurantDetails', extra: restaurant);
                         },
                       );
                     }).toList(),

@@ -1,6 +1,6 @@
 {
-    "name": "TunisiaBook",
-    "short_name": "TunisiaBook",
+    "name": "BookiTrip",
+    "short_name": "BookiTrip",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

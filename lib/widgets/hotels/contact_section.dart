@@ -1,5 +1,5 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/widgets/contact_section.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/widgets/contact_section.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class MonumentCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -34,7 +34,7 @@ class MonumentCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20 * scale),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 10 * scale,
               offset: Offset(0, 4 * scale),
             ),
@@ -53,11 +53,11 @@ class MonumentCardWidget extends StatelessWidget {
                   width: double.infinity,
                   fit: BoxFit.cover,
                   placeholder: (context, url) => Container(
-                    color: theme.primary.withOpacity(0.1),
+                    color: theme.primary.withValues(alpha: 0.1),
                     child: const Center(child: CircularProgressIndicator()),
                   ),
                   errorWidget: (context, url, error) => Container(
-                    color: theme.primary.withOpacity(0.1),
+                    color: theme.primary.withValues(alpha: 0.1),
                     child: Icon(Icons.broken_image, size: 40 * scale),
                   ),
                 ),
@@ -71,7 +71,7 @@ class MonumentCardWidget extends StatelessWidget {
                         end: Alignment.bottomCenter,
                         colors: [
                           Colors.transparent,
-                          theme.primary.withOpacity(0.8),
+                          theme.primary.withValues(alpha: 0.8),
                         ],
                       ),
                     ),
@@ -89,7 +89,7 @@ class MonumentCardWidget extends StatelessWidget {
                           vertical: 4 * scale
                       ),
                       decoration: BoxDecoration(
-                        color: theme.primary.withOpacity(0.6),
+                        color: theme.primary.withValues(alpha: 0.6),
                         borderRadius: BorderRadius.circular(20 * scale),
                       ),
                       child: Text(
@@ -135,7 +135,7 @@ class MonumentCardWidget extends StatelessWidget {
                             child: Text(
                               destination,
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.9),
+                                color: Colors.white.withValues(alpha: 0.9),
                                 fontSize: 13 * scale,
                               ),
                               maxLines: 1,

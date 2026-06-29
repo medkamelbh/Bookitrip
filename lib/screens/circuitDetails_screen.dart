@@ -1,7 +1,7 @@
 import 'dart:async'; // Required for Timer
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/voyage.dart';
-import 'package:TunisiaBook/widgets/contact_section.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/voyage.dart';
+import 'package:BookiTrip/widgets/contact_section.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -152,7 +152,7 @@ class _CircuitDetailsScreenState extends State<CircuitDetailsScreen> {
                           decoration: BoxDecoration(
                             color: _currentImageIndex == index
                                 ? Colors.white
-                                : Colors.white.withOpacity(0.4),
+                                : Colors.white.withValues(alpha: 0.4),
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
@@ -320,7 +320,7 @@ class _DetailActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.4),
+          color: Colors.black.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: Colors.white, size: 24),
@@ -386,9 +386,9 @@ class _InfoCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.primary.withOpacity(0.1),
+        color: theme.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: theme.primary.withOpacity(0.2)),
+        border: Border.all(color: theme.primary.withValues(alpha: 0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -398,7 +398,7 @@ class _InfoCard extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              color: theme.text.withOpacity(0.6),
+              color: theme.text.withValues(alpha: 0.6),
               fontSize: 12,
             ),
           ),
@@ -472,10 +472,10 @@ class _ProgramSection extends StatelessWidget {
                   margin: EdgeInsets.only(right: index < program.length - 1 ? 10 : 0),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   decoration: BoxDecoration(
-                    color: isSelected ? theme.primary : theme.primary.withOpacity(0.1),
+                    color: isSelected ? theme.primary : theme.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: isSelected ? theme.primary : theme.primary.withOpacity(0.3),
+                      color: isSelected ? theme.primary : theme.primary.withValues(alpha: 0.3),
                     ),
                   ),
                   child: Center(
@@ -501,7 +501,7 @@ class _ProgramSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -522,7 +522,7 @@ class _ProgramSection extends StatelessWidget {
               Text(
                 _stripHtmlTags(program[selectedIndex].description),
                 style: TextStyle(
-                  color: theme.text.withOpacity(0.8),
+                  color: theme.text.withValues(alpha: 0.8),
                   fontSize: 15,
                   height: 1.6,
                 ),
@@ -567,9 +567,9 @@ class _HighlightsSection extends StatelessWidget {
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: theme.primary.withOpacity(0.1),
+                color: theme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: theme.primary.withOpacity(0.2)),
+                border: Border.all(color: theme.primary.withValues(alpha: 0.2)),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,

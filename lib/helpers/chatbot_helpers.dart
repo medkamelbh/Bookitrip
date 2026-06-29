@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:TunisiaBook/models/chat_message.dart';
-import 'package:TunisiaBook/services/api_chatbot.dart';
+import 'package:BookiTrip/models/chat_message.dart';
+import 'package:BookiTrip/services/api_chatbot.dart';
 
 class ChatHelpers {
   /// Scroll to the bottom of the chat
@@ -220,7 +220,7 @@ class ChatHelpers {
                           width: 48,
                           height: 48,
                           decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor.withOpacity(0.1),
+                            color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Icon(
@@ -354,12 +354,12 @@ class ChatHelpers {
       final conversation = await chatService.loadConversation(sessionId);
 
       // Debug print to see what we received
-      print('Loaded conversation data: $conversation');
+      debugPrint('Loaded conversation data: $conversation');
 
       final messages = chatService.conversationToMessages(conversation);
 
       // Debug print to see parsed messages
-      print('Parsed ${messages.length} messages');
+      debugPrint('Parsed ${messages.length} messages');
 
       // Show success message
       if (context.mounted) {
@@ -381,7 +381,7 @@ class ChatHelpers {
 
       return messages;
     } catch (e) {
-      print('Error loading conversation: $e');
+      debugPrint('Error loading conversation: $e');
       if (context.mounted) {
         ScaffoldMessenger.of(context).clearSnackBars();
         ScaffoldMessenger.of(context).showSnackBar(
@@ -430,7 +430,7 @@ class ChatHelpers {
         return '${date.day}/${date.month}/${date.year}';
       }
     } catch (e) {
-      print('Date parsing error: $e for date: $dateStr');
+      debugPrint('Date parsing error: $e for date: $dateStr');
       return dateStr.substring(0, dateStr.length > 20 ? 20 : dateStr.length);
     }
   }

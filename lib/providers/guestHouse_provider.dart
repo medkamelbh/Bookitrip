@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/guestHouse.dart';
-import '../services/api_service.dart';
+import '../repositories/guest_house_repository.dart';
 
 class GuestHouseProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final GuestHouseRepository _repository;
+
+  GuestHouseProvider(this._repository);
 
   List<GuestHouse> _allMaisons = [];
   List<GuestHouse> get allMaisons => _allMaisons;
@@ -55,7 +57,7 @@ class GuestHouseProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      final fetchedGuestHouses = await _apiService.getGuestHouses(page: 1);
+      final fetchedGuestHouses = await _repository.getGuestHouses(page: 1);
       _allMaisons = fetchedGuestHouses;
       _lastFetchedPage = 1;
 
@@ -82,7 +84,7 @@ class GuestHouseProvider with ChangeNotifier {
 
     try {
       final nextPage = _lastFetchedPage + 1;
-      final nextGuestHouse = await _apiService.getGuestHouses(page: nextPage);
+      final nextGuestHouse = await _repository.getGuestHouses(page: nextPage);
 
       if (nextGuestHouse.isEmpty || nextGuestHouse.length < 25) {
         _hasMorePages = false;

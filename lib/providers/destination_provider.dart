@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import '../models/destination.dart';
-import '../services/api_service.dart';
+import '../repositories/destination_repository.dart';
 
 class DestinationProvider extends ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final DestinationRepository _repository;
+
+  DestinationProvider(this._repository) {
+    fetchDestinations();
+  }
 
   /// Cached destinations
   List<Destination> _destinations = [];
@@ -15,10 +19,6 @@ class DestinationProvider extends ChangeNotifier {
   String? _error;
   String? get error => _error;
 
-  DestinationProvider() {
-    fetchDestinations();
-  }
-
   /// Fetch all destinations once
   Future<void> fetchDestinations() async {
     _isLoading = true;
@@ -26,7 +26,7 @@ class DestinationProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _destinations = await _apiService.getDestinations();
+      _destinations = await _repository.getDestinations();
     } catch (e) {
       _destinations = [];
       _error = "Vérifiez votre connexion Internet et réessayez.";

@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class Voyage {
   final String id;
@@ -158,42 +157,15 @@ class Voyage {
     'created_at': createdAt.toIso8601String(),
     'updated_at': updatedAt.toIso8601String(),
   };
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return name_ar;
-      case 'en':
-        return name_en;
-      case 'ru':
-        return name_ru;
-      case 'zh':
-        return name_zh;
-      case 'ko':
-        return name_ko;
-      case 'ja':
-        return name_ja;
-      default:
-        return name;
-    }
-  }
-  String getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return description_ar;
-      case 'en':
-        return description_en;
-      case 'ru':
-        return description_ru;
-      case 'zh':
-        return description_zh;
-      case 'ko':
-        return description_ko;
-      case 'ja':
-        return description_ja;
-      default:
-        return description;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': name_en, 'ar': name_ar, 'ru': name_ru,
+        'zh': name_zh, 'ko': name_ko, 'ja': name_ja,
+      });
+
+  String getDescription(Locale locale) => localizedValue(locale, description, {
+        'en': description_en, 'ar': description_ar, 'ru': description_ru,
+        'zh': description_zh, 'ko': description_ko, 'ja': description_ja,
+      });
   String getPrograme(Locale locale) {
     switch (locale.languageCode) {
       case 'ar':

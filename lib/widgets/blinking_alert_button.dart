@@ -30,8 +30,8 @@ class _BlinkingAlertButtonState extends State<BlinkingAlertButton>
     )..repeat(reverse: true);
 
     _colorAnimation = ColorTween(
-      begin: widget.baseColor.withOpacity(0.1),
-      end: widget.alertColor.withOpacity(0.3),
+      begin: widget.baseColor.withValues(alpha: 0.1),
+      end: widget.alertColor.withValues(alpha: 0.3),
     ).animate(_controller);
   }
 

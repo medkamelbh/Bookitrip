@@ -1,5 +1,5 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -94,19 +94,19 @@ class _AnimatedSponsorCardState extends State<AnimatedSponsorCard>
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: _isHovered
-                        ? widget.theme.primary.withOpacity(0.3)
-                        : widget.theme.text.withOpacity(0.1),
+                        ? widget.theme.primary.withValues(alpha: 0.3)
+                        : widget.theme.text.withValues(alpha: 0.1),
                     width: 2,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: widget.theme.primary.withOpacity(0.1 * _hoverController.value),
+                      color: widget.theme.primary.withValues(alpha: 0.1 * _hoverController.value),
                       blurRadius: elevation,
                       offset: Offset(0, elevation / 2),
                       spreadRadius: _hoverController.value * 2,
                     ),
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.08),
+                      color: Colors.black.withValues(alpha: 0.08),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -133,7 +133,7 @@ class _AnimatedSponsorCardState extends State<AnimatedSponsorCard>
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                         decoration: BoxDecoration(
-                          color: widget.theme.primary.withOpacity(0.05),
+                          color: widget.theme.primary.withValues(alpha: 0.05),
                           borderRadius: const BorderRadius.only(
                             bottomLeft: Radius.circular(18),
                             bottomRight: Radius.circular(18),
@@ -147,7 +147,7 @@ class _AnimatedSponsorCardState extends State<AnimatedSponsorCard>
                           style: TextStyle(
                             color: widget.theme.primary == const Color(0xFF2B7EA8)
                                 ? Colors.white
-                                : widget.theme.text.withOpacity(0.85),
+                                : widget.theme.text.withValues(alpha: 0.85),
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                           ),
@@ -220,7 +220,7 @@ class _FloatingParticleState extends State<FloatingParticle>
               height: 8,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: widget.theme.primary.withOpacity(0.3),
+                color: widget.theme.primary.withValues(alpha: 0.3),
               ),
             ),
           ),
@@ -309,15 +309,15 @@ class _SponsorScreenState extends State<SponsorScreen> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            theme.primary.withOpacity(0.1),
-                            theme.primary.withOpacity(0.05),
+                            theme.primary.withValues(alpha: 0.1),
+                            theme.primary.withValues(alpha: 0.05),
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: theme.primary.withOpacity(0.2),
+                          color: theme.primary.withValues(alpha: 0.2),
                           width: 1,
                         ),
                       ),
@@ -342,7 +342,7 @@ class _SponsorScreenState extends State<SponsorScreen> {
                           Text(
                             'sponsors.support_message'.tr(),
                             style: TextStyle(
-                              color: theme.text.withOpacity(0.6),
+                              color: theme.text.withValues(alpha: 0.6),
                               fontSize: 14,
                             ),
                             textAlign: TextAlign.center,
@@ -393,15 +393,15 @@ class _SponsorScreenState extends State<SponsorScreen> {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            theme.primary.withOpacity(0.1),
-                            theme.primary.withOpacity(0.05),
+                            theme.primary.withValues(alpha: 0.1),
+                            theme.primary.withValues(alpha: 0.05),
                           ],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
-                          color: theme.primary.withOpacity(0.2),
+                          color: theme.primary.withValues(alpha: 0.2),
                           width: 1,
                         ),
                       ),
@@ -426,7 +426,7 @@ class _SponsorScreenState extends State<SponsorScreen> {
                           Text(
                             'sponsors.contact_us'.tr(),
                             style: TextStyle(
-                              color: theme.text.withOpacity(0.75),                              fontSize: 14,
+                              color: theme.text.withValues(alpha: 0.75),                              fontSize: 14,
                             ),
                             textAlign: TextAlign.center,
                           ),

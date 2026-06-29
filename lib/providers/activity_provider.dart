@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/activity.dart';
-import '../services/api_service.dart';
+import '../repositories/activity_repository.dart';
 
 class ActivityProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final ActivityRepository _repository;
+
+  ActivityProvider(this._repository);
 
   /// Cached activities per destination
   final Map<String, List<Activity>> _activitiesByDestination = {};
@@ -42,7 +44,7 @@ class ActivityProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      allActivities = await _apiService.getallactivities();
+      allActivities = await _repository.getAllActivities();
       _allActivitiesFetched = true;
 
       _activitiesByDestination.clear();
@@ -76,7 +78,7 @@ class ActivityProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      _activities = await _apiService.getallactivities();
+      _activities = await _repository.getAllActivities();
 
       // Update allActivities and cache
       allActivities = _activities;
@@ -138,7 +140,7 @@ class ActivityProvider with ChangeNotifier {
       }
 
       // If not found in cache, fetch from API
-      final activities = await _apiService.getallactivities();
+      final activities = await _repository.getAllActivities();
       final activity = activities.firstWhere(
             (a) => a.slug == slug,
         orElse: () => Activity(id: '', title: 'Non trouvé'),

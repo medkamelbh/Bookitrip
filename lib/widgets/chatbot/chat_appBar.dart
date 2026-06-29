@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppTheme theme;
@@ -34,13 +34,13 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               gradient: LinearGradient(
                 colors: [
                   theme.primary,
-                  theme.primary.withOpacity(0.8),
+                  theme.primary.withValues(alpha: 0.8),
                 ],
               ),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: theme.primary.withOpacity(0.3),
+                  color: theme.primary.withValues(alpha: 0.3),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -58,7 +58,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'TunisiaBook Assistant IA',
+                  'BookiTrip Assistant IA',
                   style: TextStyle(
                     color: theme.text,
                     fontSize: 15,
@@ -68,7 +68,7 @@ class ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Text(
                   'Toujours là pour vous aider',
                   style: TextStyle(
-                    color: theme.text.withOpacity(0.6),
+                    color: theme.text.withValues(alpha: 0.6),
                     fontSize: 12,
                     fontWeight: FontWeight.w400,
                   ),

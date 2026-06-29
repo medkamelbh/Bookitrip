@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/hotel.dart';
 import '../models/hotel_details.dart';
-import '../services/api_service.dart';
+import '../repositories/hotel_repository.dart';
 
 class HotelProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final HotelRepository _repository;
+
+  HotelProvider(this._repository);
 
   /// All fetched hotels from API (accumulated across pages)
   List<Hotel> _allHotels = [];
@@ -27,12 +29,10 @@ class HotelProvider with ChangeNotifier {
   bool _hasMorePages = true;
   bool get hasMorePages => _hasMorePages;
 
-  /// UI Pagination state (Displaying local filtered list)
   final int _displayPageSize = 15;
   int get pageSize => _displayPageSize;
 
   int _currentDisplayPage = 1;
-  // --- ADDED GETTER FOR UI ---
   int get currentPage => _currentDisplayPage;
 
   /// Hotels matching all active filters
@@ -91,7 +91,7 @@ class HotelProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      final fetchedHotels = await _apiService.gethotels(page: 1);
+      final fetchedHotels = await _repository.getHotels(page: 1);
       _allHotels = fetchedHotels;
       _lastFetchedPage = 1;
 
@@ -128,7 +128,7 @@ class HotelProvider with ChangeNotifier {
 
     try {
       final nextPage = _lastFetchedPage + 1;
-      final nextHotels = await _apiService.gethotels(page: nextPage);
+      final nextHotels = await _repository.getHotels(page: nextPage);
 
       if (nextHotels.isEmpty || nextHotels.length < 15) {
         _hasMorePages = false;
@@ -194,6 +194,7 @@ class HotelProvider with ChangeNotifier {
           matchesDestinationId;
     }).toList();
 
+
     // Always reset to first display page when filters change
     _currentDisplayPage = 1;
     _updateDisplayedHotels();
@@ -207,9 +208,6 @@ class HotelProvider with ChangeNotifier {
     applyFilters();
   }
 
-  // ---------------------------------------------------------------------------
-  // 📊 DISPLAY PAGINATION (Local Logic)
-  // ---------------------------------------------------------------------------
   void loadPage(int page) {
     _currentDisplayPage = page;
     _updateDisplayedHotels();
@@ -240,7 +238,7 @@ class HotelProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      final detail = await _apiService.gethoteldetail(slug);
+      final detail = await _repository.getHotelDetail(slug);
       _selectedHotel = detail;
       if (detail == null) _errorDetail = "Hotel details not found.";
     } catch (e) {
@@ -263,7 +261,7 @@ class HotelProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      final hotels = await _apiService.getHotelsByState(state);
+      final hotels = await _repository.getHotelsByState(state);
       _hotelsByState[state] = hotels;
       _hotels = hotels;
     } catch (e) {
@@ -284,7 +282,7 @@ class HotelProvider with ChangeNotifier {
     _error = null;
     notifyListeners();
     try {
-      _searchResults = await _apiService.searchHotels(query);
+      _searchResults = await _repository.searchHotels(query);
     } catch (e) {
       _error = "Failed to search hotels";
       _searchResults = [];

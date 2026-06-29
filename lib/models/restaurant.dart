@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class Restaurant {
   final String id;
@@ -298,100 +299,30 @@ class Restaurant {
       'address_zh': addressZh,
     };
   }
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (nameAr != null && nameAr!.isNotEmpty) ? nameAr! : name;
-      case 'en':
-        return (nameEn != null && nameEn!.isNotEmpty) ? nameEn! : name;
-      case 'ru':
-        return (nameRu != null && nameRu!.isNotEmpty) ? nameRu! : name;
-      case 'ko':
-        return (nameKo != null && nameKo!.isNotEmpty) ? nameKo! : name;
-      case 'zh':
-        return (nameZh != null && nameZh!.isNotEmpty) ? nameZh! : name;
-      case 'ja':
-        return (nameJa != null && nameJa!.isNotEmpty) ? nameJa! : name;
-      default:
-        return name;
-    }
-  }
-  String getAddress(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (addressAr != null && addressAr!.isNotEmpty) ? addressAr! : (address ?? '');
-      case 'en':
-        return (addressEn != null && addressEn!.isNotEmpty) ? addressEn! : (address ?? '');
-      case 'ru':
-        return (addressRu != null && addressRu!.isNotEmpty) ? addressRu! : (address ?? '');
-      case 'ko':
-        return (addressKo != null && addressKo!.isNotEmpty) ? addressKo! : (address ?? '');
-      case 'zh':
-        return (addressZh != null && addressZh!.isNotEmpty) ? addressZh! : (address ?? '');
-      case 'ja':
-        return (addressJa != null && addressJa!.isNotEmpty) ? addressJa! : (address ?? '');
-      default:
-        return address ?? '';
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
-  String getVille(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (villeAr != null && villeAr!.isNotEmpty) ? villeAr! : (ville ?? '');
-      case 'en':
-        return (villeEn != null && villeEn!.isNotEmpty) ? villeEn! : (ville ?? '');
-      case 'ru':
-        return (villeRu != null && villeRu!.isNotEmpty) ? villeRu! : (ville ?? '');
-      case 'zh':
-        return (villeZh != null && villeZh!.isNotEmpty) ? villeZh! : (ville ?? '');
-      case 'ko':
-        return (villeKo != null && villeKo!.isNotEmpty) ? villeKo! : (ville ?? '');
-      case 'ja':
-        return (villeJa != null && villeJa!.isNotEmpty) ? villeJa! : (ville ?? '');
-      default:
-        return ville ?? '';
-    }
-  }
+  String getAddress(Locale locale) => localizedValue(locale, address ?? '', {
+        'en': addressEn, 'ar': addressAr, 'ru': addressRu,
+        'zh': addressZh, 'ko': addressKo, 'ja': addressJa,
+      });
 
-  String getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (crtDescriptionAr != null && crtDescriptionAr!.isNotEmpty) ? crtDescriptionAr! : (crtDescription ?? '');
-      case 'en':
-        return (crtDescriptionEn != null && crtDescriptionEn!.isNotEmpty) ? crtDescriptionEn! : (crtDescription ?? '');
-      case 'ru':
-        return (crtDescriptionRu != null && crtDescriptionRu!.isNotEmpty) ? crtDescriptionRu! : (crtDescription ?? '');
-      case 'zh':
-        return (crtDescriptionZh != null && crtDescriptionZh!.isNotEmpty) ? crtDescriptionZh! : (crtDescription ?? '');
-      case 'ko':
-        return (crtDescriptionKo != null && crtDescriptionKo!.isNotEmpty) ? crtDescriptionKo! : (crtDescription ?? '');
-      case 'ja':
-        return (crtDescriptionJa != null && crtDescriptionJa!.isNotEmpty) ? crtDescriptionJa! : (crtDescription ?? '');
+  String getVille(Locale locale) => localizedValue(locale, ville ?? '', {
+        'en': villeEn, 'ar': villeAr, 'ru': villeRu,
+        'zh': villeZh, 'ko': villeKo, 'ja': villeJa,
+      });
 
-      default:
-        return crtDescription ?? '';
-    }
-  }
+  String getDescription(Locale locale) => localizedValue(locale, crtDescription ?? '', {
+        'en': crtDescriptionEn, 'ar': crtDescriptionAr, 'ru': crtDescriptionRu,
+        'zh': crtDescriptionZh, 'ko': crtDescriptionKo, 'ja': crtDescriptionJa,
+      });
 
-  String getDestinationName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return (destinationNameAr != null && destinationNameAr!.isNotEmpty) ? destinationNameAr! : '';
-      case 'en':
-        return (destinationNameEn != null && destinationNameEn!.isNotEmpty) ? destinationNameEn! : '';
-      case 'ru':
-        return (destinationNameRu != null && destinationNameRu!.isNotEmpty) ? destinationNameRu! : '';
-      case 'zh':
-        return (destinationNameZh != null && destinationNameZh!.isNotEmpty) ? destinationNameZh! : '';
-      case 'ko':
-        return (destinationNameKo != null && destinationNameKo!.isNotEmpty) ? destinationNameKo! : '';
-      case 'ja':
-        return (destinationNameJa != null && destinationNameJa!.isNotEmpty) ? destinationNameJa! : '';
-      default:
-        return destinationName ?? '';
-    }
-  }
+  String getDestinationName(Locale locale) => localizedValue(locale, destinationName ?? '', {
+        'en': destinationNameEn, 'ar': destinationNameAr, 'ru': destinationNameRu,
+        'zh': destinationNameZh, 'ko': destinationNameKo, 'ja': destinationNameJa,
+      });
 
   Map<String, String?> getOpeningHours(Locale locale) {
     switch (locale.languageCode) {

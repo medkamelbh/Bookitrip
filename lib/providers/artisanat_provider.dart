@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/artisanat.dart';
-import '../services/api_service.dart';
+import '../repositories/artisanat_repository.dart';
 
 class ArtisanatProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final ArtisanatRepository _repository;
+
+  ArtisanatProvider(this._repository);
 
   List<Artisanat> _allArtisanats = [];
   List<Artisanat> _artisanats = [];
@@ -22,7 +24,7 @@ class ArtisanatProvider with ChangeNotifier {
   Future<void> fetchArtisanats() async {
     _setLoading(true);
     try {
-      _allArtisanats = await _apiService.getArtisanat();
+      _allArtisanats = await _repository.getArtisanats();
       _artisanats = List.from(_allArtisanats); // Initialize with all artisanats
       _error = null;
     } catch (e) {
@@ -100,7 +102,7 @@ class ArtisanatProvider with ChangeNotifier {
       if (existingArtisanat.id.isNotEmpty) {
         _selectedArtisanat = existingArtisanat;
       } else {
-        _selectedArtisanat = await _apiService.getArtisanatBySlug(slug);
+        _selectedArtisanat = await _repository.getArtisanatBySlug(slug);
       }
     } catch (e) {
       _error = e.toString();

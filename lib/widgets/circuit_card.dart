@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class CircuitCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -27,7 +27,7 @@ class CircuitCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -72,7 +72,7 @@ class CircuitCardWidget extends StatelessWidget {
                       subtitle,
                       maxLines: 1,
                       style: TextStyle(
-                        color: theme.text.withOpacity(0.5),
+                        color: theme.text.withValues(alpha: 0.5),
                         fontSize: 12,
                       ),
                     ),

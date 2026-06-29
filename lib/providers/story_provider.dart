@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:TunisiaBook/models/story.dart';
-import 'package:TunisiaBook/services/api_service.dart';
+import 'package:BookiTrip/models/story.dart';
+import '../repositories/story_repository.dart';
 
 class StoryProvider extends ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final StoryRepository _repository;
+
+  StoryProvider(this._repository);
 
   List<Story> _stories = [];
   bool _isLoading = false;
@@ -20,7 +22,7 @@ class StoryProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _stories = await _apiService.fetchStories();
+      _stories = await _repository.fetchStories();
       _error = null;
     } catch (e) {
       _error = e.toString();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class FestivalCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -39,7 +39,7 @@ class FestivalCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.12),
+                  color: Colors.black.withValues(alpha: 0.12),
                   blurRadius: 12,
                   offset: const Offset(0, 6),
                 ),
@@ -58,11 +58,11 @@ class FestivalCardWidget extends StatelessWidget {
                         imageUrl: imgUrl,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => Container(
-                          color: theme.primary.withOpacity(0.05),
+                          color: theme.primary.withValues(alpha: 0.05),
                           child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
                         ),
                         errorWidget: (context, url, error) => Container(
-                          color: theme.primary.withOpacity(0.05),
+                          color: theme.primary.withValues(alpha: 0.05),
                           child: const Icon(Icons.broken_image, size: 40, color: Colors.grey),
                         ),
                       ),
@@ -77,8 +77,8 @@ class FestivalCardWidget extends StatelessWidget {
                             end: Alignment.bottomCenter,
                             colors: [
                               Colors.transparent,
-                              Colors.black.withOpacity(0.2), // Darkens top for visibility
-                              theme.primary.withOpacity(0.85),
+                              Colors.black.withValues(alpha: 0.2), // Darkens top for visibility
+                              theme.primary.withValues(alpha: 0.85),
                             ],
                             stops: const [0.4, 0.6, 1.0],
                           ),
@@ -119,7 +119,7 @@ class FestivalCardWidget extends StatelessWidget {
                                 child: Text(
                                   destination,
                                   style: TextStyle(
-                                    color: Colors.white.withOpacity(0.9),
+                                    color: Colors.white.withValues(alpha: 0.9),
                                     fontSize: subTitleFontSize,
                                     fontWeight: FontWeight.w500,
                                   ),

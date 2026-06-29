@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class Story {
   final bool status;
@@ -58,24 +59,10 @@ class Story {
   }
 
   /// Get name based on locale
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return nameAr.isNotEmpty ? nameAr : name;
-      case 'en':
-        return nameEn.isNotEmpty ? nameEn : name;
-      case 'ja':
-        return nameJa.isNotEmpty ? nameJa : name;
-      case 'ko':
-        return nameKo.isNotEmpty ? nameKo : name;
-      case 'ru':
-        return nameRu.isNotEmpty ? nameRu : name;
-      case 'zh':
-        return nameZh.isNotEmpty ? nameZh : name;
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
   /// Convert to the format expected by StoryViewerScreen
   Map<String, dynamic> toReelFormat() {

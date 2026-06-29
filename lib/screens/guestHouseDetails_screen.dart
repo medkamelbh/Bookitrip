@@ -1,8 +1,8 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/guestHouse.dart';
-import 'package:TunisiaBook/utils/open_googlemaps.dart';
-import 'package:TunisiaBook/widgets/contact_section.dart';
-import 'package:TunisiaBook/widgets/hotels/gallery_section_details.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/guestHouse.dart';
+import 'package:BookiTrip/utils/open_googlemaps.dart';
+import 'package:BookiTrip/widgets/contact_section.dart';
+import 'package:BookiTrip/widgets/hotels/gallery_section_details.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -93,7 +93,7 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.6),
+                      color: Colors.black.withValues(alpha: 0.6),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Row(
@@ -181,7 +181,7 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                           child: Text(
                             widget.guestHouse.getVille(context.locale),
                             style: TextStyle(
-                              color: theme.text.withOpacity(0.7),
+                              color: theme.text.withValues(alpha: 0.7),
                               fontSize: 14,
                             ),
                           ),
@@ -194,13 +194,13 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.map_outlined, color: theme.text.withOpacity(0.5), size: 18),
+                        Icon(Icons.map_outlined, color: theme.text.withValues(alpha: 0.5), size: 18),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
                             widget.guestHouse.getAddress(context.locale),
                             style: TextStyle(
-                              color: theme.text.withOpacity(0.6),
+                              color: theme.text.withValues(alpha: 0.6),
                               fontSize: 14,
                             ),
                           ),
@@ -262,7 +262,7 @@ class _GuestHouseDetailsScreenState extends State<GuestHouseDetailsScreen> {
                       Text(
                         widget.guestHouse.getDescription(context.locale),
                         style: TextStyle(
-                          color: theme.text.withOpacity(0.8),
+                          color: theme.text.withValues(alpha: 0.8),
                           fontSize: 15,
                           height: 1.6,
                         ),
@@ -296,7 +296,7 @@ class _DetailActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.4),
+          color: Colors.black.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: Colors.white, size: 24),
@@ -319,7 +319,7 @@ class _AmenityItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: theme.primary.withOpacity(0.15),
+            color: theme.primary.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(15),
           ),
           child: Icon(icon, color: theme.primary, size: 22),
@@ -328,7 +328,7 @@ class _AmenityItem extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-            color: theme.text.withOpacity(0.8),
+            color: theme.text.withValues(alpha: 0.8),
             fontSize: 13,
           ),
           textAlign: TextAlign.center,

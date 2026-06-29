@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/widgets/skeleton_box.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/widgets/skeleton_box.dart';
 
 class DestinationCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -28,8 +28,8 @@ class DestinationCardWidget extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(20),
-          splashColor: Colors.white.withOpacity(0.2),
-          highlightColor: Colors.white.withOpacity(0.1),
+          splashColor: Colors.white.withValues(alpha: 0.2),
+          highlightColor: Colors.white.withValues(alpha: 0.1),
           // Disable splash animation duration to make it instant
           splashFactory: NoSplash.splashFactory,
           child: Ink(
@@ -50,7 +50,7 @@ class DestinationCardWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     gradient: LinearGradient(
-                      colors: [Colors.black.withOpacity(0.85), Colors.transparent],
+                      colors: [Colors.black.withValues(alpha: 0.85), Colors.transparent],
                       begin: Alignment.bottomCenter,
                       end: Alignment.center,
                     ),

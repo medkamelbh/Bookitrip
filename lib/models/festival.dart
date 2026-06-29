@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 import 'destination.dart';
 
@@ -129,61 +130,18 @@ class Festival {
     };
   }
 
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return nameEn;
-      case 'ar':
-        return nameAr;
-      case 'ru':
-        return nameRu;
-      case 'zh':
-        return nameZh;
-      case 'ko':
-        return nameKo;
-      case 'ja':
-        return nameJa;
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
+  String getDescription(Locale locale) => localizedValue(locale, description, {
+        'en': descriptionEn, 'ar': descriptionAr, 'ru': descriptionRu,
+        'zh': descriptionZh, 'ko': descriptionKo, 'ja': descriptionJa,
+      });
 
-  String getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return descriptionEn;
-      case 'ar':
-        return descriptionAr;
-      case 'ru':
-        return descriptionRu;
-      case 'zh':
-        return descriptionZh;
-      case 'ko':
-        return descriptionKo;
-      case 'ja':
-        return descriptionJa;
-      default:
-        return description;
-    }
-  }
-
-  String getDestinationName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return destination?.nameEn ?? '';
-      case 'ar':
-        return destination?.nameAr ?? '';
-      case 'ru':
-        return destination?.nameRu ?? '';
-      case 'zh':
-        return destination?.nameZh ?? '';
-      case 'ko':
-        return destination?.nameKo ?? '';
-      case 'ja':
-        return destination?.nameJa ?? '';
-      default:
-        return destination?.name ?? '';
-    }
-  }
+  String getDestinationName(Locale locale) => localizedValue(locale, destination?.name ?? '', {
+        'en': destination?.nameEn, 'ar': destination?.nameAr, 'ru': destination?.nameRu,
+        'zh': destination?.nameZh, 'ko': destination?.nameKo, 'ja': destination?.nameJa,
+      });
 }

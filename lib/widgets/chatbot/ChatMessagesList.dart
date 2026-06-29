@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:TunisiaBook/models/chat_message.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/models/chat_message.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'package:provider/provider.dart';
 
 class ChatMessagesList extends StatelessWidget {
@@ -30,7 +30,7 @@ class ChatMessagesList extends StatelessWidget {
             end: Alignment.bottomCenter,
             colors: [
               theme.background,
-              theme.background.withOpacity(0.95),
+              theme.background.withValues(alpha: 0.95),
             ],
           ),
         ),
@@ -112,7 +112,7 @@ class ChatMessagesList extends StatelessWidget {
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: (isUser ? theme.primary : theme.primary).withOpacity(0.3),
+            color: (isUser ? theme.primary : theme.primary).withValues(alpha: 0.3),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -140,7 +140,7 @@ class ChatMessagesList extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: message.isUser
             ? LinearGradient(
-          colors: [theme.primary, theme.primary.withOpacity(0.65)],
+          colors: [theme.primary, theme.primary.withValues(alpha: 0.65)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         )
@@ -159,8 +159,8 @@ class ChatMessagesList extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: message.isUser
-                ? theme.text.withOpacity(0.4)
-                : theme.isDark? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.2),
+                ? theme.text.withValues(alpha: 0.4)
+                : theme.isDark? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.2),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -210,7 +210,7 @@ class ChatMessagesList extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: theme.isDark ? Colors.white.withOpacity(0.08) : Colors.black.withOpacity(0.08),
+            color: theme.isDark ? Colors.white.withValues(alpha: 0.08) : Colors.black.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -252,7 +252,7 @@ class ChatMessagesList extends StatelessWidget {
             fontSize: 14,
           ),
           blockquoteDecoration: BoxDecoration(
-            color: theme.primary.withOpacity(0.05),
+            color: theme.primary.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(8),
             border: Border(
               left: BorderSide(
@@ -263,7 +263,7 @@ class ChatMessagesList extends StatelessWidget {
           ),
           code: TextStyle(
             color: theme.primary,
-            backgroundColor: theme.primary.withOpacity(0.1),
+            backgroundColor: theme.primary.withValues(alpha: 0.1),
             fontSize: 14,
             fontFamily: 'monospace',
           ),
@@ -288,8 +288,8 @@ class ChatMessagesList extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                theme.CardBG!.withOpacity(0.7),
-                theme.primary.withOpacity(0.05),
+                theme.CardBG!.withValues(alpha: 0.7),
+                theme.primary.withValues(alpha: 0.05),
               ],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -297,13 +297,13 @@ class ChatMessagesList extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: theme.primary.withOpacity(0.1),
+                color: theme.primary.withValues(alpha: 0.1),
                 blurRadius: 12,
                 offset: const Offset(0, 4),
               ),
             ],
             border: Border.all(
-              color: theme.primary.withOpacity(0.1),
+              color: theme.primary.withValues(alpha: 0.1),
               width: 1,
             ),
           ),
@@ -321,8 +321,8 @@ class ChatMessagesList extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        theme.primary.withOpacity(0.15),
-                        theme.secondary.withOpacity(0.15),
+                        theme.primary.withValues(alpha: 0.15),
+                        theme.secondary.withValues(alpha: 0.15),
                       ],
                     ),
                   ),
@@ -482,7 +482,7 @@ class ChatMessagesList extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.08),
+                  color: Colors.black.withValues(alpha: 0.08),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -519,14 +519,14 @@ class ChatMessagesList extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  theme.primary.withOpacity(0.4 + (value * 0.6)),
-                  theme.secondary.withOpacity(0.4 + (value * 0.6)),
+                  theme.primary.withValues(alpha: 0.4 + (value * 0.6)),
+                  theme.secondary.withValues(alpha: 0.4 + (value * 0.6)),
                 ],
               ),
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: theme.primary.withOpacity(0.3 * value),
+                  color: theme.primary.withValues(alpha: 0.3 * value),
                   blurRadius: 4,
                 ),
               ],

@@ -1,16 +1,16 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/restaurant_provider.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/screens/restaurantDetails_screen.dart';
-import 'package:TunisiaBook/widgets/hotels/filters/filter_section.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
-import 'package:TunisiaBook/widgets/pagination_controls.dart';
-import 'package:TunisiaBook/widgets/restaurant_card.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/restaurant_provider.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:go_router/go_router.dart';
+import 'package:BookiTrip/widgets/hotels/filters/filter_section.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_searchbar.dart';
+import 'package:BookiTrip/widgets/pagination_controls.dart';
+import 'package:BookiTrip/widgets/restaurant_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:TunisiaBook/utils/list_transformations.dart';
+import 'package:BookiTrip/utils/list_transformations.dart';
 import '../widgets/skeleton_box.dart';
 
 class RestaurantScreen extends StatefulWidget {
@@ -23,6 +23,7 @@ class RestaurantScreen extends StatefulWidget {
 class _RestaurantScreenState extends State<RestaurantScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _isFetchingMore = false;
+  bool _isAtBottom = false;
   static const double restaurantCardHeight = 220;
 
   @override
@@ -132,7 +133,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                     Text(
                       'activities.results'.tr(namedArgs: {'count': provider.totalRestaurantsCount.toString()}),
                       style: TextStyle(
-                        color: theme.text.withOpacity(0.6),
+                        color: theme.text.withValues(alpha: 0.6),
                         fontWeight: FontWeight.w300,
                         fontSize: 16,
                       ),
@@ -168,44 +169,81 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                         )
                       else if (provider.restaurants.isEmpty)
                         Expanded(
-                          child: Center(child: Padding(
-                            padding: const EdgeInsets.only(top: 50),
-                            child: Text('common.check_connection'.tr()),
-                          )),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 50),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.search_off_rounded,
+                                    size: 64,
+                                    color: theme.text.withValues(alpha: 0.3),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'common.check_connection'.tr(),
+                                    style: TextStyle(
+                                      color: theme.text.withValues(alpha: 0.6),
+                                      fontSize: 16,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(height: 16),
+                                  TextButton.icon(
+                                    onPressed: () => _autoLoadAllPages(),
+                                    icon: Icon(Icons.refresh_rounded, color: theme.primary),
+                                    label: Text(
+                                      'common.retry'.tr(),
+                                      style: TextStyle(color: theme.primary, fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         )
                       else
                         Expanded(
-                          child: TransformableListView.builder(
-                            getTransformMatrix: ListTransformations.getMonumentTransformMatrix,
-                            itemCount: provider.restaurants.length,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final r = provider.restaurants[index];
-                              return SizedBox(
-                                height: restaurantCardHeight,
-                                child: RestaurantCardWidget(
-                                  title: r.getName(Localizations.localeOf(context)),
-                                  location: r.getDestinationName(Localizations.localeOf(context)) ?? 'restaurants.unknown'.tr(),
-                                  imgUrl: r.images.isNotEmpty ? r.images.first : "assets/images/placeholder.jpg",
-                                  rating: (r.rate is num) ? r.rate.toDouble() : 4.0,
-                                  onTap: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => RestaurantDetailsScreen(restaurant: r)),
-                                  ),
-                                ),
-                              );
+                          child: NotificationListener<ScrollNotification>(
+                            onNotification: (scrollInfo) {
+                              if (scrollInfo.metrics.pixels >= scrollInfo.metrics.maxScrollExtent - 20) {
+                                if (!_isAtBottom) setState(() => _isAtBottom = true);
+                              } else {
+                                if (_isAtBottom) setState(() => _isAtBottom = false);
+                              }
+                              return false;
                             },
+                            child: TransformableListView.builder(
+                              getTransformMatrix: ListTransformations.getMonumentTransformMatrix,
+                              itemCount: provider.restaurants.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final r = provider.restaurants[index];
+                                return SizedBox(
+                                  height: restaurantCardHeight,
+                                  child: RestaurantCardWidget(
+                                    title: r.getName(Localizations.localeOf(context)),
+                                    location: r.getDestinationName(Localizations.localeOf(context)) ?? 'restaurants.unknown'.tr(),
+                                    imgUrl: r.images.isNotEmpty ? r.images.first : "assets/images/placeholder.jpg",
+                                    rating: (r.rate is num) ? r.rate.toDouble() : 4.0,
+                                    onTap: () => context.pushNamed('restaurantDetails', extra: r),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       const SizedBox(height: 5),
-                      PaginationControls(
-                        totalPages: provider.totalPages,
-                        currentPage: provider.currentPage,
-                        primaryColor: theme.primary,
-                        textColor: theme.text,
-                        isEmptyOrLoading: isLoadingInitial,
-                        onPageChange: (page) => provider.loadPage(page),
-                      ),
+                      if (_isAtBottom || provider.restaurants.length < 3)
+                        PaginationControls(
+                          totalPages: provider.totalPages,
+                          currentPage: provider.currentPage,
+                          primaryColor: theme.primary,
+                          textColor: theme.text,
+                          isEmptyOrLoading: isLoadingInitial,
+                          onPageChange: (page) => provider.loadPage(page),
+                        ),
                     ],
                   ),
                 ),

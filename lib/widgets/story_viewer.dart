@@ -1,7 +1,7 @@
 // screens/story_viewer_screen.dart
 
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/models/story.dart';
+import 'package:BookiTrip/models/story.dart';
 import 'dart:async';
 
 class StoryViewerScreen extends StatefulWidget {
@@ -174,14 +174,14 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
                           children: [
                             Icon(
                               Icons.broken_image_outlined,
-                              color: Colors.white.withOpacity(0.5),
+                              color: Colors.white.withValues(alpha: 0.5),
                               size: 80,
                             ),
                             const SizedBox(height: 10),
                             Text(
                               'Failed to load image',
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.7),
+                                color: Colors.white.withValues(alpha: 0.7),
                                 fontSize: 16,
                               ),
                             ),
@@ -208,7 +208,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
                         value: index == _currentStorySegmentIndex
                             ? _progress
                             : (index < _currentStorySegmentIndex ? 1.0 : 0.0),
-                        backgroundColor: Colors.white.withOpacity(0.3),
+                        backgroundColor: Colors.white.withValues(alpha: 0.3),
                         valueColor:
                         const AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
@@ -226,7 +226,7 @@ class _StoryViewerScreenState extends State<StoryViewerScreen> {
                 padding:
                 const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.black.withValues(alpha: 0.3),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(

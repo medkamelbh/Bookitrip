@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class StateApp {
   final String id;
@@ -81,41 +82,13 @@ class StateApp {
     );
   }
 
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return nameEn ?? name;
-      case 'ar':
-        return nameAr ?? name;
-      case 'ru':
-        return nameRu ?? name;
-      case 'zh':
-        return nameZh ?? name;
-      case 'ko':
-        return nameKo ?? name;
-      case 'ja':
-        return nameJa ?? name;
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
-  String? getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return descriptionEn ?? description;
-      case 'ar':
-        return descriptionAr ?? description;
-      case 'ru':
-        return descriptionRu ?? description;
-      case 'zh':
-        return descriptionZh ?? description;
-      case 'ko':
-        return descriptionKo ?? description;
-      case 'ja':
-        return descriptionJa ?? description;
-      default:
-        return description;
-    }
-  }
+  String? getDescription(Locale locale) => localizedValueNullable(locale, description, {
+        'en': descriptionEn, 'ar': descriptionAr, 'ru': descriptionRu,
+        'zh': descriptionZh, 'ko': descriptionKo, 'ja': descriptionJa,
+      });
 }

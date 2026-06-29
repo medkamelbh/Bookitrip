@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'package:provider/provider.dart';
 
 class ChatTypingIndicator extends StatelessWidget {
@@ -27,7 +27,7 @@ class ChatTypingIndicator extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   theme.primary,
-                  theme.primary.withOpacity(0.8),
+                  theme.primary.withValues(alpha: 0.8),
                 ],
               ),
               shape: BoxShape.circle,
@@ -51,7 +51,7 @@ class ChatTypingIndicator extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -73,7 +73,7 @@ class ChatTypingIndicator extends StatelessWidget {
                         width: 8,
                         height: 8,
                         decoration: BoxDecoration(
-                          color: theme.primary.withOpacity(opacity),
+                          color: theme.primary.withValues(alpha: opacity),
                           shape: BoxShape.circle,
                         ),
                       ),

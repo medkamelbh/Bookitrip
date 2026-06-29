@@ -1,8 +1,8 @@
 // /widgets/circuit_card_skeleton.dart
 
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/widgets/skeleton_box.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/widgets/skeleton_box.dart';
 
 class CircuitCardSkeleton extends StatelessWidget {
   final AppTheme theme;

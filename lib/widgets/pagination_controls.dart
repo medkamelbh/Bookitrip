@@ -38,7 +38,7 @@ class PaginationControls extends StatelessWidget {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor:
-                  isSelected ? primaryColor : primaryColor.withOpacity(0.3),
+                  isSelected ? primaryColor : primaryColor.withValues(alpha: 0.3),
                   minimumSize: const Size(40, 40),
                   padding: EdgeInsets.zero,
                 ),

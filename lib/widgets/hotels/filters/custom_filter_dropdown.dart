@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class CustomFilterDropdown extends StatelessWidget {
   final AppTheme theme;
@@ -31,7 +31,7 @@ class CustomFilterDropdown extends StatelessWidget {
 
     final Color defaultBgColor =
         backgroundColor ??
-            (isDark ? theme.primary.withOpacity(0.7) : theme.primary.withOpacity(0.8));
+            (isDark ? theme.primary.withValues(alpha: 0.7) : theme.primary.withValues(alpha: 0.8));
 
     final Color defaultOptionColor =
         optionBackgroundColor ?? (isDark ? Colors.black : Colors.white);
@@ -66,8 +66,8 @@ class CustomFilterDropdown extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: isDark
-                  ? theme.primary.withOpacity(0.4)
-                  : theme.primary.withOpacity(0.3),
+                  ? theme.primary.withValues(alpha: 0.4)
+                  : theme.primary.withValues(alpha: 0.3),
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),

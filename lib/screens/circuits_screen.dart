@@ -1,12 +1,13 @@
-import 'package:TunisiaBook/screens/circuitDetails_screen.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/widgets/circuit_card_ver.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/widgets/search_reservation/circuit_body.dart';
+import 'package:BookiTrip/widgets/circuit_card_ver.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/voyage_provider.dart';
-import 'package:TunisiaBook/models/voyage.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/voyage_provider.dart';
+import 'package:BookiTrip/models/voyage.dart';
 
 class CircuitScreen extends StatefulWidget {
   const CircuitScreen({super.key});
@@ -80,12 +81,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
   }
 
   void _navigateToDetails(BuildContext context, Voyage voyage) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => CircuitDetailsScreen(circuit: voyage),
-      ),
-    );
+    context.pushNamed('circuitDetails', extra: voyage);
   }
 
   @override
@@ -122,7 +118,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 48, color: theme.text.withOpacity(0.5)),
+            Icon(Icons.error_outline, size: 48, color: theme.text.withValues(alpha: 0.5)),
             const SizedBox(height: 16),
             Text(
               'errors.fetch_failed'.tr(),
@@ -138,11 +134,32 @@ class _CircuitScreenState extends State<CircuitScreen> {
       )
           : voyages.isEmpty
           ? Center(
-        child: Text(
-          'common.check_connection'.tr(),
-          style: TextStyle(color: theme.text, fontSize: 16),
-        ),
-      )
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.search_off_rounded,
+                    size: 64,
+                    color: theme.text.withValues(alpha: 0.3),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'common.check_connection'.tr(),
+                    style: TextStyle(color: theme.text, fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  TextButton.icon(
+                    onPressed: () => voyageProvider.fetchVoyages(),
+                    icon: Icon(Icons.refresh_rounded, color: theme.primary),
+                    label: Text(
+                      'common.retry'.tr(),
+                      style: TextStyle(color: theme.primary, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            )
           : CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -153,7 +170,7 @@ class _CircuitScreenState extends State<CircuitScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'circuits.featured'.tr(),
+                    'circuits.create_yours'.tr(),
                     style: TextStyle(
                       color: theme.text,
                       fontWeight: FontWeight.bold,
@@ -161,38 +178,12 @@ class _CircuitScreenState extends State<CircuitScreen> {
                     ),
                   ),
                   const SizedBox(height: 12),
+                  CircuitBody(
+                    theme: theme,
+                    onManualTap: () => context.push('/manual-circuit'),
+                    onAutoTap: () => context.push('/auto-circuit'),
+                  ),
                 ],
-              ),
-            ),
-          ),
-
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: 200,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                itemCount: voyages.length > 3 ? 3 : voyages.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 15),
-                cacheExtent: 500,
-                itemBuilder: (context, index) {
-                  final voyage = voyages[index];
-                  final circuit = _voyageToCardData(voyage, locale);
-
-                  return SizedBox(
-                    width: 240,
-                    child: CircuitCardWithGlass(
-                      theme: theme,
-                      title: circuit["title"]!,
-                      duration: circuit["duration"]!,
-                      startDestination: circuit["startDestination"]!,
-                      endDestination: circuit["endDestination"]!,
-                      imgUrl: circuit["image"]!,
-                      progress: circuit["progress"] ?? 0.5,
-                      onTap: () => _navigateToDetails(context, voyage),
-                    ),
-                  );
-                },
               ),
             ),
           ),

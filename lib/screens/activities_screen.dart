@@ -1,15 +1,14 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/screens/activityDetails_screen.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/widgets/activity_card.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
-import 'package:TunisiaBook/providers/activity_provider.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/widgets/activity_card.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_searchbar.dart';
+import 'package:BookiTrip/providers/activity_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-// Transformations Imports
 import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:TunisiaBook/utils/list_transformations.dart';
+import 'package:BookiTrip/utils/list_transformations.dart';
 
 class ActivitiesScreen extends StatefulWidget {
   const ActivitiesScreen({super.key});
@@ -19,7 +18,6 @@ class ActivitiesScreen extends StatefulWidget {
 }
 
 class _ActivitiesScreenState extends State<ActivitiesScreen> {
-  // Constant height to ensure transformation matrices calculate correctly
   static const double activityCardHeight = 220;
 
   void _toggleDrawer() {
@@ -88,7 +86,6 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
             );
           }
 
-          // --- ERROR STATE ---
           if (provider.errorMessage != null) {
             return Center(
               child: Column(
@@ -126,7 +123,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                     namedArgs: {'count': activities.length.toString()},
                   ),
                   style: TextStyle(
-                    color: theme.text.withOpacity(0.6),
+                    color: theme.text.withValues(alpha: 0.6),
                     fontWeight: FontWeight.w300,
                     fontSize: 16,
                   ),
@@ -162,14 +159,7 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                             imgUrl: imageUrl,
                             category: activity.getSubtype(context.locale),
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ActivityDetailsScreen(
-                                          activity: activity),
-                                ),
-                              );
+                              context.pushNamed('activityDetails', extra: activity);
                             },
                           ),
                         ),
@@ -193,13 +183,13 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
           Icon(
             Icons.search_off,
             size: 64,
-            color: theme.text.withOpacity(0.3),
+            color: theme.text.withValues(alpha: 0.3),
           ),
           const SizedBox(height: 16),
           Text(
             "activities.check_connection".tr(),
             style: TextStyle(
-              color: theme.text.withOpacity(0.6),
+              color: theme.text.withValues(alpha: 0.6),
               fontSize: 16,
             ),
           ),
@@ -210,14 +200,24 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                 "activities.clear_search".tr(),
                 style: TextStyle(color: theme.primary),
               ),
+            )
+          else ...[
+            const SizedBox(height: 16),
+            TextButton.icon(
+              onPressed: () => provider.forceRefresh(),
+              icon: Icon(Icons.refresh_rounded, color: theme.primary),
+              label: Text(
+                'common.retry'.tr(),
+                style: TextStyle(color: theme.primary, fontWeight: FontWeight.bold),
+              ),
             ),
+          ],
         ],
       ),
     );
   }
 }
 
-// --- SKELETON WIDGETS ---
 
 class SkeletonContainer extends StatefulWidget {
   final double height;
@@ -260,7 +260,7 @@ class _SkeletonContainerState extends State<SkeletonContainer> {
           width: widget.width,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(widget.borderRadius),
-            color: widget.theme.primary.withOpacity(opacity * 0.2),
+            color: widget.theme.primary.withValues(alpha: opacity * 0.2),
           ),
         );
       },

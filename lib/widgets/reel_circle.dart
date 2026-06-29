@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class ReelCircleWidget extends StatelessWidget {
   final AppTheme theme;
@@ -40,7 +40,7 @@ class ReelCircleWidget extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: theme.text.withOpacity(0.8),
+            color: theme.text.withValues(alpha: 0.8),
             fontSize: 12,
             fontWeight: FontWeight.w600,
           ),

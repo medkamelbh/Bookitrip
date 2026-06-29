@@ -1,0 +1,1 @@
+enum TransportType { bateaux, transfert, taxi }

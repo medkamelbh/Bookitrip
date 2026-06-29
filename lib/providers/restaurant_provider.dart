@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/restaurant.dart';
-import '../services/api_service.dart';
+import '../repositories/restaurant_repository.dart';
 
 class RestaurantProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final RestaurantRepository _repository;
+
+  RestaurantProvider(this._repository);
 
   List<Restaurant> _allRestaurants = [];
   List<Restaurant> get allRestaurants => _allRestaurants;
@@ -120,7 +122,7 @@ class RestaurantProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      final fetchedRestaurants = await _apiService.getRestaurants(page: 1);
+      final fetchedRestaurants = await _repository.getRestaurants(page: 1);
       _allRestaurants = fetchedRestaurants;
       _lastFetchedPage = 1;
 
@@ -155,7 +157,7 @@ class RestaurantProvider with ChangeNotifier {
 
     try {
       final nextPage = _lastFetchedPage + 1;
-      final nextRestaurants = await _apiService.getRestaurants(page: nextPage);
+      final nextRestaurants = await _repository.getRestaurants(page: nextPage);
 
       if (nextRestaurants.isEmpty || nextRestaurants.length < 15) {
         _hasMorePages = false;
@@ -260,6 +262,65 @@ class RestaurantProvider with ChangeNotifier {
           (r) => r.slug?.toLowerCase() == slug.toLowerCase(),
     );
     _selectedRestaurant = i != -1 ? _allRestaurants[i] : null;
+    notifyListeners();
+  }
+
+  // ── Restaurant Availability Search ──────────────────────────────────────────
+
+  List<Restaurant> _availabilityResults = [];
+  List<Restaurant> get availabilityResults => _availabilityResults;
+
+  bool _isSearchingAvailability = false;
+  bool get isSearchingAvailability => _isSearchingAvailability;
+
+  String? _availabilityError;
+  String? get availabilityError => _availabilityError;
+
+  String? _lastSearchDestinationId;
+  String? _lastSearchDate;
+  int? _lastSearchNumber;
+
+  String? get lastSearchDestinationId => _lastSearchDestinationId;
+  String? get lastSearchDate => _lastSearchDate;
+  int? get lastSearchNumber => _lastSearchNumber;
+
+  /// Searches available restaurants via the rechercherestaut API.
+  Future<void> searchAvailableRestaurants({
+    required String destinationId,
+    required String date,
+    required int number,
+  }) async {
+    _isSearchingAvailability = true;
+    _availabilityError = null;
+    _availabilityResults = [];
+    _lastSearchDestinationId = destinationId;
+    _lastSearchDate = date;
+    _lastSearchNumber = number;
+    notifyListeners();
+
+    try {
+      _availabilityResults = await _repository.searchAvailableRestaurants(
+        destinationId: destinationId,
+        date: date,
+        number: number,
+      );
+    } catch (e) {
+      _availabilityError =
+          'Impossible de charger les restaurants disponibles. Veuillez réessayer.';
+      debugPrint('❌ RestaurantProvider.searchAvailableRestaurants: $e');
+    }
+
+    _isSearchingAvailability = false;
+    notifyListeners();
+  }
+
+  void clearAvailabilityResults() {
+    _availabilityResults = [];
+    _availabilityError = null;
+    _isSearchingAvailability = false;
+    _lastSearchDestinationId = null;
+    _lastSearchDate = null;
+    _lastSearchNumber = null;
     notifyListeners();
   }
 }

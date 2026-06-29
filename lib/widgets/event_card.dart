@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class EventCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -77,7 +77,7 @@ class EventCardWidget extends StatelessWidget {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Colors.black.withOpacity(0.6),
+                                  Colors.black.withValues(alpha: 0.6),
                                   Colors.transparent,
                                 ],
                                 begin: Alignment.bottomCenter,
@@ -111,7 +111,7 @@ class EventCardWidget extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.location_on,
-                              color: theme.primary.withOpacity(0.8),
+                              color: theme.primary.withValues(alpha: 0.8),
                               size: 14,
                             ),
                             const SizedBox(width: 4),
@@ -121,7 +121,7 @@ class EventCardWidget extends StatelessWidget {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  color: theme.text.withOpacity(0.6),
+                                  color: theme.text.withValues(alpha: 0.6),
                                   fontSize: 12,
                                 ),
                               ),
@@ -147,7 +147,7 @@ class EventCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withValues(alpha: 0.2),
                       blurRadius: 5,
                     ),
                   ],

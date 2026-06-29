@@ -1,6 +1,6 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/monument.dart';
-import 'package:TunisiaBook/utils/open_googlemaps.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/monument.dart';
+import 'package:BookiTrip/utils/open_googlemaps.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -125,7 +125,7 @@ class _MonumentDetailsScreenState extends State<MonumentDetailsScreen> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: theme.primary.withOpacity(0.15),
+                          color: theme.primary.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
@@ -148,7 +148,7 @@ class _MonumentDetailsScreenState extends State<MonumentDetailsScreen> {
                           child: Text(
                             widget.monument.destination.getName(locale),
                             style: TextStyle(
-                              color: theme.text.withOpacity(0.7),
+                              color: theme.text.withValues(alpha: 0.7),
                               fontSize: 14,
                             ),
                           ),
@@ -246,7 +246,7 @@ class _DetailActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.4),
+          color: Colors.black.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: Colors.white, size: 24),

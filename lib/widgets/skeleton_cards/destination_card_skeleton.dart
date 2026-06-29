@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/widgets/skeleton_box.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/widgets/skeleton_box.dart';
 
 class DestinationCardSkeleton extends StatelessWidget {
   final AppTheme theme;
@@ -15,7 +15,7 @@ class DestinationCardSkeleton extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -41,8 +41,8 @@ class DestinationCardSkeleton extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.black.withOpacity(0.25),
-                      Colors.black.withOpacity(0.6),
+                      Colors.black.withValues(alpha: 0.25),
+                      Colors.black.withValues(alpha: 0.6),
                     ],
                     stops: const [0.3, 1.0],
                   ),

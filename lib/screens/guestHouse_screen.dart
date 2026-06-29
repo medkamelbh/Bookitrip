@@ -1,17 +1,17 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/screens/guestHouseDetails_screen.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/widgets/hotels/filters/filter_section.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_card.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
-import 'package:TunisiaBook/widgets/pagination_controls.dart';
-import 'package:TunisiaBook/widgets/skeleton_box.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:go_router/go_router.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/widgets/hotels/filters/filter_section.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_card.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_searchbar.dart';
+import 'package:BookiTrip/widgets/pagination_controls.dart';
+import 'package:BookiTrip/widgets/skeleton_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:TunisiaBook/providers/guestHouse_provider.dart';
+import 'package:BookiTrip/providers/guestHouse_provider.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:TunisiaBook/utils/list_transformations.dart';
+import 'package:BookiTrip/utils/list_transformations.dart';
 
 class GuestHouseScreen extends StatefulWidget {
   const GuestHouseScreen({super.key});
@@ -22,6 +22,7 @@ class GuestHouseScreen extends StatefulWidget {
 
 class _GuestHouseScreenState extends State<GuestHouseScreen> {
   bool _isFetchingMore = false;
+  bool _isAtBottom = false;
 
   @override
   void initState() {
@@ -116,7 +117,7 @@ class _GuestHouseScreenState extends State<GuestHouseScreen> {
                     Text(
                       'activities.results'.tr(namedArgs: {'count': provider.totalMaisonsCount.toString()}),
                       style: TextStyle(
-                        color: theme.text.withOpacity(0.6),
+                        color: theme.text.withValues(alpha: 0.6),
                         fontWeight: FontWeight.w300,
                         fontSize: 16,
                       ),
@@ -141,45 +142,78 @@ class _GuestHouseScreenState extends State<GuestHouseScreen> {
                       else if (provider.maisons.isEmpty)
                         Expanded(
                           child: Center(
-                            child: Text('common.check_connection'.tr()),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.search_off_rounded,
+                                  size: 64,
+                                  color: theme.text.withValues(alpha: 0.3),
+                                ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  'common.check_connection'.tr(),
+                                  style: TextStyle(
+                                    color: theme.text.withValues(alpha: 0.6),
+                                    fontSize: 16,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 16),
+                                TextButton.icon(
+                                  onPressed: () => _autoLoadAllPages(),
+                                  icon: Icon(Icons.refresh_rounded, color: theme.primary),
+                                  label: Text(
+                                    'common.retry'.tr(),
+                                    style: TextStyle(color: theme.primary, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       else
                         Expanded(
-                          child: TransformableListView.builder(
-                            getTransformMatrix: ListTransformations.getMonumentTransformMatrix,
-                            itemCount: provider.maisons.length,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              final g = provider.maisons[index];
-                              return HotelCardWidget(
-                                theme: theme,
-                                title: g.getName(locale),
-                                destination: g.getAddress(locale),
-                                imgUrl: g.images.isNotEmpty
-                                    ? g.images.first
-                                    : "https://via.placeholder.com/300x200?text=No+Image",
-                                rating: double.tryParse(g.noteGoogle) ?? 0.0,
-                                isHotel: false,
-                                onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => GuestHouseDetailsScreen(guestHouse: g),
-                                  ),
-                                ),
-                              );
+                          child: NotificationListener<ScrollNotification>(
+                            onNotification: (scrollInfo) {
+                              if (scrollInfo.metrics.pixels >= scrollInfo.metrics.maxScrollExtent - 20) {
+                                if (!_isAtBottom) setState(() => _isAtBottom = true);
+                              } else {
+                                if (_isAtBottom) setState(() => _isAtBottom = false);
+                              }
+                              return false;
                             },
+                            child: TransformableListView.builder(
+                              getTransformMatrix: ListTransformations.getMonumentTransformMatrix,
+                              itemCount: provider.maisons.length,
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                final g = provider.maisons[index];
+                                return HotelCardWidget(
+                                  theme: theme,
+                                  title: g.getName(locale),
+                                  destination: g.getAddress(locale),
+                                  imgUrl: g.images.isNotEmpty
+                                      ? g.images.first
+                                      : "https://via.placeholder.com/300x200?text=No+Image",
+                                  rating: double.tryParse(g.noteGoogle) ?? 0.0,
+                                  isHotel: false,
+                                  onTap: () => context.pushNamed('guestHouseDetails', extra: g),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       const SizedBox(height: 5),
-                      PaginationControls(
-                        totalPages: provider.totalPages,
-                        currentPage: provider.currentPage,
-                        primaryColor: theme.primary,
-                        textColor: theme.text,
-                        isEmptyOrLoading: isLoadingInitial,
-                        onPageChange: (page) => provider.loadPage(page),
-                      ),
+                      if (_isAtBottom || provider.maisons.length < 3)
+                        PaginationControls(
+                          totalPages: provider.totalPages,
+                          currentPage: provider.currentPage,
+                          primaryColor: theme.primary,
+                          textColor: theme.text,
+                          isEmptyOrLoading: isLoadingInitial,
+                          onPageChange: (page) => provider.loadPage(page),
+                        ),
                     ],
                   ),
                 ),

@@ -1,4 +1,5 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class Destination {
   final String id;
@@ -19,7 +20,6 @@ class Destination {
   final String? descriptionKo;
   final String? descriptionJa;
 
-  // Multilingual names
   final String? nameAr;
   final String? nameEn;
   final String? nameRu;
@@ -229,71 +229,25 @@ class Destination {
   };
 
 
-  // Multilingual helpers
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return nameEn ?? name;
-      case 'ar':
-        return nameAr ?? name;
-      case 'ru':
-        return nameRu ?? name;
-      case 'zh':
-        return nameZh ?? name;
-      case 'ko':
-        return nameKo ?? name;
-      case 'ja':
-        return nameJa ?? name;
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
-  String? getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return descriptionEn ?? descriptionMobile;
-      case 'ar':
-        return descriptionAr ?? descriptionMobile;
-      case 'ru':
-        return descriptionRu ?? descriptionMobile;
-      case 'zh':
-        return descriptionZh ?? descriptionMobile;
-      case 'ko':
-        return descriptionKo ?? descriptionMobile;
-      case 'ja':
-        return descriptionJa ?? descriptionMobile;
-      default:
-        return descriptionMobile;
-    }
-  }
+  String? getDescription(Locale locale) => localizedValueNullable(locale, descriptionMobile, {
+        'en': descriptionEn, 'ar': descriptionAr, 'ru': descriptionRu,
+        'zh': descriptionZh, 'ko': descriptionKo, 'ja': descriptionJa,
+      });
 
-  String? getTitle(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return titleEn ?? title;
-      case 'ar':
-        return titleAr ?? title;
-      default:
-        return title;
-    }
-  }
+  String? getTitle(Locale locale) => localizedValueNullable(locale, title, {
+        'en': titleEn, 'ar': titleAr,
+      });
 
-  String? getSubtitle(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return subtitleEn ?? subtitle;
-      case 'ar':
-        return subtitleAr ?? subtitle;
-      case 'ja':
-        return subtitleJa ?? subtitle;
-      default:
-        return subtitle;
-    }
-  }
+  String? getSubtitle(Locale locale) => localizedValueNullable(locale, subtitle, {
+        'en': subtitleEn, 'ar': subtitleAr, 'ja': subtitleJa,
+      });
 }
 
-// DestinationSelection remains simple
 class DestinationSelection {
   final String id;
   final String name;
@@ -334,24 +288,10 @@ class DestinationSelection {
     );
   }
 
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return nameEn ?? name;
-      case 'ar':
-        return nameAr ?? name;
-      case 'ru':
-        return nameRu ?? name;
-      case 'zh':
-        return nameZh ?? name;
-      case 'ko':
-        return nameKo ?? name;
-      case 'ja':
-        return nameJa ?? name;
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
   Map<String, dynamic> toJson() => {
     "id": id,

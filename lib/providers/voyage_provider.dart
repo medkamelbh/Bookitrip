@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import '../models/voyage.dart';
-import '../services/api_service.dart';
+import '../repositories/voyage_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 class VoyageProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final VoyageRepository _repository;
+
+  VoyageProvider(this._repository);
+
   List<Voyage> _voyages = [];
   Voyage? _selectedVoyage;
   bool _isLoading = false;
@@ -25,7 +28,7 @@ class VoyageProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      final fetchedVoyages = await _apiService.getAllVoyage();
+      final fetchedVoyages = await _repository.getAllVoyages();
       _voyages = fetchedVoyages;
 
       final prefs = await SharedPreferences.getInstance();

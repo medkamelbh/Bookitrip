@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/festival.dart';
-import '../services/api_service.dart';
+import '../repositories/festival_repository.dart';
 
 class FestivalProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final FestivalRepository _repository;
+
+  FestivalProvider(this._repository);
 
   /// Cached festivals per destination
   final Map<String, List<Festival>> _festivalsByDestination = {};
@@ -40,7 +42,7 @@ class FestivalProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      allFestivals = await _apiService.getfestival(_currentPage.toString());
+      allFestivals = await _repository.getFestivals(_currentPage.toString());
       _allFestivalsFetched = true;
 
       // Clear existing cache before rebuilding
@@ -59,7 +61,7 @@ class FestivalProvider with ChangeNotifier {
       allFestivals = [];
       _festivals = [];
       _allFestivalsFetched = false; // Allow retry on error
-      print("Error fetching all festivals: $e");
+      debugPrint("Error fetching all festivals: $e");
     }
 
     _isLoading = false;
@@ -83,7 +85,7 @@ class FestivalProvider with ChangeNotifier {
 
     try {
       final List<Festival> newFestivals =
-      await _apiService.getfestival(_currentPage.toString());
+      await _repository.getFestivals(_currentPage.toString());
 
       if (newFestivals.isEmpty) {
         _hasMore = false;
@@ -113,8 +115,8 @@ class FestivalProvider with ChangeNotifier {
       }
       error = null;
     } catch (e, stackTrace) {
-      print("Erreur fetchFestivals: $e");
-      print(stackTrace);
+      debugPrint("Erreur fetchFestivals: $e");
+      debugPrint("$stackTrace");
       error = e.toString();
     } finally {
       _isLoading = false;

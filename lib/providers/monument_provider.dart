@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/destination.dart';
 import '../models/monument.dart';
-import '../services/api_service.dart';
+import '../repositories/monument_repository.dart';
 
 class MonumentProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final MonumentRepository _repository;
+
+  MonumentProvider(this._repository);
 
   List<Monument> _allMonuments = [];
   List<Monument> _monuments = [];
@@ -27,7 +29,7 @@ class MonumentProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      _allMonuments = await _apiService.getmonument(page);
+      _allMonuments = await _repository.getMonuments(page);
       _monuments = List.from(_allMonuments); // Initialize with all monuments
     } catch (e) {
       _error = e.toString();
@@ -101,7 +103,7 @@ class MonumentProvider with ChangeNotifier {
       if (existingMonument.id.isNotEmpty) {
         _selectedMonument = existingMonument;
       } else {
-        _selectedMonument = await _apiService.getMonumentBySlug(slug);
+        _selectedMonument = await _repository.getMonumentBySlug(slug);
       }
     } catch (e) {
       _error = e.toString();

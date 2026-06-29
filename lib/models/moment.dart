@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class Moment{
   final String id;
@@ -43,26 +44,9 @@ class Moment{
     );
   }
 
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return nameEn ?? name;
-      case 'ar':
-        return nameAr ?? name;
-      case 'ru':
-        return nameRu ?? name;
-      case 'zh':
-        return nameZh ?? name;
-      case 'ko':
-        return nameKo ?? name;
-      case 'ja':
-        return nameJa ?? name;
-      case 'fr':
-        return nameFr ?? name;
-
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa, 'fr': nameFr,
+      });
 
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class Event {
   final String id;
@@ -114,59 +115,18 @@ class Event {
       endDate: json['end_date'],
     );
   }
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return titleEn ?? title;
-      case 'ar':
-        return titleAr ?? title;
-      case 'ru':
-        return titleRu ?? title;
-      case 'zh':
-        return titleZh ?? title;
-      case 'ko':
-        return titleKo ?? title;
-      case 'ja':
-        return titleJa ?? title;
-      default:
-        return title;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, title, {
+        'en': titleEn, 'ar': titleAr, 'ru': titleRu,
+        'zh': titleZh, 'ko': titleKo, 'ja': titleJa,
+      });
 
-  String getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return descriptionEn ?? description ?? '';
-      case 'ar':
-        return descriptionAr ?? description ?? '';
-      case 'ru':
-        return descriptionRu ?? description ?? '';
-      case 'zh':
-        return descriptionZh ?? description ?? '';
-      case 'ko':
-        return descriptionKo ?? description ?? '';
-      case 'ja':
-        return descriptionJa ?? description ?? '';
-      default:
-        return description ?? '';
-    }
-  }
-  String getAddress(Locale locale) {
-    switch (locale.languageCode) {
-      case 'en':
-        return addressEn ?? address ?? '';
-      case 'ar':
-        return addressAr ?? address ?? '';
-      case 'ru':
-        return addressRu ?? address ?? '';
-      case 'zh':
-        return addressZh ?? address ?? '';
-      case 'ko':
-        return addressKo ?? address ?? '';
-      case 'ja':
-        return addressJa ?? address ?? '';
-      default:
-        return address ?? '';
-    }
-  }
+  String getDescription(Locale locale) => localizedValue(locale, description ?? '', {
+        'en': descriptionEn, 'ar': descriptionAr, 'ru': descriptionRu,
+        'zh': descriptionZh, 'ko': descriptionKo, 'ja': descriptionJa,
+      });
+
+  String getAddress(Locale locale) => localizedValue(locale, address ?? '', {
+        'en': addressEn, 'ar': addressAr, 'ru': addressRu,
+        'zh': addressZh, 'ko': addressKo, 'ja': addressJa,
+      });
 }

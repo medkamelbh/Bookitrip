@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../models/musee.dart';
-import '../services/api_service.dart';
+import '../repositories/musee_repository.dart';
 
 class MuseeProvider with ChangeNotifier {
-  final ApiService _apiService = ApiService();
+  final MuseeRepository _repository;
+
+  MuseeProvider(this._repository);
 
   List<Musees> _allMusees = [];
   List<Musees> _musees = [];
@@ -21,7 +23,7 @@ class MuseeProvider with ChangeNotifier {
   Future<void> fetchMusees() async {
     _setLoading(true);
     try {
-      _allMusees = await _apiService.getmusee();
+      _allMusees = await _repository.getMusees();
       _musees = List.from(_allMusees); // Initialize with all musees
       _error = null;
     } catch (e) {
@@ -69,7 +71,7 @@ class MuseeProvider with ChangeNotifier {
   Future<void> fetchMuseeBySlug(String slug) async {
     _setLoading(true);
     try {
-      selectedMusee = await _apiService.getMuseeBySlug(slug);
+      selectedMusee = await _repository.getMuseeBySlug(slug);
       if (selectedMusee == null) {
         _error = "Musée introuvable";
       } else {

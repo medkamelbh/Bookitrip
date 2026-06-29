@@ -1,8 +1,8 @@
-import 'package:TunisiaBook/widgets/gallery_images.dart';
-import 'package:TunisiaBook/widgets/section_title.dart';
+import 'package:BookiTrip/widgets/gallery_images.dart';
+import 'package:BookiTrip/widgets/section_title.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class GallerySectionWidget extends StatefulWidget {
   final AppTheme theme;
@@ -63,9 +63,10 @@ class _GallerySectionWidgetState extends State<GallerySectionWidget> with Ticker
   }
 
   void _startAutoScroll() {
-    if (!_scrollController.hasClients) return;
+    if (!mounted || !_scrollController.hasClients) return;
 
     final maxScroll = _scrollController.position.maxScrollExtent;
+    if (maxScroll <= 0) return;
     final duration = Duration(seconds: (maxScroll / 50).round());
 
     _scrollController.animateTo(
@@ -77,12 +78,17 @@ class _GallerySectionWidgetState extends State<GallerySectionWidget> with Ticker
         _scrollController.jumpTo(0);
         _startAutoScroll();
       }
+    }).catchError((_) {
+      // Animation was cancelled (e.g. widget disposed mid-scroll) — ignore.
     });
   }
 
   @override
   void dispose() {
     _fadeController.dispose();
+    if (_scrollController.hasClients) {
+      _scrollController.jumpTo(_scrollController.offset);
+    }
     _scrollController.dispose();
     super.dispose();
   }

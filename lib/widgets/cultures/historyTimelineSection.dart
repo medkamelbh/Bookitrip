@@ -78,7 +78,7 @@ class _TunisiaHistoryTimelineState extends State<TunisiaHistoryTimeline> {
       await _audioPlayer.play(
           AssetSource(assetPath.replaceFirst("assets/", "")));
     } catch (e) {
-      print("Erreur audio : $e");
+      debugPrint("Erreur audio : $e");
     }
   }
 
@@ -133,12 +133,12 @@ class _TunisiaHistoryTimelineState extends State<TunisiaHistoryTimeline> {
                         decoration: BoxDecoration(
                           color: isSelected
                               ? theme.primary
-                              : Colors.grey.withOpacity(0.2),
+                              : Colors.grey.withValues(alpha: 0.2),
                           shape: BoxShape.circle,
                           boxShadow: isSelected
                               ? [
                             BoxShadow(
-                                color: theme.primary.withOpacity(0.4),
+                                color: theme.primary.withValues(alpha: 0.4),
                                 blurRadius: 10,
                                 offset: const Offset(0, 4))
                           ]
@@ -185,7 +185,7 @@ class _TunisiaHistoryTimelineState extends State<TunisiaHistoryTimeline> {
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 15,
                   offset: const Offset(0, 5),
                 ),
@@ -231,7 +231,7 @@ class _TunisiaHistoryTimelineState extends State<TunisiaHistoryTimeline> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: theme.primary.withOpacity(0.1),
+                    color: theme.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(

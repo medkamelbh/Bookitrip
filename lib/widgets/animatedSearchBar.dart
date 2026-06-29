@@ -1,4 +1,4 @@
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedSearchBar extends StatefulWidget {
@@ -54,14 +54,14 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
           boxShadow: _isFocused
               ? [
             BoxShadow(
-              color: widget.theme.primary.withOpacity(0.3),
+              color: widget.theme.primary.withValues(alpha: 0.3),
               blurRadius: 20,
               offset: const Offset(0, 5),
             ),
           ]
               : [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 2),
             ),
@@ -80,12 +80,12 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
           style: TextStyle(color: widget.theme.text),
           decoration: InputDecoration(
             hintText: widget.hint,
-            hintStyle: TextStyle(color: widget.theme.text.withOpacity(0.4)),
+            hintStyle: TextStyle(color: widget.theme.text.withValues(alpha: 0.4)),
             prefixIcon: Icon(
               Icons.search,
               color: _isFocused
                   ? widget.theme.primary
-                  : widget.theme.text.withOpacity(0.4),
+                  : widget.theme.text.withValues(alpha: 0.4),
             ),
             border: InputBorder.none,
             contentPadding:

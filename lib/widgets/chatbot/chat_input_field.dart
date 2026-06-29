@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:permission_handler/permission_handler.dart'; // Optional but recommended
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'package:provider/provider.dart';
 
 class ChatInputField extends StatefulWidget {
@@ -30,15 +30,11 @@ class _ChatInputFieldState extends State<ChatInputField> {
     _initSpeech();
   }
 
-  /// Initialize the SpeechToText instance
   void _initSpeech() async {
-    // Optionally request permission explicitly if needed,
-    // though initialize() usually handles it.
     await Permission.microphone.request();
 
     _isSpeechEnabled = await _speech.initialize(
       onStatus: (status) {
-        // If the system stops listening (e.g., silence timeout), update UI
         if (status == 'notListening' || status == 'done') {
           setState(() => _isListening = false);
         }
@@ -51,10 +47,8 @@ class _ChatInputFieldState extends State<ChatInputField> {
     setState(() {});
   }
 
-  /// Start listening with a 3-second silence timeout
   void _startListening() async {
     if (!_isSpeechEnabled) {
-      // Try initializing again if it failed previously
       _initSpeech();
       return;
     }
@@ -64,33 +58,26 @@ class _ChatInputFieldState extends State<ChatInputField> {
     await _speech.listen(
       onResult: (result) {
         setState(() {
-          // Update the text field in real-time
           widget.controller.text = result.recognizedWords;
         });
 
-        // AUTO-SEND LOGIC:
-        // If the result is final (user stopped speaking and processing is done),
-        // send the message automatically.
         if (result.finalResult) {
           setState(() => _isListening = false);
           if (widget.controller.text.trim().isNotEmpty) {
             widget.onSend();
-            // Optional: Clear controller here if your onSend doesn't do it
-            // widget.controller.clear();
           }
         }
       },
-      // This is the key parameter for the "3 seconds of silence" requirement
       pauseFor: const Duration(seconds: 3),
-      // Optional: stop if user doesn't speak at all for 10s
       listenFor: const Duration(seconds: 10),
-      localeId: "fr_FR", // Set your preferred locale (e.g., French)
-      cancelOnError: true,
-      listenMode: stt.ListenMode.dictation,
+      listenOptions: stt.SpeechListenOptions(
+        cancelOnError: true,
+        listenMode: stt.ListenMode.dictation,
+      ),
+      localeId: "fr_FR",
     );
   }
 
-  /// Manually stop listening (if user taps the mic button again)
   void _stopListening() async {
     await _speech.stop();
     setState(() => _isListening = false);
@@ -106,7 +93,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
         color: theme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
@@ -121,10 +108,9 @@ class _ChatInputFieldState extends State<ChatInputField> {
                   color: theme.background,
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
-                    // Highlight border when listening
                     color: _isListening
                         ? theme.primary
-                        : theme.text.withOpacity(0.1),
+                        : theme.text.withValues(alpha: 0.1),
                     width: _isListening ? 2 : 1,
                   ),
                 ),
@@ -134,10 +120,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                     Expanded(
                       child: TextField(
                         controller: widget.controller,
-                        style: TextStyle(
-                          color: theme.text,
-                          fontSize: 15,
-                        ),
+                        style: TextStyle(color: theme.text, fontSize: 15),
                         decoration: InputDecoration(
                           hintText: _isListening
                               ? 'Écoute en cours...'
@@ -145,7 +128,7 @@ class _ChatInputFieldState extends State<ChatInputField> {
                           hintStyle: TextStyle(
                             color: _isListening
                                 ? theme.primary
-                                : theme.text.withOpacity(0.5),
+                                : theme.text.withValues(alpha: 0.5),
                           ),
                           border: InputBorder.none,
                         ),
@@ -154,16 +137,16 @@ class _ChatInputFieldState extends State<ChatInputField> {
                         onSubmitted: (_) => widget.onSend(),
                       ),
                     ),
-                    // Mic Button
                     IconButton(
                       icon: Icon(
                         _isListening ? Icons.mic_off : Icons.mic,
-                        // Change color to indicate active state
                         color: _isListening
                             ? theme.primary
-                            : theme.text.withOpacity(0.6),
+                            : theme.text.withValues(alpha: 0.6),
                       ),
-                      onPressed: _isListening ? _stopListening : _startListening,
+                      onPressed: _isListening
+                          ? _stopListening
+                          : _startListening,
                     ),
                   ],
                 ),
@@ -175,15 +158,12 @@ class _ChatInputFieldState extends State<ChatInputField> {
               height: 48,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    theme.primary,
-                    theme.primary.withOpacity(0.8),
-                  ],
+                  colors: [theme.primary, theme.primary.withValues(alpha: 0.8)],
                 ),
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: theme.primary.withOpacity(0.3),
+                    color: theme.primary.withValues(alpha: 0.3),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),

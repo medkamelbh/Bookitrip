@@ -1,4 +1,4 @@
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -94,10 +94,10 @@ class _DescriptionWithTtsState extends State<DescriptionWithTts> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: widget.theme.primary.withOpacity(0.1),
+                  color: widget.theme.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: widget.theme.primary.withOpacity(0.3),
+                    color: widget.theme.primary.withValues(alpha: 0.3),
                   ),
                 ),
                 child: Row(

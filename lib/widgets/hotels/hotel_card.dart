@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class HotelCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -49,7 +49,7 @@ class HotelCardWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
+                  color: Colors.black.withValues(alpha: 0.15),
                   blurRadius: 12,
                   offset: const Offset(0, 6),
                 ),
@@ -85,9 +85,9 @@ class HotelCardWidget extends StatelessWidget {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Colors.black.withOpacity(0.2),
+                          Colors.black.withValues(alpha: 0.2),
                           Colors.transparent,
-                          theme.primary.withOpacity(0.8),
+                          theme.primary.withValues(alpha: 0.8),
                         ],
                         stops: const [0.0, 0.4, 1.0],
                       ),
@@ -103,7 +103,7 @@ class HotelCardWidget extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.6),
+                        color: Colors.black.withValues(alpha: 0.6),
                         borderRadius: BorderRadius.circular(10),
                         //backdropFilter: const ColorFilter.mode(Colors.black12, BlendMode.blur),
                       ),
@@ -145,7 +145,7 @@ class HotelCardWidget extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.location_on,
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             size: detailFontSize,
                           ),
                           const SizedBox(width: 4),
@@ -153,7 +153,7 @@ class HotelCardWidget extends StatelessWidget {
                             child: Text(
                               destination,
                               style: TextStyle(
-                                color: Colors.white.withOpacity(0.9),
+                                color: Colors.white.withValues(alpha: 0.9),
                                 fontSize: detailFontSize,
                                 fontWeight: FontWeight.w400,
                               ),

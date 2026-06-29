@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class CircuitCard extends StatelessWidget {
   final AppTheme theme;
@@ -42,7 +42,7 @@ class CircuitCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(f(22)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.grey.withOpacity(0.15),
+                  color: Colors.grey.withValues(alpha: 0.15),
                   blurRadius: 4,
                   spreadRadius: 2,
                   offset: const Offset(0, 1),
@@ -64,9 +64,9 @@ class CircuitCard extends StatelessWidget {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Colors.black.withOpacity(0.2),
-                            Colors.black.withOpacity(0.1),
-                            Colors.black.withOpacity(0.6),
+                            Colors.black.withValues(alpha: 0.2),
+                            Colors.black.withValues(alpha: 0.1),
+                            Colors.black.withValues(alpha: 0.6),
                           ],
                           stops: const [0.0, 0.5, 1.0],
                         ),
@@ -152,10 +152,10 @@ class CircuitCard extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: f(12), vertical: f(6)),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.5),
+        color: Colors.black.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(f(12)),
         border: Border.all(
-          color: Colors.white.withOpacity(0.3),
+          color: Colors.white.withValues(alpha: 0.3),
           width: 1,
         ),
       ),
@@ -210,7 +210,7 @@ class CircuitCardWithGlass extends StatelessWidget {
               borderRadius: BorderRadius.circular(f(22)),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
+                  color: Colors.black.withValues(alpha: 0.15),
                   blurRadius: 4,
                   spreadRadius: 2,
                   offset: const Offset(0, 1),
@@ -240,8 +240,8 @@ class CircuitCardWithGlass extends StatelessWidget {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              Colors.black.withOpacity(0.2),
-                              Colors.black.withOpacity(0.5),
+                              Colors.black.withValues(alpha: 0.2),
+                              Colors.black.withValues(alpha: 0.5),
                             ],
                           ),
                         ),
@@ -295,9 +295,9 @@ class CircuitCardWithGlass extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: f(10), vertical: f(5)),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.15),
+            color: Colors.white.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(f(12)),
-            border: Border.all(color: Colors.white.withOpacity(0.2)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
           ),
           child: Text(
             text,

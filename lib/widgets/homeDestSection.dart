@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:math' as math;
-import 'package:TunisiaBook/models/destination.dart';
-import 'package:TunisiaBook/screens/destinationDetails_screen.dart';
-import 'package:TunisiaBook/widgets/homeDestCard.dart';
+import 'package:BookiTrip/models/destination.dart';
+import 'package:BookiTrip/widgets/homeDestCard.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NearbyDestinationSection extends StatefulWidget {
   final List<Destination> destinations;
@@ -72,16 +72,14 @@ class _NearbyDestinationSectionState extends State<NearbyDestinationSection>
   }
 
   void _navigateToDetails(BuildContext context, Destination destination) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DestinationDetailsScreen(
-          title: destination.getName(context.locale),
-          description: destination.getDescription(context.locale) ?? "",
-          gallery: destination.gallery,
-          destinationId: destination.id,
-        ),
-      ),
+    context.pushNamed(
+      'destinationDetails',
+      extra: {
+        'title': destination.getName(context.locale),
+        'description': destination.getDescription(context.locale) ?? "",
+        'gallery': destination.gallery,
+        'destinationId': destination.id,
+      },
     );
   }
 
@@ -220,7 +218,7 @@ class _NearbyDestinationSectionState extends State<NearbyDestinationSection>
                 borderRadius: BorderRadius.circular(16),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(
+                    color: Colors.black.withValues(alpha: 
                         (0.25 - (effectivePosition * 0.08)).clamp(0.05, 0.25)
                     ),
                     blurRadius: (20 - (effectivePosition * 5)).clamp(5, 20),

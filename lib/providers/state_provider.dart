@@ -1,11 +1,11 @@
-import 'package:TunisiaBook/models/state.dart';
+import 'package:BookiTrip/models/state.dart';
 import 'package:flutter/material.dart';
-import '../services/api_service.dart';
+import '../repositories/state_repository.dart';
 
 class StateProvider with ChangeNotifier {
-  final ApiService apiService;
+  final StateRepository _repository;
 
-  StateProvider({required this.apiService});
+  StateProvider(this._repository);
 
   List<StateApp> _states = [];
   bool _isLoading = false;
@@ -21,7 +21,7 @@ class StateProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      _states = await apiService.fetchStates();
+      _states = await _repository.fetchStates();
     } catch (e) {
       _error = e.toString();
     }

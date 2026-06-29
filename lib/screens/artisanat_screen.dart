@@ -1,16 +1,15 @@
-import 'package:TunisiaBook/screens/artisanatDetails_screen.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/widgets/cultures/artisanat_card.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/widgets/cultures/artisanat_card.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/artisanat_provider.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
-import 'package:TunisiaBook/widgets/skeleton_box.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/artisanat_provider.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_searchbar.dart';
+import 'package:BookiTrip/widgets/skeleton_box.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:TunisiaBook/utils/list_transformations.dart';
+import 'package:BookiTrip/utils/list_transformations.dart';
 
 class ArtisanatScreen extends StatefulWidget {
   const ArtisanatScreen({super.key});
@@ -137,13 +136,13 @@ class _ArtisanatScreenState extends State<ArtisanatScreen> {
                                   Icon(
                                     Icons.palette_outlined,
                                     size: 64,
-                                    color: theme.text.withOpacity(0.3),
+                                    color: theme.text.withValues(alpha: 0.3),
                                   ),
                                   const SizedBox(height: 16),
                                   Text(
                                     'common.check_connection'.tr(),
                                     style: TextStyle(
-                                      color: theme.text.withOpacity(0.6),
+                                      color: theme.text.withValues(alpha: 0.6),
                                       fontSize: 16,
                                     ),
                                   ),
@@ -156,6 +155,16 @@ class _ArtisanatScreenState extends State<ArtisanatScreen> {
                                         style: TextStyle(color: theme.primary),
                                       ),
                                     ),
+                                  ] else ...[
+                                    const SizedBox(height: 16),
+                                    TextButton.icon(
+                                      onPressed: () => artisanatProvider.fetchArtisanats(),
+                                      icon: Icon(Icons.refresh_rounded, color: theme.primary),
+                                      label: Text(
+                                        'common.retry'.tr(),
+                                        style: TextStyle(color: theme.primary, fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
                                   ],
                                 ],
                               ),
@@ -165,7 +174,7 @@ class _ArtisanatScreenState extends State<ArtisanatScreen> {
                             Text(
                               'activities.results'.tr(namedArgs: {'count': artisanatList.length.toString()}),
                               style: TextStyle(
-                                color: theme.text.withOpacity(0.6),
+                                color: theme.text.withValues(alpha: 0.6),
                                 fontWeight: FontWeight.w300,
                                 fontSize: 16,
                               ),
@@ -190,13 +199,7 @@ class _ArtisanatScreenState extends State<ArtisanatScreen> {
                                           ? artisanat.vignette
                                           : artisanat.cover,
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ArtisanatDetailsScreen(artisanat: artisanat),
-                                          ),
-                                        );
+                                        context.pushNamed('artisanatDetails', extra: artisanat);
                                       },
                                     ),
                                   );

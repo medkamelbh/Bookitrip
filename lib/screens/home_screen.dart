@@ -1,82 +1,29 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/story_provider.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/utils/circuit_data_mapper.dart';
-import 'package:TunisiaBook/widgets/blinking_alert_button.dart';
-import 'package:TunisiaBook/widgets/dataFetch_status.dart';
-import 'package:TunisiaBook/widgets/category_row.dart';
-import 'package:TunisiaBook/widgets/circuit_card.dart';
-import 'package:TunisiaBook/widgets/homeDestSection.dart';
-import 'package:TunisiaBook/widgets/event_card.dart';
-import 'package:TunisiaBook/widgets/experiences_section.dart';
-import 'package:TunisiaBook/widgets/gallery_section.dart';
-import 'package:TunisiaBook/widgets/horizental_list_view.dart';
-import 'package:TunisiaBook/widgets/search_bar.dart';
-import 'package:TunisiaBook/widgets/section_title.dart';
-import 'package:TunisiaBook/widgets/skeleton_cards/circuit_card_skeleton.dart';
-import 'package:TunisiaBook/widgets/skeleton_cards/destination_card_skeleton.dart';
-import 'package:TunisiaBook/widgets/skeleton_cards/event_card_skeleton.dart';
-import 'package:TunisiaBook/widgets/video_banner.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/story_provider.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/utils/circuit_data_mapper.dart';
+import 'package:BookiTrip/widgets/dataFetch_status.dart';
+import 'package:BookiTrip/widgets/category_row.dart';
+import 'package:BookiTrip/widgets/circuit_card.dart';
+import 'package:BookiTrip/widgets/homeDestSection.dart';
+import 'package:BookiTrip/widgets/event_card.dart';
+import 'package:BookiTrip/widgets/experiences_section.dart';
+import 'package:BookiTrip/widgets/gallery_section.dart';
+import 'package:BookiTrip/widgets/horizental_list_view.dart';
+import 'package:BookiTrip/widgets/reservation_searchbar.dart';
+import 'package:BookiTrip/widgets/search_bar.dart';
+import 'package:BookiTrip/widgets/section_title.dart';
+import 'package:BookiTrip/widgets/skeleton_cards/circuit_card_skeleton.dart';
+import 'package:BookiTrip/widgets/skeleton_cards/destination_card_skeleton.dart';
+import 'package:BookiTrip/widgets/skeleton_cards/event_card_skeleton.dart';
+import 'package:BookiTrip/widgets/video_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:TunisiaBook/providers/destination_provider.dart';
-import 'package:TunisiaBook/providers/event_provider.dart';
-import 'package:TunisiaBook/providers/voyage_provider.dart';
-
-final List<Map<String, dynamic>> experiencesReels = [
-  {
-    "title": "Adventure",
-    "preview_image": "assets/images/djerba.jpg",
-    "segments": [
-      {"type": "image", "url": "assets/images/event1.jpg"},
-      {"type": "image", "url": "assets/images/event4.jpg"},
-    ],
-  },
-  {
-    "title": "Kairouan Vibes",
-    "preview_image": "assets/images/carthage.jpg",
-    "segments": [
-      {"type": "image", "url": "assets/images/circuit1.jpg"},
-      {"type": "image", "url": "assets/images/circuit2.jpg"},
-      {"type": "image", "url": "assets/images/circuit3.jpg"},
-    ],
-  },
-  {
-    "title": "Local Food",
-    "preview_image": "assets/images/sidibou.jpg",
-    "segments": [
-      {"type": "image", "url": "assets/images/tozeur.jpg"},
-      {"type": "image", "url": "assets/images/sousse.jpg"},
-      {"type": "image", "url": "assets/images/event2.jpg"},
-    ],
-  },
-  {
-    "title": "Desert Trip",
-    "preview_image": "assets/images/event2.jpg",
-    "segments": [
-      {"type": "image", "url": "assets/images/bizerte.jpg"},
-      {"type": "image", "url": "assets/images/event3.jpg"},
-    ],
-  },
-  {
-    "title": "Beach Day",
-    "preview_image": "assets/images/tozeur.jpg",
-    "segments": [
-      {"type": "image", "url": "assets/images/sousse.jpg"},
-    ],
-  },
-  {
-    "title": "Museums",
-    "preview_image": "assets/images/event3.jpg",
-    "segments": [
-      {"type": "image", "url": "assets/images/sidibou.jpg"},
-      {"type": "image", "url": "assets/images/tozeur.jpg"},
-      {"type": "image", "url": "assets/images/circuit2.jpg"},
-    ],
-  },
-];
+import 'package:BookiTrip/providers/destination_provider.dart';
+import 'package:BookiTrip/providers/event_provider.dart';
+import 'package:BookiTrip/providers/voyage_provider.dart';
 
 final List<String> galleryImages = [
   "assets/images/bizerte.jpg",
@@ -136,26 +83,25 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _toggleDrawer,
             ),
             title: SizedBox(
-              height: 65,
+              height: 40,
               child: Image.asset(
-                'assets/images/tb_banner.png',
+                'assets/images/logo_bookitrip.png',
                 fit: BoxFit.contain,
               ),
             ),
             centerTitle: true,
-            actions: [
+            /*actions: [
               GestureDetector(
-                child: Image.asset(
-                  'assets/images/flagtn.png',
-                  width: 33,
-                  height: 33,
-                  fit: BoxFit.contain,
+                child: Icon(
+                  Icons.account_circle,
+                  color: theme.primary,
+                  size: 28,
                 ),
               ),
               const SizedBox(
                 width: 15,
-              ), // Increased slightly for better spacing/ Increased slightly for better spacing
-            ],
+              ),
+            ],*/
           ),
 
           // CONTENT
@@ -168,12 +114,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   SearchBarWidget(theme: theme),
                   const SizedBox(height: 20),
 
-                  ExperiencesReelSection(theme: theme),
-                  const SizedBox(height: 20),
 
+
+                  //ExperiencesReelSection(theme: theme),
                   VideoBanner(theme: theme),
                   const SizedBox(height: 20),
-
                   CategoryRowWidget(
                     theme: theme,
                     onDestinationsTap: () => context.go('/destinations'),
@@ -182,6 +127,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     onCircuitsTap: () => context.go('/circuits'),
                     onChatBotTap: () => context.go('/chatbot'),
                   ),
+                  const SizedBox(height: 20),
+
+                  SectionTitleWidget(
+                    title: 'home.categories.plan_and_book'.tr(),
+                    theme: theme,
+                    showMore: false,
+                    onTap: () => context.go('/destinations'),
+                  ),
+                  const SizedBox(height: 10),
+
+                  ReservationSearchWidget(),
                   const SizedBox(height: 20),
 
                   /// ================= DESTINATIONS =================
@@ -257,9 +213,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         final voyage = voyageProvider.voyages[index];
                         final circuit = voyageToCircuitCardData(voyage, locale);
                         return GestureDetector(
-                          onTap: () => context.push(
-                            '/circuit-details/${voyage.id}',
-                            extra: {'circuit': voyage},
+                          onTap: () => context.pushNamed(
+                            'circuitDetails',
+                            extra: voyage,
                           ),
                           child: CircuitCardWidget(
                             theme: theme,

@@ -1,9 +1,9 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/activity_provider.dart';
-import 'package:TunisiaBook/providers/destination_provider.dart';
-import 'package:TunisiaBook/providers/guestHouse_provider.dart';
-import 'package:TunisiaBook/providers/hotel_provider.dart';
-import 'package:TunisiaBook/providers/restaurant_provider.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/activity_provider.dart';
+import 'package:BookiTrip/providers/destination_provider.dart';
+import 'package:BookiTrip/providers/guestHouse_provider.dart';
+import 'package:BookiTrip/providers/hotel_provider.dart';
+import 'package:BookiTrip/providers/restaurant_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -81,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen>
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeProvider>(context).currentTheme;
     return Scaffold(
-      backgroundColor: theme.secondary,
+      backgroundColor: theme.background,
       body: Center(
         child: AnimatedBuilder(
           animation: _controller,
@@ -94,9 +94,9 @@ class _SplashScreenState extends State<SplashScreen>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset(
-                      'assets/images/TunisiaBook.png',
+                      'assets/images/logo_bookitrip.png',
                       fit: BoxFit.contain,
-                      height: 130,
+                      height: 110,
                     ),
                   ],
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 class Musees {
   final String id;
@@ -208,44 +209,15 @@ class Musees {
     );
   }
 
-  String getName(Locale Locale) {
-    switch (Locale.languageCode) {
-      case 'en':
-        return nameEn.isNotEmpty ? nameEn : name;
-      case 'ar':
-        return nameAr.isNotEmpty ? nameAr : name;
-      case 'ru':
-        return nameRu.isNotEmpty ? nameRu : name;
-      case 'ja':
-        return nameJa.isNotEmpty ? nameJa : name;
-      case 'zh':
-        return nameZh.isNotEmpty ? nameZh : name;
-      case 'ko':
-        return nameKo.isNotEmpty ? nameKo : name;
-      default:
-        return name;
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
-    }
-  }
-
-  String getDescription(Locale Locale) {
-    switch (Locale.languageCode) {
-      case 'en':
-        return descriptionEn.isNotEmpty ? descriptionEn : description;
-      case 'ar':
-        return descriptionAr.isNotEmpty ? descriptionAr : description;
-      case 'ru':
-        return descriptionRu.isNotEmpty ? descriptionRu : description;
-      case 'ja':
-        return descriptionJa.isNotEmpty ? descriptionJa : description;
-      case 'zh':
-        return descriptionZh.isNotEmpty ? descriptionZh : description;
-      case 'ko':
-        return descriptionKo.isNotEmpty ? descriptionKo : description;
-      default:
-        return description;
-    }
-  }
+  String getDescription(Locale locale) => localizedValue(locale, description, {
+        'en': descriptionEn, 'ar': descriptionAr, 'ru': descriptionRu,
+        'zh': descriptionZh, 'ko': descriptionKo, 'ja': descriptionJa,
+      });
 
   List<String> getAVoir(Locale Locale) {
     switch (Locale.languageCode) {
@@ -266,59 +238,18 @@ class Musees {
     }
   }
 
-  String getObservations(Locale Locale) {
-    switch (Locale.languageCode) {
-      case 'en':
-        return observationsEn.isNotEmpty ? observationsEn : observations;
-      case 'ar':
-        return observationsAr.isNotEmpty ? observationsAr : observations;
-      case 'ru':
-        return observationsRu.isNotEmpty ? observationsRu : observations;
-      case 'ja':
-        return observationsJa.isNotEmpty ? observationsJa : observations;
-      case 'zh':
-        return observationsZh.isNotEmpty ? observationsZh : observations;
-      case 'ko':
-        return observationsKo.isNotEmpty ? observationsKo : observations;
-      default:
-        return observations;
-    }
-  }
-  String getSituation(Locale Locale) {
-    switch (Locale.languageCode) {
-      case 'en':
-        return situationEn.isNotEmpty ? situationEn : situation;
-      case 'ar':
-        return situationAr.isNotEmpty ? situationAr : situation;
-      case 'ru':
-        return situationRu.isNotEmpty ? situationRu : situation;
-      case 'ja':
-        return situationJa.isNotEmpty ? situationJa : situation;
-      case 'zh':
-        return situationZh.isNotEmpty ? situationZh : situation;
-      case 'ko':
-        return situationKo.isNotEmpty ? situationKo : situation;
-      default:
-        return situation;
-    }
-  }
+  String getObservations(Locale locale) => localizedValue(locale, observations, {
+        'en': observationsEn, 'ar': observationsAr, 'ru': observationsRu,
+        'zh': observationsZh, 'ko': observationsKo, 'ja': observationsJa,
+      });
 
-  String getEntryFee(Locale Locale) {
-    switch (Locale.languageCode) {
-      case 'en':
-        return droitsEntreeEn ?? droitsEntree;
-      case 'ar':
-        return droitsEntreeAr ?? droitsEntree;
-      case 'ru':
-        return droitsEntreeRu ?? droitsEntree;
-      case 'ja':
-        return droitsEntreeJa ?? droitsEntree;
-      case 'zh':
-        return droitsEntreeZh ?? droitsEntree;
-      case 'ko':
-        return droitsEntreeKo ?? droitsEntree;
-      default:
-        return droitsEntree;
-    }
-  }
+  String getSituation(Locale locale) => localizedValue(locale, situation, {
+        'en': situationEn, 'ar': situationAr, 'ru': situationRu,
+        'zh': situationZh, 'ko': situationKo, 'ja': situationJa,
+      });
+
+  String getEntryFee(Locale locale) => localizedValue(locale, droitsEntree, {
+        'en': droitsEntreeEn, 'ar': droitsEntreeAr, 'ru': droitsEntreeRu,
+        'zh': droitsEntreeZh, 'ko': droitsEntreeKo, 'ja': droitsEntreeJa,
+      });
 }

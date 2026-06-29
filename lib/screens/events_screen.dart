@@ -1,11 +1,11 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/providers/event_provider.dart';
-import 'package:TunisiaBook/screens/eventDetails_screen.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/widgets/event_card.dart';
-import 'package:TunisiaBook/widgets/hotels/filters/filter_section.dart';
-import 'package:TunisiaBook/widgets/hotels/hotel_searchbar.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/providers/event_provider.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/widgets/event_card.dart';
+import 'package:BookiTrip/widgets/hotels/filters/filter_section.dart';
+import 'package:BookiTrip/widgets/hotels/hotel_searchbar.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -103,7 +103,7 @@ class _EventsScreenState extends State<EventsScreen> {
                       Text(
                         'activities.results'.tr(namedArgs: {'count': events.length.toString()}),
                         style: TextStyle(
-                          color: theme.text.withOpacity(0.6),
+                          color: theme.text.withValues(alpha: 0.6),
                           fontWeight: FontWeight.w300,
                           fontSize: 16,
                         ),
@@ -122,23 +122,33 @@ class _EventsScreenState extends State<EventsScreen> {
                             Icon(
                               Icons.event_busy,
                               size: 64,
-                              color: theme.text.withOpacity(0.3),
+                              color: theme.text.withValues(alpha: 0.3),
                             ),
                             const SizedBox(height: 16),
                             Text(
                               'common.check_connection'.tr(),
                               style: TextStyle(
-                                color: theme.text.withOpacity(0.6),
+                                color: theme.text.withValues(alpha: 0.6),
                                 fontSize: 16,
                               ),
                             ),
-                            if (provider.searchQuery.isNotEmpty) ...[
+                             if (provider.searchQuery.isNotEmpty) ...[
                               const SizedBox(height: 8),
                               TextButton(
                                 onPressed: () => provider.clearSearch(),
                                 child: Text(
                                   'activities.clear_search'.tr(),
                                   style: TextStyle(color: theme.primary),
+                                ),
+                              ),
+                            ] else ...[
+                              const SizedBox(height: 16),
+                              TextButton.icon(
+                                onPressed: () => provider.fetchEvents(),
+                                icon: Icon(Icons.refresh_rounded, color: theme.primary),
+                                label: Text(
+                                  'common.retry'.tr(),
+                                  style: TextStyle(color: theme.primary, fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ],
@@ -165,14 +175,7 @@ class _EventsScreenState extends State<EventsScreen> {
                             imgUrl: event.cover ?? "",
                             date: event.startDate ?? "",
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EventDetailsScreen(
-                                    event: event,
-                                  ),
-                                ),
-                              );
+                              context.pushNamed('eventDetails', extra: event);
                             },
                           ),
                         );

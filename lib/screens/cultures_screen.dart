@@ -1,14 +1,10 @@
 import 'dart:async';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/screens/home_screen.dart';
-import 'package:TunisiaBook/screens/mainScreen_container.dart';
-import 'package:TunisiaBook/screens/monument_screen.dart';
-import 'package:TunisiaBook/screens/musee_screen.dart';
-import 'package:TunisiaBook/screens/festival_screen.dart';
-import 'package:TunisiaBook/screens/artisanat_screen.dart';
-import 'package:TunisiaBook/widgets/cultures/historyTimelineSection.dart';
-import 'package:TunisiaBook/widgets/experiences_section.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/screens/mainScreen_container.dart';
+import 'package:BookiTrip/widgets/cultures/historyTimelineSection.dart';
+import 'package:BookiTrip/widgets/experiences_section.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'dart:math' as math;
@@ -60,11 +56,11 @@ class _CulturesScreenState extends State<CulturesScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.all(15.0),
               child: ExperiencesReelSection(theme: theme),
             ),
-
+*/
             const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -277,28 +273,20 @@ class _Circular3DCarouselState extends State<Circular3DCarousel>
 
   void _navigateToScreen(int index) {
     final categoryKey = widget.categories[index]['key'];
-    Widget? screen;
 
     switch (categoryKey) {
       case 'Monuments':
-        screen = const MonumentScreen();
+        context.pushNamed('monuments');
         break;
       case 'Musées':
-        screen = const MuseeScreen();
+        context.pushNamed('museums');
         break;
       case 'Festival':
-        screen = FestivalScreen();
+        context.pushNamed('festivals');
         break;
       case 'Artisanat':
-        screen = const ArtisanatScreen();
+        context.pushNamed('artisanat');
         break;
-    }
-
-    if (screen != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => screen!),
-      );
     }
   }
 
@@ -342,7 +330,7 @@ class _Circular3DCarouselState extends State<Circular3DCarousel>
                     decoration: BoxDecoration(
                       color: _selectedIndex == index
                           ? widget.theme.primary
-                          : Colors.grey.withOpacity(0.3),
+                          : Colors.grey.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(4),
                     ),
                   ),
@@ -368,7 +356,6 @@ class _Circular3DCarouselState extends State<Circular3DCarousel>
 
       final scale = 0.5 + (0.5 * ((z + _radius) / (2 * _radius)));
       final clampedScale = scale.clamp(0.5, 1.0);
-
       final opacity = (z > 0.1 ? 1.0 : 0.6) * clampedScale;
 
       items.add(_CarouselItemData(
@@ -414,7 +401,7 @@ class _Circular3DCarouselState extends State<Circular3DCarousel>
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.5 * opacity.clamp(0.0, 1.0)),
+            color: Colors.black.withValues(alpha: 0.5 * opacity.clamp(0.0, 1.0)),
             blurRadius: 15,
             offset: const Offset(0, 8),
           ),
@@ -427,7 +414,7 @@ class _Circular3DCarouselState extends State<Circular3DCarousel>
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter,
             colors: [
-              Colors.black.withOpacity(0.6),
+              Colors.black.withValues(alpha: 0.6),
               Colors.transparent,
             ],
           ),

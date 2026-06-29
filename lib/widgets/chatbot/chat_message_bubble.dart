@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/chat_message.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/chat_message.dart';
 import 'package:provider/provider.dart';
 
 class ChatMessageBubble extends StatelessWidget {
@@ -30,7 +30,7 @@ class ChatMessageBubble extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     theme.primary,
-                    theme.primary.withOpacity(0.8),
+                    theme.primary.withValues(alpha: 0.8),
                   ],
                 ),
                 shape: BoxShape.circle,
@@ -56,7 +56,7 @@ class ChatMessageBubble extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
                   ),
@@ -78,8 +78,8 @@ class ChatMessageBubble extends StatelessWidget {
                     _formatTime(message.timestamp),
                     style: TextStyle(
                       color: message.isUser
-                          ? Colors.white.withOpacity(0.7)
-                          : theme.text.withOpacity(0.5),
+                          ? Colors.white.withValues(alpha: 0.7)
+                          : theme.text.withValues(alpha: 0.5),
                       fontSize: 11,
                     ),
                   ),
@@ -93,7 +93,7 @@ class ChatMessageBubble extends StatelessWidget {
               width: 32,
               height: 32,
               decoration: BoxDecoration(
-                color: theme.primary.withOpacity(0.2),
+                color: theme.primary.withValues(alpha: 0.2),
                 shape: BoxShape.circle,
               ),
               child: Icon(

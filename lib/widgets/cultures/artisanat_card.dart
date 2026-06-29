@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class ArtisanatCardWidget extends StatelessWidget {
   final AppTheme theme;
@@ -26,7 +26,7 @@ class ArtisanatCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),
@@ -43,14 +43,14 @@ class ArtisanatCardWidget extends StatelessWidget {
                 fit: BoxFit.cover,
                 placeholder: (context, url) => Container(
                   height: 200,
-                  color: theme.primary.withOpacity(0.1),
+                  color: theme.primary.withValues(alpha: 0.1),
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),
                 errorWidget: (context, url, error) => Container(
                   height: 200,
-                  color: theme.primary.withOpacity(0.1),
+                  color: theme.primary.withValues(alpha: 0.1),
                   child: const Icon(Icons.broken_image, size: 50),
                 ),
               ),
@@ -63,7 +63,7 @@ class ArtisanatCardWidget extends StatelessWidget {
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      theme.primary.withOpacity(0.7),
+                      theme.primary.withValues(alpha: 0.7),
                     ],
                   ),
                 ),

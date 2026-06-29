@@ -1,10 +1,10 @@
-import 'package:TunisiaBook/providers/destination_provider.dart';
-import 'package:TunisiaBook/providers/hotel_provider.dart';
-import 'package:TunisiaBook/providers/guestHouse_provider.dart';
-import 'package:TunisiaBook/providers/restaurant_provider.dart';
+import 'package:BookiTrip/providers/destination_provider.dart';
+import 'package:BookiTrip/providers/hotel_provider.dart';
+import 'package:BookiTrip/providers/guestHouse_provider.dart';
+import 'package:BookiTrip/providers/restaurant_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 import 'custom_filter_dropdown.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -49,7 +49,6 @@ class FilterSection extends StatelessWidget {
     }
   }
 
-  // Helper methods remain the same to keep your logic intact
   Map<String, dynamic> _getProviderFilters(dynamic provider) {
     if (provider is HotelProvider) {
       return {'stars': provider.selectedStars, 'destination': provider.selectedDestination, 'clear': provider.clearFilters};
@@ -88,31 +87,29 @@ class FilterSection extends StatelessWidget {
 
     final VoidCallback? clearFilters = filters['clear'] as VoidCallback?;
 
-    // Label Logic
     final String primaryLabel = isHotel
         ? (currentStarsOrForks != null ? "$currentStarsOrForks ${currentStarsOrForks > 1 ? 'filters.stars'.tr() : 'filters.star'.tr()}" : 'filters.stars'.tr())
-        : (isRestaurant ? (currentStarsOrForks != null ? "$currentStarsOrForks ${currentStarsOrForks > 1 ? 'filters.forks'.tr() : 'filters.fork'.tr()}" : 'filters.forks'.tr()) : 'filters.filter'.tr());
+        : 'filters.filter'.tr();
 
-    final IconData visualRatingIcon = isHotel ? Icons.star : (isRestaurant ? Icons.restaurant_menu : Icons.filter_list);
+    final IconData visualRatingIcon = isHotel ? Icons.star : Icons.filter_list;
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Use Wrap for responsiveness
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Wrap(
             alignment: WrapAlignment.center,
             crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: 12.0, // Horizontal space between items
-            runSpacing: 12.0, // Vertical space when items wrap
+            spacing: 12.0,
+            runSpacing: 12.0,
             children: [
-              if (isHotel || isRestaurant)
+              if (isHotel)
                 ConstrainedBox(
                   constraints: BoxConstraints(minWidth: 120, maxWidth: constraints.maxWidth * 0.45),
                   child: CustomFilterDropdown(
                     theme: theme,
                     label: primaryLabel,
-                    icon: isHotel ? Icons.star_border : Icons.restaurant_menu,
+                    icon: Icons.star_border,
                     options: ratingFilters.map((count) => Row(
                       mainAxisSize: MainAxisSize.min,
                       children: List.generate(count, (_) => Icon(visualRatingIcon, color: Colors.amber, size: 16)),
@@ -151,4 +148,3 @@ class FilterSection extends StatelessWidget {
     );
   }
 }
-

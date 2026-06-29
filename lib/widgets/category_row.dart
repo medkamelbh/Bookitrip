@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class CategoryRowWidget extends StatefulWidget {
   final AppTheme theme;
@@ -157,7 +157,7 @@ class _CategoryRowWidgetState extends State<CategoryRowWidget>
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: isSpecial ? widget.theme.primary : widget.theme.text.withOpacity(0.7),
+                        color: isSpecial ? widget.theme.primary : widget.theme.text.withValues(alpha: 0.7),
                         fontSize: (availableWidth * 0.028).clamp(10.0, 12.0),
                         fontWeight: isSpecial ? FontWeight.bold : FontWeight.w500,
                       ),
@@ -187,14 +187,14 @@ class _CategoryRowWidgetState extends State<CategoryRowWidget>
                 width: size,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [widget.theme.primary, widget.theme.primary.withOpacity(0.8)],
+                    colors: [widget.theme.primary, widget.theme.primary.withValues(alpha: 0.8)],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                   borderRadius: BorderRadius.circular(size * 0.3),
                   boxShadow: [
                     BoxShadow(
-                      color: widget.theme.primary.withOpacity(0.4),
+                      color: widget.theme.primary.withValues(alpha: 0.4),
                       blurRadius: _glowAnimation.value,
                       offset: const Offset(0, 4),
                     ),
@@ -244,7 +244,7 @@ class _CategoryRowWidgetState extends State<CategoryRowWidget>
         borderRadius: BorderRadius.circular(size * 0.3),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),

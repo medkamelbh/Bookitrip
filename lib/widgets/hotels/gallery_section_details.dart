@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class GallerySection extends StatelessWidget {
   final AppTheme theme;
@@ -48,7 +48,7 @@ class GallerySection extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Colors.black.withValues(alpha: 0.1),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
@@ -60,7 +60,7 @@ class GallerySection extends StatelessWidget {
                       imageUrl: galleryImages[index],
                       fit: BoxFit.cover,
                       placeholder: (context, url) => Container(
-                        color: theme.primary.withOpacity(0.1),
+                        color: theme.primary.withValues(alpha: 0.1),
                         child: Center(
                           child: CircularProgressIndicator(
                             color: theme.primary,
@@ -69,10 +69,10 @@ class GallerySection extends StatelessWidget {
                         ),
                       ),
                       errorWidget: (context, url, error) => Container(
-                        color: theme.primary.withOpacity(0.1),
+                        color: theme.primary.withValues(alpha: 0.1),
                         child: Icon(
                           Icons.broken_image,
-                          color: theme.text.withOpacity(0.5),
+                          color: theme.text.withValues(alpha: 0.5),
                         ),
                       ),
                     ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 // --- REUSABLE ANIMATED SKELETON WIDGET (Shimmer Effect) ---
 class SkeletonBox extends StatefulWidget {
@@ -36,8 +36,8 @@ class _SkeletonBoxState extends State<SkeletonBox>
     )..repeat(reverse: true);
 
     // Define the color range for the pulsing effect
-    final Color startColor = widget.theme.text.withOpacity(0.2);
-    final Color endColor = widget.theme.text.withOpacity(0.08);
+    final Color startColor = widget.theme.text.withValues(alpha: 0.2);
+    final Color endColor = widget.theme.text.withValues(alpha: 0.08);
 
     _animation = ColorTween(
       begin: startColor,

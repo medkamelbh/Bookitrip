@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../utils/localized_field.dart';
 
 import 'destination.dart';
 
@@ -136,79 +137,25 @@ class Monument {
       'destination': destination,
     };
   }
-  String getName(Locale Locale){
-    switch (Locale.languageCode){
-      case 'ar':
-        return nameAr!;
-      case 'en':
-        return nameEn!;
-      case 'ru':
-        return nameRu!;
-      case 'ja':
-        return nameJa!;
-      case 'ko':
-        return nameKo!;
-      case 'zh':
-        return nameZh!;
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': nameEn, 'ar': nameAr, 'ru': nameRu,
+        'zh': nameZh, 'ko': nameKo, 'ja': nameJa,
+      });
 
-  String getDescription(Locale Locale){
-    switch (Locale.languageCode){
-      case 'ar':
-        return descriptionAr!;
-      case 'en':
-        return descriptionEn!;
-      case 'ru':
-        return descriptionRu!;
-      case 'ja':
-        return descriptionJa!;
-      case 'ko':
-        return descriptionKo!;
-      case 'zh':
-        return descriptionZh!;
-      default:
-        return description;
-    }
-  }
-  String getCategories(Locale Locale){
-    switch (Locale.languageCode){
-      case 'ar':
-        return categoriesAr!;
-      case 'en':
-        return categoriesEn!;
-      case 'ru':
-        return categoriesRu!;
-      case 'ja':
-        return categoriesJa!;
-      case 'ko':
-        return categoriesKo!;
-      case 'zh':
-        return categoriesZh!;
-      default:
-        return categories;
-    }
-  }
-  String getDestinationName(Locale Locale){
-    switch (Locale.languageCode){
-      case 'ar':
-        return destinationAr!.name;
-      case 'en':
-        return destinationEn!.name;
-      case 'ru':
-        return destinationRu!.name;
-      case 'ja':
-        return destinationJa!.name;
-      case 'ko':
-        return destinationKo!.name;
-      case 'zh':
-        return destinationZh!.name;
-      default:
-        return destination.name;
-    }
-  }
+  String getDescription(Locale locale) => localizedValue(locale, description, {
+        'en': descriptionEn, 'ar': descriptionAr, 'ru': descriptionRu,
+        'zh': descriptionZh, 'ko': descriptionKo, 'ja': descriptionJa,
+      });
+
+  String getCategories(Locale locale) => localizedValue(locale, categories, {
+        'en': categoriesEn, 'ar': categoriesAr, 'ru': categoriesRu,
+        'zh': categoriesZh, 'ko': categoriesKo, 'ja': categoriesJa,
+      });
+
+  String getDestinationName(Locale locale) => localizedValue(locale, destination.name, {
+        'en': destinationEn?.name, 'ar': destinationAr?.name, 'ru': destinationRu?.name,
+        'zh': destinationZh?.name, 'ko': destinationKo?.name, 'ja': destinationJa?.name,
+      });
 }
 
 List<Monument> parseMonuments(String responseBody) {

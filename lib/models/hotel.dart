@@ -1,4 +1,5 @@
 import 'dart:ui';
+import '../utils/localized_field.dart';
 
 class Hotel {
   final String id;
@@ -190,78 +191,23 @@ class Hotel {
 
     };
   }
-  String getName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return name_ar.isNotEmpty ? name_ar : name;
-      case 'en':
-        return name_en.isNotEmpty ? name_en : name;
-      case 'ru':
-        return name_ru.isNotEmpty ? name_ru : name;
-      case 'ko':
-        return name_ko.isNotEmpty ? name_ko : name;
-      case 'zh':
-        return name_zh.isNotEmpty ? name_zh : name;
-      case 'ja':
-        return name_ja.isNotEmpty ? name_ja : name;
-      default:
-        return name;
-    }
-  }
+  String getName(Locale locale) => localizedValue(locale, name, {
+        'en': name_en, 'ar': name_ar, 'ru': name_ru,
+        'zh': name_zh, 'ko': name_ko, 'ja': name_ja,
+      });
 
-  String? getDescription(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return description_ar!.isNotEmpty ? description_ar : description;
-      case 'en':
-        return description_en!.isNotEmpty ? description_en : description;
-      case 'ru':
-        return description_ru!.isNotEmpty ? description_ru : description;
-      case 'ko':
-        return description_ko!.isNotEmpty ? description_ko : description;
-      case 'ja':
-        return description_ja!.isNotEmpty ? description_ja : description;
-      case 'zh':
-        return description_zh!.isNotEmpty ? description_zh : description;
-      default:
-        return description;
-    }
-  }
-  String? getAddress(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return address_ar!.isNotEmpty ? address_ar : address;
-      case 'en':
-        return address_en!.isNotEmpty ? address_en : address;
-      case 'ru':
-        return address_ru!.isNotEmpty ? address_ru : address;
-      case 'ko':
-        return address_ko!.isNotEmpty ? address_ko : address;
-      case 'ja':
-        return address_ja!.isNotEmpty ? address_ja : address;
-      case 'zh':
-        return address_zh!.isNotEmpty ? address_zh : address;
-      default:
-        return address;
-    }
-  }
+  String? getDescription(Locale locale) => localizedValueNullable(locale, description, {
+        'en': description_en, 'ar': description_ar, 'ru': description_ru,
+        'zh': description_zh, 'ko': description_ko, 'ja': description_ja,
+      });
 
-  String? getDestinationName(Locale locale) {
-    switch (locale.languageCode) {
-      case 'ar':
-        return destinationNameAR!.isNotEmpty ? destinationNameAR : destinationName;
-      case 'en':
-        return destinationNameEn!.isNotEmpty ? destinationNameEn : destinationName;
-      case 'ru':
-        return destinationNameRU!.isNotEmpty ? destinationNameRU : destinationName;
-      case 'ko':
-        return destinationNameKO!.isNotEmpty ? destinationNameKO : destinationName;
-      case 'ja':
-        return destinationNameJA!.isNotEmpty ? destinationNameJA : destinationName;
-      case 'zh':
-        return destinationNameZH!.isNotEmpty ? destinationNameZH : destinationName;
-      default:
-        return destinationName;
-    }
-  }
+  String? getAddress(Locale locale) => localizedValueNullable(locale, address, {
+        'en': address_en, 'ar': address_ar, 'ru': address_ru,
+        'zh': address_zh, 'ko': address_ko, 'ja': address_ja,
+      });
+
+  String? getDestinationName(Locale locale) => localizedValueNullable(locale, destinationName, {
+        'en': destinationNameEn, 'ar': destinationNameAR, 'ru': destinationNameRU,
+        'zh': destinationNameZH, 'ko': destinationNameKO, 'ja': destinationNameJA,
+      });
 }

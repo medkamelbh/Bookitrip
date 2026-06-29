@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class DataFetchStatusWidget extends StatelessWidget {
   final AppTheme theme;
@@ -43,8 +44,8 @@ class DataFetchStatusWidget extends StatelessWidget {
 
             Text(
               hasError
-                  ? "Erreur de connexion"
-                  : "Données indisponibles",
+                  ? "common.connection_error".tr()
+                  : "common.data_unavailable".tr(),
               style: TextStyle(
                 color: theme.text,
                 fontSize: 18,
@@ -57,11 +58,11 @@ class DataFetchStatusWidget extends StatelessWidget {
             Text(
               hasError
                   ? (errorMessage ??
-                  "Une erreur est survenue lors du chargement.")
+                  "common.loading_error".tr())
                   : emptyMessage,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: theme.text.withOpacity(0.7),
+                color: theme.text.withValues(alpha: 0.7),
               ),
             ),
 
@@ -70,7 +71,7 @@ class DataFetchStatusWidget extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh),
-              label: const Text("Réessayer"),
+              label: Text('common.retry'.tr()),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.primary,
                 foregroundColor: Colors.white,

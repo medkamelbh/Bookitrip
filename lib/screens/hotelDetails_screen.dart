@@ -1,17 +1,20 @@
 import 'dart:async';
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/hotel.dart';
-import 'package:TunisiaBook/providers/hotel_provider.dart';
-import 'package:TunisiaBook/utils/open_googlemaps.dart';
-import 'package:TunisiaBook/widgets/InfoRaw.dart';
-import 'package:TunisiaBook/widgets/MediaPlayerStack.dart';
-import 'package:TunisiaBook/widgets/descriptionWithTTS.dart';
-import 'package:TunisiaBook/widgets/hotels/contact_section.dart';
-import 'package:TunisiaBook/widgets/hotels/detail_action_button.dart';
-import 'package:TunisiaBook/widgets/hotels/facility_item.dart';
-import 'package:TunisiaBook/widgets/hotels/gallery_section_details.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/hotel.dart';
+import 'package:BookiTrip/providers/availability_provider.dart';
+import 'package:BookiTrip/providers/hotel_provider.dart';
+import 'package:BookiTrip/utils/open_googlemaps.dart';
+import 'package:BookiTrip/widgets/InfoRaw.dart';
+import 'package:BookiTrip/widgets/MediaPlayerStack.dart';
+import 'package:BookiTrip/widgets/availability/availability_search_modal.dart';
+import 'package:BookiTrip/widgets/descriptionWithTTS.dart';
+import 'package:BookiTrip/widgets/hotels/contact_section.dart';
+import 'package:BookiTrip/widgets/hotels/detail_action_button.dart';
+import 'package:BookiTrip/widgets/hotels/facility_item.dart';
+import 'package:BookiTrip/widgets/hotels/gallery_section_details.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:video_player/video_player.dart';
@@ -113,6 +116,64 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
           });
         }
       });
+  }
+
+  void _onCheckAvailability(AppTheme theme) {
+    AvailabilitySearchModal.show(
+      context: context,
+      theme: theme,
+      hotelId: widget.hotel.id,
+      hotelSlug: widget.hotel.slug,
+      onSearch: (params) async {
+        BuildContext? loadingContext;
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (ctx) {
+            loadingContext = ctx;
+            return Center(
+              child: CircularProgressIndicator(color: theme.primary),
+            );
+          },
+        );
+        
+        final provider = Provider.of<AvailabilityProvider>(context, listen: false);
+        await provider.getHotelAvailability(params);
+        
+        if (loadingContext != null && loadingContext!.mounted) {
+          Navigator.pop(loadingContext!); // Close loading dialog safely
+        }
+        
+        if (context.mounted) {
+          if (provider.hasSingleResult) {
+            final result = provider.singleResult!;
+            if (result.isAvailable) {
+              final hotelProvider = Provider.of<HotelProvider>(context, listen: false);
+              
+              context.pushNamed('reservation', extra: {
+                'result': result,
+                'params': params,
+                'hotelDetails': hotelProvider.selectedHotel,
+              });
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("L'hôtel n'est pas disponible pour ces dates."),
+                  behavior: SnackBarBehavior.floating,
+                ),
+              );
+            }
+          } else if (provider.error != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(provider.error!),
+                behavior: SnackBarBehavior.floating,
+              ),
+            );
+          }
+        }
+      },
+    );
   }
 
   @override
@@ -224,6 +285,9 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
 
     return Scaffold(
       backgroundColor: theme.background,
+      bottomNavigationBar: widget.hotel.reservable
+          ? _buildAvailabilityButton(theme)
+          : null,
       body: Consumer<HotelProvider>(
         builder: (context, hotelProvider, _) {
           if (_isLoading || hotelProvider.isLoadingDetail) {
@@ -239,7 +303,7 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                   Icon(
                     Icons.error_outline,
                     size: Responsive.scale(context, 60),
-                    color: theme.text.withOpacity(0.5),
+                    color: theme.text.withValues(alpha: 0.5),
                   ),
                   SizedBox(height: Responsive.scale(context, 16)),
                   Text(
@@ -467,6 +531,43 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
             ],
           );
         },
+      ),
+    );
+  }
+
+  Widget _buildAvailabilityButton(AppTheme theme) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
+      decoration: BoxDecoration(
+        color: theme.background,
+        boxShadow: [
+          BoxShadow(
+            color: (theme.shadow ?? Colors.black).withOpacity(0.08),
+            blurRadius: 16,
+            offset: const Offset(0, -4),
+          ),
+        ],
+      ),
+      child: ElevatedButton.icon(
+        onPressed: () => _onCheckAvailability(theme),
+        icon: const Icon(Icons.calendar_month_rounded, size: 20),
+        label: Text(
+          'Vérifier la disponibilité',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 0.3,
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: theme.primary,
+          foregroundColor: Colors.white,
+          minimumSize: const Size(double.infinity, 54),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+          elevation: 0,
+        ),
       ),
     );
   }

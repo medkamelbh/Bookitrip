@@ -1,5 +1,5 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/destination.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/destination.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class _HomeDestCardState extends State<HomeDestCard> {
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: Colors.black.withValues(alpha: 0.1),
               blurRadius: 20,
               offset: const Offset(0, 8),
             ),
@@ -68,8 +68,8 @@ class _HomeDestCardState extends State<HomeDestCard> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.black.withOpacity(widget.showText ? 0.35 : 0.5),
-                        Colors.black.withOpacity(widget.showText ? 0.6 : 0.7),
+                        Colors.black.withValues(alpha: widget.showText ? 0.35 : 0.5),
+                        Colors.black.withValues(alpha: widget.showText ? 0.6 : 0.7),
                       ],
                       stops: const [0.3, 1.0],
                     ),
@@ -103,7 +103,7 @@ class _HomeDestCardState extends State<HomeDestCard> {
                                   shadows: [
                                     Shadow(
                                       blurRadius: 4.0,
-                                      color: Colors.white.withOpacity(0.6),
+                                      color: Colors.white.withValues(alpha: 0.6),
                                       offset: Offset(1, 0),
                                     ),
                                   ],
@@ -123,7 +123,7 @@ class _HomeDestCardState extends State<HomeDestCard> {
                                     shadows: [
                                       Shadow(
                                         blurRadius: 4.0,
-                                        color: Colors.white.withOpacity(0.2),
+                                        color: Colors.white.withValues(alpha: 0.2),
                                         offset: Offset(-5, -10),
                                       ),
                                     ],

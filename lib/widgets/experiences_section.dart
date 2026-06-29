@@ -1,14 +1,14 @@
-import 'package:TunisiaBook/widgets/reel_circle.dart';
-import 'package:TunisiaBook/widgets/section_title.dart';
-import 'package:TunisiaBook/widgets/story_viewer.dart';
-import 'package:TunisiaBook/widgets/horizental_list_view.dart';
-import 'package:TunisiaBook/widgets/story_circle_skeleton.dart';
-import 'package:TunisiaBook/widgets/dataFetch_status.dart';
-import 'package:TunisiaBook/providers/story_provider.dart';
+import 'package:BookiTrip/widgets/reel_circle.dart';
+import 'package:BookiTrip/widgets/section_title.dart';
+import 'package:BookiTrip/widgets/story_viewer.dart';
+import 'package:BookiTrip/widgets/horizental_list_view.dart';
+import 'package:BookiTrip/widgets/story_circle_skeleton.dart';
+import 'package:BookiTrip/widgets/dataFetch_status.dart';
+import 'package:BookiTrip/providers/story_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:TunisiaBook/constants/theme.dart';
+import 'package:BookiTrip/constants/theme.dart';
 
 class ExperiencesReelSection extends StatelessWidget {
   final AppTheme theme;

@@ -1,5 +1,5 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/event.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/event.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -153,7 +153,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         Expanded(
           child: Text(
             widget.event.startDate ?? 'details.date_unavailable'.tr(),
-            style: TextStyle(color: theme.text.withOpacity(0.7), fontSize: 14),
+            style: TextStyle(color: theme.text.withValues(alpha: 0.7), fontSize: 14),
           ),
         ),
       ],
@@ -168,7 +168,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
         Expanded(
           child: Text(
             widget.event.getAddress(context.locale) ?? 'details.location_unavailable'.tr(),
-            style: TextStyle(color: theme.text.withOpacity(0.7), fontSize: 14),
+            style: TextStyle(color: theme.text.withValues(alpha: 0.7), fontSize: 14),
           ),
         ),
       ],
@@ -235,7 +235,7 @@ class _DetailActionButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.4),
+          color: Colors.black.withValues(alpha: 0.4),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: Colors.white, size: 24),

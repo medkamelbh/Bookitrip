@@ -1,6 +1,6 @@
-import 'package:TunisiaBook/constants/theme.dart';
-import 'package:TunisiaBook/models/hotel.dart';
-import 'package:TunisiaBook/models/restaurant.dart';
+import 'package:BookiTrip/constants/theme.dart';
+import 'package:BookiTrip/models/hotel.dart';
+import 'package:BookiTrip/models/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -57,7 +57,7 @@ class SearchResultCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 6,
             ),
           ],
@@ -115,7 +115,7 @@ class SearchResultCard extends StatelessWidget {
                       Icon(
                         Icons.location_on,
                         size: 14,
-                        color: theme.text.withOpacity(0.6),
+                        color: theme.text.withValues(alpha: 0.6),
                       ),
                       const SizedBox(width: 4),
                       Expanded(
@@ -124,7 +124,7 @@ class SearchResultCard extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: theme.text.withOpacity(0.6),
+                            color: theme.text.withValues(alpha: 0.6),
                             fontSize: 12,
                           ),
                         ),
