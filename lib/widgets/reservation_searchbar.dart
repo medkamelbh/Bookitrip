@@ -237,7 +237,7 @@ class _ReservationSearchWidgetState extends State<ReservationSearchWidget> {
       ),
     );
   }
-git
+
   // ── Header ────────────────────────────────────────────────────────────────
   Widget _buildHeader(AppTheme theme) {
     return InkWell(
