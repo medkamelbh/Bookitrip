@@ -9,7 +9,6 @@
       "circuits": "الجولات",
       "chatbot": "المساعد\n الذكي",
       "plan_and_book": "خطط واحجز"
-
     },
     "sections": {
       "destinations": "الوجهات",
@@ -40,7 +39,6 @@
     "connection_error": "خطأ في الاتصال",
     "data_unavailable": "البيانات غير متوفرة",
     "loading_error": "حدث خطأ أثناء التحميل."
-
   },
   "drawer": {
     "settings": "الإعدادات",
@@ -58,7 +56,8 @@
     "choose_theme": "اختر السمة",
     "exit_title": "الخروج من التطبيق؟",
     "exit_message": "هل أنت متأكد أنك تريد الخروج من Tunisia Book؟",
-    "exit_confirm": "نعم، الخروج"
+    "exit_confirm": "نعم، الخروج",
+    "vehicles": "المركبات"
   },
   "language": "اللغة",
   "destinations": {
@@ -97,7 +96,6 @@
     "unknown_destination": "وجهة غير معروفة",
     "no_results": "لم يتم العثور على فنادق",
     "try_different_search": "حاول تعديل البحث أو الفلاتر"
-
   },
   "restaurants": {
     "title": "المطاعم",
@@ -263,6 +261,8 @@
     "error_server": "خطأ في الخادم"
   },
   "search": {
+    "reservation_tab": "حجز",
+    "circuit_tab": "جولة",
     "hotels": "الفنادق",
     "restaurants": "المطاعم",
     "transports": "النقل",
@@ -275,7 +275,26 @@
     "transfert": "نقل",
     "taxi": "التاكسي",
     "visit": "زيارة",
-    "choose_circuit_type": "اختر نوع الجولة الخاصة بك"
+    "continue_btn": "متابعة",
+    "car_rental": "تأجير السيارات",
+    "choose_circuit_type": "اختر نوع الجولة الخاصة بك",
+    "transfer_title": "حجز النقل",
+    "transfer_subtitle": "احجز رحلتك ببضع نقرات",
+    "transfer_full_name": "الاسم الكامل",
+    "transfer_email": "البريد الإلكتروني",
+    "transfer_phone": "الهاتف",
+    "transfer_date": "التاريخ",
+    "transfer_time": "الوقت",
+    "transfer_select_date": "تحديد التاريخ",
+    "transfer_select_time": "تحديد الوقت",
+    "transfer_departure": "عنوان المغادرة",
+    "transfer_arrival": "عنوان الوصول",
+    "transfer_confirm": "تأكيد الحجز",
+    "transfer_select_datetime": "يرجى تحديد التاريخ والوقت",
+    "transfer_success": "تم إرسال الحجز بنجاح!",
+    "transfer_persons": "عدد الأشخاص",
+    "transfer_field_required": "هذا الحقل مطلوب",
+    "location_voiture": "تأجير السيارات"
   },
   "availability": {
     "searching": "جارٍ البحث...",
@@ -317,5 +336,48 @@
     "edit_profile": "تعديل الملف الشخصي",
     "change_password": "تغيير كلمة المرور",
     "delete_account": "حذف الحساب"
+  },
+  "vehicles": {
+    "title": "المركبات",
+    "brand": "العلامة التجارية",
+    "model": "الموديل",
+    "registration": "التسجيل",
+    "kilometers": "الكيلومترات",
+    "guarantee": "الضمان",
+    "guarantee_years": "{count} سنوات",
+    "status": "الحالة",
+    "status_active": "متاح",
+    "status_inactive": "غير متاح",
+    "starting_from": "ابتداءً من",
+    "per_day": "/يوم",
+    "reserve": "احجز",
+    "no_vehicles": "لا توجد مركبات متاحة",
+    "no_vehicles_message": "لا توجد مركبات متاحة في الوقت الحالي.",
+    "loading": "جاري تحميل المركبات...",
+    "error_loading": "خطأ في تحميل المركبات",
+    "reservation_title": "حجز المركبة",
+    "reservation_dates": "تواريخ الإيجار",
+    "date_from": "تاريخ البدء",
+    "date_to": "تاريخ الانتهاء",
+    "client_info": "معلومات العميل",
+    "first_name": "الاسم الأول",
+    "last_name": "اللقب",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "cin": "رقم الهوية/جواز السفر",
+    "address": "العنوان",
+    "price_per_day": "السعر في اليوم",
+    "total_price": "السعر الإجمالي",
+    "days_count": "{count} أيام",
+    "submit_reservation": "تأكيد الحجز",
+    "reservation_success": "تم الحجز بنجاح!",
+    "reservation_error": "خطأ في الحجز",
+    "field_required": "هذا الحقل مطلوب",
+    "invalid_email": "بريد إلكتروني غير صالح",
+    "invalid_dates": "التواريخ المحددة غير صالحة",
+    "no_pricing": "الأسعار غير متوفرة لهذه التواريخ",
+    "select_dates": "يرجى تحديد التواريخ",
+    "year": "السنة",
+    "submitting": "جاري الإرسال..."
   }
 }

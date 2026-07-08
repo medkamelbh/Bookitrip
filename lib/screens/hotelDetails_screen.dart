@@ -9,6 +9,7 @@ import 'package:BookiTrip/widgets/MediaPlayerStack.dart';
 import 'package:BookiTrip/widgets/availability/availability_search_modal.dart';
 import 'package:BookiTrip/widgets/descriptionWithTTS.dart';
 import 'package:BookiTrip/widgets/hotels/contact_section.dart';
+import 'package:BookiTrip/widgets/hotels/reviews_section.dart';
 import 'package:BookiTrip/widgets/hotels/detail_action_button.dart';
 import 'package:BookiTrip/widgets/hotels/facility_item.dart';
 import 'package:BookiTrip/widgets/hotels/gallery_section_details.dart';
@@ -20,11 +21,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
-/// Helper class for Responsiveness
 class Responsive {
   static double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 
-  // Scales text and dimensions based on a standard 375px width (iPhone 11/12/13)
   static double scale(BuildContext context, double size) {
     double factor = screenWidth(context) / 375;
     return size * factor.clamp(0.85, 1.3);
@@ -522,6 +521,13 @@ class _HotelDetailsScreenState extends State<HotelDetailsScreen> {
                           email: email,
                           phone: phone,
                           address: address ?? "",
+                        ),
+
+                        SizedBox(height: Responsive.scale(context, 30)),
+
+                        ReviewsSection(
+                          theme: theme,
+                          hotelId: widget.hotel.id,
                         ),
                       ],
                     ),

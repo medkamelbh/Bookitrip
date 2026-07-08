@@ -3,6 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:BookiTrip/models/chat_message.dart';
 import 'package:BookiTrip/constants/theme.dart';
 import 'package:provider/provider.dart';
+import 'chat_data_cards.dart';
 
 class ChatMessagesList extends StatelessWidget {
   final ScrollController scrollController;
@@ -89,7 +90,7 @@ class ChatMessagesList extends StatelessWidget {
               constraints: BoxConstraints(
                 maxWidth: MediaQuery.of(context).size.width * 0.75,
               ),
-              child: message.isMarkdown && !message.isUser
+              child: !message.isUser || message.isMarkdown
                   ? _buildMarkdownWithCards(context, message, theme)
                   : _buildSimpleMessage(context, message, theme, isFirstInGroup, isLastInGroup),
             ),
@@ -187,13 +188,19 @@ class ChatMessagesList extends StatelessWidget {
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: parsedContent.map((content) {
-        if (content['type'] == 'table') {
-          return _buildTableAsCards(context, content['data'], theme);
-        } else {
-          return _buildMarkdownSection(context, content['data'], theme);
-        }
-      }).toList(),
+      children: [
+        ...parsedContent.map((content) {
+          if (content['type'] == 'table') {
+            return _buildTableAsCards(context, content['data'], theme);
+          } else {
+            return _buildMarkdownSection(context, content['data'], theme);
+          }
+        }),
+        if (message.data != null) ...[
+          const SizedBox(height: 8),
+          ChatDataCards(data: message.data!, theme: theme),
+        ]
+      ],
     );
   }
 

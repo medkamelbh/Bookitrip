@@ -9,7 +9,6 @@
       "circuits": "线路",
       "chatbot": "聊天助手",
       "plan_and_book": "计划与预订"
-
     },
     "sections": {
       "destinations": "目的地",
@@ -40,7 +39,6 @@
     "connection_error": "连接错误",
     "data_unavailable": "数据不可用",
     "loading_error": "加载时发生错误。"
-
   },
   "drawer": {
     "settings": "设置",
@@ -58,7 +56,8 @@
     "choose_theme": "选择主题",
     "exit_title": "退出应用？",
     "exit_message": "确定要退出 Tunisia Book 吗？",
-    "exit_confirm": "是的，退出"
+    "exit_confirm": "是的，退出",
+    "vehicles": "车辆"
   },
   "language": "语言",
   "destinations": {
@@ -262,6 +261,8 @@
     "error_server": "服务器错误"
   },
   "search": {
+    "reservation_tab": "预订",
+    "circuit_tab": "旅游",
     "hotels": "酒店",
     "restaurants": "餐厅",
     "transports": "交通",
@@ -274,7 +275,26 @@
     "transfert": "交通",
     "taxi": "出租车",
     "visit": "访问",
-    "choose_circuit_type": "选择您的旅游类型"
+    "continue_btn": "继续",
+    "car_rental": "租车",
+    "choose_circuit_type": "选择您的旅游类型",
+    "transfer_title": "接送预订",
+    "transfer_subtitle": "几步即可预订您的行程",
+    "transfer_full_name": "全名",
+    "transfer_email": "电子邮件",
+    "transfer_phone": "电话",
+    "transfer_date": "日期",
+    "transfer_time": "时间",
+    "transfer_select_date": "选择日期",
+    "transfer_select_time": "选择时间",
+    "transfer_departure": "出发地址",
+    "transfer_arrival": "到达地址",
+    "transfer_confirm": "确认预订",
+    "transfer_select_datetime": "请选择日期和时间",
+    "transfer_success": "预订提交成功！",
+    "transfer_persons": "人数",
+    "transfer_field_required": "此字段为必填项",
+    "location_voiture": "租车"
   },
   "availability": {
     "searching": "搜索中...",
@@ -316,5 +336,48 @@
     "edit_profile": "编辑资料",
     "change_password": "更改密码",
     "delete_account": "删除账户"
+  },
+  "vehicles": {
+    "title": "车辆",
+    "brand": "品牌",
+    "model": "型号",
+    "registration": "注册",
+    "kilometers": "公里",
+    "guarantee": "保证",
+    "guarantee_years": "{count} 年",
+    "status": "状态",
+    "status_active": "可用",
+    "status_inactive": "不可用",
+    "starting_from": "起",
+    "per_day": "/天",
+    "reserve": "预订",
+    "no_vehicles": "没有可用的车辆",
+    "no_vehicles_message": "目前没有可用的车辆。",
+    "loading": "加载车辆中...",
+    "error_loading": "加载车辆出错",
+    "reservation_title": "车辆预订",
+    "reservation_dates": "租赁日期",
+    "date_from": "开始日期",
+    "date_to": "结束日期",
+    "client_info": "客户信息",
+    "first_name": "名字",
+    "last_name": "姓氏",
+    "email": "电子邮件",
+    "phone": "电话",
+    "cin": "身份证/护照",
+    "address": "地址",
+    "price_per_day": "每天价格",
+    "total_price": "总价",
+    "days_count": "{count} 天",
+    "submit_reservation": "确认预订",
+    "reservation_success": "预订成功！",
+    "reservation_error": "预订错误",
+    "field_required": "此字段是必填的",
+    "invalid_email": "无效的电子邮件",
+    "invalid_dates": "所选日期无效",
+    "no_pricing": "这些日期没有可用的定价",
+    "select_dates": "请选择日期",
+    "year": "年份",
+    "submitting": "提交中..."
   }
 }

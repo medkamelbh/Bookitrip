@@ -2,20 +2,19 @@ import 'package:BookiTrip/constants/theme.dart';
 import 'package:BookiTrip/widgets/search_reservation/transport_type.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:go_router/go_router.dart';
+import 'transfer_form_dialog.dart';
 
 class _TransportItem {
   final TransportType type;
-  final String label;
+  final String labelKey;
   final IconData icon;
   const _TransportItem({
     required this.type,
-    required this.label,
+    required this.labelKey,
     required this.icon,
   });
 }
-
-const _kTransportAccent = Color(0xFFFF8C42);
-const _kTransportBg = Color(0xFFFFF3E8);
 
 class TransportsForm extends StatelessWidget {
   const TransportsForm({
@@ -31,24 +30,31 @@ class TransportsForm extends StatelessWidget {
   final ValueChanged<TransportType> onTransportSelected;
   final VoidCallback onSearch;
 
-  static final _items = [
+  static const _items = [
     _TransportItem(
         type: TransportType.bateaux,
-        label: 'search.boats'.tr(),
+        labelKey: 'search.boats',
         icon: Icons.directions_boat_rounded),
-
     _TransportItem(
         type: TransportType.transfert,
-        label: 'search.transfert'.tr(),
+        labelKey: 'search.transfert',
         icon: Icons.directions_bus_rounded),
     _TransportItem(
         type: TransportType.taxi,
-        label: 'search.taxi'.tr(),
+        labelKey: 'search.taxi',
         icon: Icons.local_taxi_rounded),
+    _TransportItem(
+        type: TransportType.locationVoiture,
+        labelKey: 'search.car_rental',
+        icon: Icons.car_rental_rounded),
   ];
 
   @override
   Widget build(BuildContext context) {
+    // Derive card colors from the current theme
+    final Color cardBg = theme.CardBG ?? theme.surface;
+    final Color accent = theme.primary;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -66,18 +72,19 @@ class TransportsForm extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   decoration: BoxDecoration(
                     color: isSelected
-                        ? _kTransportAccent.withOpacity(0.15)
-                        : _kTransportBg,
+                        ? accent.withOpacity(0.15)
+                        : cardBg,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
                       color: isSelected
-                          ? _kTransportAccent
+                          ? accent
                           : Colors.transparent,
                       width: 2,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.06),
+                        color: (theme.shadow ?? Colors.black)
+                            .withOpacity(0.06),
                         blurRadius: 8,
                         offset: const Offset(0, 2),
                       ),
@@ -89,8 +96,8 @@ class TransportsForm extends StatelessWidget {
                       Container(
                         width: 44,
                         height: 44,
-                        decoration: const BoxDecoration(
-                          color: _kTransportAccent,
+                        decoration: BoxDecoration(
+                          color: accent,
                           shape: BoxShape.circle,
                         ),
                         child: Icon(item.icon,
@@ -98,14 +105,14 @@ class TransportsForm extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        item.label,
+                        item.labelKey.tr(),
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: isSelected
                               ? FontWeight.w700
                               : FontWeight.w500,
                           color: isSelected
-                              ? _kTransportAccent
+                              ? accent
                               : theme.text,
                         ),
                       ),
@@ -121,7 +128,20 @@ class TransportsForm extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           opacity: selectedTransport != null ? 1.0 : 0.55,
           child: ElevatedButton(
-            onPressed: selectedTransport != null ? onSearch : null,
+            onPressed: selectedTransport != null 
+                ? () {
+                    if (selectedTransport == TransportType.transfert) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => TransferFormDialog(theme: theme),
+                      );
+                    } else if (selectedTransport == TransportType.locationVoiture) {
+                      context.push('/vehicles');
+                    } else {
+                      onSearch();
+                    }
+                  } 
+                : null,
             style: ElevatedButton.styleFrom(
               backgroundColor: theme.primary,
               foregroundColor: Colors.white,
@@ -136,10 +156,10 @@ class TransportsForm extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.language_rounded, size: 18),
+                const Icon(Icons.arrow_forward_rounded, size: 18),
                 const SizedBox(width: 6),
                 Text(
-                  'search.visit'.tr(),
+                  'search.continue_btn'.tr(),
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w700,

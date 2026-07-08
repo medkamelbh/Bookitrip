@@ -1,5 +1,6 @@
 import 'package:BookiTrip/constants/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ReservationTabSwitcher extends StatelessWidget {
   const ReservationTabSwitcher({
@@ -26,8 +27,8 @@ class ReservationTabSwitcher extends StatelessWidget {
       padding: const EdgeInsets.all(3),
       child: Row(
         children: [
-          _buildTab('Réservation', 0),
-          _buildTab('Circuit', 1),
+          _buildTab('search.reservation_tab'.tr(), 0),
+          _buildTab('search.circuit_tab'.tr(), 1),
         ],
       ),
     );

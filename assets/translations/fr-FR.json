@@ -9,7 +9,6 @@
       "circuits": "Circuits",
       "chatbot": "Chatbot",
       "plan_and_book": "Plan & Réserver"
-
     },
     "sections": {
       "destinations": "Destinations",
@@ -53,6 +52,7 @@
     "cultures": "Cultures",
     "musee": "Musée",
     "circuits": "Circuits",
+    "vehicles": "Véhicules",
     "sponsors": "Sponsors",
     "choose_theme": "Choisir Thème",
     "exit_title": "Quitter l'application ?",
@@ -96,7 +96,6 @@
     "unknown_destination": "Destination inconnue",
     "no_results": "Aucun hôtel trouvé",
     "try_different_search": "Essayez d'ajuster votre recherche ou vos filtres"
-
   },
   "restaurants": {
     "title": "Restaurants",
@@ -262,8 +261,11 @@
     "error_server": "Erreur côté serveur"
   },
   "search": {
+    "reservation_tab": "Réservation",
+    "circuit_tab": "Circuit",
     "hotels": "Hôtels",
     "restaurants": "Restaurants",
+    "location_voiture": "Location",
     "transports": "Transports",
     "passengers": "Passagers",
     "persons": "Nombre de personnes",
@@ -274,7 +276,25 @@
     "transfert": "Transfert",
     "taxi": "Taxi",
     "visit": "Visiter",
-    "choose_circuit_type": "Choisissez votre type de circuit"
+    "continue_btn": "Continuer",
+    "car_rental": "Location",
+    "choose_circuit_type": "Choisissez votre type de circuit",
+    "transfer_title": "Réservation de Transfert",
+    "transfer_subtitle": "Réservez votre trajet en quelques clics",
+    "transfer_full_name": "Nom complet",
+    "transfer_email": "Email",
+    "transfer_phone": "Téléphone",
+    "transfer_date": "Date",
+    "transfer_time": "Heure",
+    "transfer_select_date": "Sélectionner la date",
+    "transfer_select_time": "Sélectionner l'heure",
+    "transfer_departure": "Adresse de départ",
+    "transfer_arrival": "Adresse d'arrivée",
+    "transfer_confirm": "Confirmer la réservation",
+    "transfer_select_datetime": "Veuillez sélectionner la date et l'heure",
+    "transfer_success": "Réservation soumise avec succès !",
+    "transfer_persons": "Nombre de personnes",
+    "transfer_field_required": "Ce champ est requis"
   },
   "availability": {
     "searching": "Recherche en cours...",
@@ -316,5 +336,48 @@
     "edit_profile": "Modifier le profil",
     "change_password": "Changer le mot de passe",
     "delete_account": "Supprimer le compte"
+  },
+  "vehicles": {
+    "title": "Véhicules",
+    "brand": "Marque",
+    "model": "Modèle",
+    "registration": "Immatriculation",
+    "kilometers": "Kilométrage",
+    "guarantee": "Garantie",
+    "guarantee_years": "{count} ans",
+    "status": "Statut",
+    "status_active": "Disponible",
+    "status_inactive": "Indisponible",
+    "starting_from": "À partir de",
+    "per_day": "/jour",
+    "reserve": "Réserver",
+    "no_vehicles": "Aucun véhicule disponible",
+    "no_vehicles_message": "Aucun véhicule n'est disponible pour le moment.",
+    "loading": "Chargement des véhicules...",
+    "error_loading": "Erreur lors du chargement des véhicules",
+    "reservation_title": "Réservation du véhicule",
+    "reservation_dates": "Dates de location",
+    "date_from": "Date de début",
+    "date_to": "Date de fin",
+    "client_info": "Informations du client",
+    "first_name": "Prénom",
+    "last_name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "cin": "CIN",
+    "address": "Adresse",
+    "price_per_day": "Prix par jour",
+    "total_price": "Prix total",
+    "days_count": "{count} jours",
+    "submit_reservation": "Confirmer la réservation",
+    "reservation_success": "Réservation effectuée avec succès !",
+    "reservation_error": "Erreur lors de la réservation",
+    "field_required": "Ce champ est requis",
+    "invalid_email": "Email invalide",
+    "invalid_dates": "Les dates sélectionnées sont invalides",
+    "no_pricing": "Tarifs non disponibles pour ces dates",
+    "select_dates": "Veuillez sélectionner les dates",
+    "year": "Année",
+    "submitting": "Envoi en cours..."
   }
 }

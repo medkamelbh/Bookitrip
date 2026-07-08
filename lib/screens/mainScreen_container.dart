@@ -325,6 +325,7 @@ class CustomDrawerMenu extends StatelessWidget {
         // DrawerItem(icon: Icons.account_balance_outlined, label: "drawer.cultures".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/cultures')),
         DrawerItem(icon: Icons.museum_outlined, label: "drawer.musee".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/museums')),
         DrawerItem(icon: Icons.route_outlined, label: "drawer.circuits".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/circuits')),
+        DrawerItem(icon: Icons.car_rental_rounded, label: "drawer.vehicles".tr(), color: textColor, isRTL: isRTL, onTap: () => _navigateAndClose(context, '/vehicles')),
         _buildAuthSection(context, textColor),
       ],
     );

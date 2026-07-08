@@ -9,7 +9,6 @@
       "circuits": "Tours",
       "chatbot": "Assistant",
       "plan_and_book": "Plan & Book"
-
     },
     "sections": {
       "destinations": "Destinations",
@@ -57,7 +56,8 @@
     "choose_theme": "Choose Theme",
     "exit_title": "Exit app?",
     "exit_message": "Are you sure you want to exit Tunisia Book?",
-    "exit_confirm": "Yes, Exit"
+    "exit_confirm": "Yes, Exit",
+    "vehicles": "Vehicles"
   },
   "language": "Language",
   "destinations": {
@@ -96,7 +96,6 @@
     "unknown_destination": "Unknown destination",
     "no_results": "No hotels found",
     "try_different_search": "Try adjusting your search or filters"
-
   },
   "restaurants": {
     "title": "Restaurants",
@@ -262,6 +261,8 @@
     "error_server": "Server error"
   },
   "search": {
+    "reservation_tab": "Reservation",
+    "circuit_tab": "Tour",
     "hotels": "Hotels",
     "restaurants": "Restaurants",
     "transports": "Transports",
@@ -274,7 +275,26 @@
     "transfert": "Transfer",
     "taxi": "Taxi",
     "visit": "Visit",
-    "choose_circuit_type": "Choose your tour type"
+    "continue_btn": "Continue",
+    "car_rental": "Car rental",
+    "choose_circuit_type": "Choose your tour type",
+    "transfer_title": "Transfer Booking",
+    "transfer_subtitle": "Book your ride in just a few taps",
+    "transfer_full_name": "Full Name",
+    "transfer_email": "Email",
+    "transfer_phone": "Phone",
+    "transfer_date": "Date",
+    "transfer_time": "Time",
+    "transfer_select_date": "Select date",
+    "transfer_select_time": "Select time",
+    "transfer_departure": "Departure address",
+    "transfer_arrival": "Arrival address",
+    "transfer_confirm": "Confirm Booking",
+    "transfer_select_datetime": "Please select both date and time",
+    "transfer_success": "Booking submitted successfully!",
+    "transfer_persons": "Number of persons",
+    "transfer_field_required": "This field is required",
+    "location_voiture": "Car Rental"
   },
   "availability": {
     "searching": "Searching...",
@@ -316,5 +336,48 @@
     "edit_profile": "Edit profile",
     "change_password": "Change password",
     "delete_account": "Delete account"
+  },
+  "vehicles": {
+    "title": "Vehicles",
+    "brand": "Brand",
+    "model": "Model",
+    "registration": "Registration",
+    "kilometers": "Kilometers",
+    "guarantee": "Guarantee",
+    "guarantee_years": "{count} years",
+    "status": "Status",
+    "status_active": "Available",
+    "status_inactive": "Unavailable",
+    "starting_from": "Starting from",
+    "per_day": "/day",
+    "reserve": "Reserve",
+    "no_vehicles": "No vehicles available",
+    "no_vehicles_message": "No vehicles are currently available.",
+    "loading": "Loading vehicles...",
+    "error_loading": "Error loading vehicles",
+    "reservation_title": "Vehicle Reservation",
+    "reservation_dates": "Rental Dates",
+    "date_from": "Start Date",
+    "date_to": "End Date",
+    "client_info": "Client Information",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "cin": "ID/Passport",
+    "address": "Address",
+    "price_per_day": "Price per day",
+    "total_price": "Total Price",
+    "days_count": "{count} days",
+    "submit_reservation": "Confirm Reservation",
+    "reservation_success": "Reservation successful!",
+    "reservation_error": "Reservation error",
+    "field_required": "This field is required",
+    "invalid_email": "Invalid email",
+    "invalid_dates": "Selected dates are invalid",
+    "no_pricing": "Pricing not available for these dates",
+    "select_dates": "Please select dates",
+    "year": "Year",
+    "submitting": "Submitting..."
   }
 }

@@ -62,6 +62,7 @@ import 'package:BookiTrip/screens/profile/profile_screen.dart';
 import 'package:BookiTrip/screens/circuit_reservation_form_screen.dart';
 import 'package:BookiTrip/screens/circuit_reservation_success_screen.dart';
 import 'package:BookiTrip/screens/restaurant_reservation_form_screen.dart';
+import 'package:BookiTrip/screens/vehicles_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -141,6 +142,13 @@ class AppRouter {
             path: '/activities',
             name: 'activities',
             builder: (context, state) => const ActivitiesScreen(),
+          ),
+
+          // Vehicles Screen
+          GoRoute(
+            path: '/vehicles',
+            name: 'vehicles',
+            builder: (context, state) => const VehiclesScreen(),
           ),
 
           // Events Screen

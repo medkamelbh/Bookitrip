@@ -27,7 +27,7 @@ class ChatTypingIndicator extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   theme.primary,
-                  theme.primary.withValues(alpha: 0.8),
+                  theme.primary.withValues(alpha: 0.7),
                 ],
               ),
               shape: BoxShape.circle,
@@ -70,10 +70,10 @@ class ChatTypingIndicator extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Container(
-                        width: 8,
-                        height: 8,
+                        width: 6,
+                        height: 6,
                         decoration: BoxDecoration(
-                          color: theme.primary.withValues(alpha: opacity),
+                          color: theme.secondary.withValues(alpha: opacity),
                           shape: BoxShape.circle,
                         ),
                       ),

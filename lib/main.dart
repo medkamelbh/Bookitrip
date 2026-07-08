@@ -30,9 +30,13 @@ import 'package:BookiTrip/repositories/story_repository.dart';
 import 'package:BookiTrip/repositories/voyage_repository.dart';
 import 'package:BookiTrip/repositories/reservation_repository.dart';
 import 'package:BookiTrip/repositories/auth_repository.dart';
+import 'package:BookiTrip/repositories/vehicle_repository.dart';
 import 'package:BookiTrip/providers/auth_provider.dart';
 import 'package:BookiTrip/providers/user_provider.dart';
 import 'package:BookiTrip/providers/reservation_history_provider.dart';
+import 'package:BookiTrip/providers/vehicle_provider.dart';
+import 'package:BookiTrip/providers/transfer_provider.dart';
+import 'package:BookiTrip/repositories/transfer_repository.dart';
 import 'package:BookiTrip/services/api_client.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +96,8 @@ void main() async {
           ChangeNotifierProvider(create: (_) => ArtisanatProvider(ArtisanatRepository(apiClient))),
           ChangeNotifierProvider(create: (_) => StoryProvider(StoryRepository(apiClient))),
           ChangeNotifierProvider(create: (_) => CircuitFormProvider(CircuitRepository(apiClient))),
+          ChangeNotifierProvider(create: (_) => VehicleProvider(VehicleRepository(apiClient))),
+          ChangeNotifierProvider(create: (_) => TransferProvider(TransferRepository(apiClient))),
         ],
         child: const MyApp(),
       ),

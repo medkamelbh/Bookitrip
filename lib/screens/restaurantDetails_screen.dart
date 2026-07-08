@@ -163,7 +163,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
               ),
               const SizedBox(height: 15),
               _buildLocationRow(theme),
-              if (widget.restaurant.reservable) ...[
+              /* if (widget.restaurant.reservable) ...[
                 const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
@@ -196,7 +196,7 @@ class _RestaurantDetailsScreenState extends State<RestaurantDetailsScreen> {
                     ),
                   ),
                 ),
-              ],
+              ], */
               const SizedBox(height: 30),
               if (widget.restaurant.images.length > 1) ...[
                 GallerySection(

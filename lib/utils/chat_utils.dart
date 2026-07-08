@@ -12,12 +12,14 @@ Future<ChatMessage> getAssistantResponse(
 
     final responseText = response['response'] ??
         'Désolé, je n\'ai pas compris.';
+    final Map<String, dynamic>? botData = response['data'] as Map<String, dynamic>?;
 
     return ChatMessage(
       text: responseText,
       isUser: false,
       timestamp: DateTime.now(),
       isMarkdown: true,
+      data: botData,
     );
   } catch (e) {
     return ChatMessage(
@@ -42,12 +44,14 @@ Future<ChatMessage> getAssistantResponseWithRetry(
       final response = await chatService.sendMessage(userMessage);
       final responseText = response['response'] ??
           'Désolé, je n\'ai pas compris.';
+      final Map<String, dynamic>? botData = response['data'] as Map<String, dynamic>?;
 
       return ChatMessage(
         text: responseText,
         isUser: false,
         timestamp: DateTime.now(),
         isMarkdown: true,
+        data: botData,
       );
     } catch (e) {
       retryCount++;

@@ -3,12 +3,14 @@ class ChatMessage {
   final bool isUser;
   final DateTime timestamp;
   final bool isMarkdown;
+  final Map<String, dynamic>? data;
 
   ChatMessage({
     required this.text,
     required this.isUser,
     required this.timestamp,
     this.isMarkdown = false,
+    this.data,
   });
 
   /// Create a ChatMessage from JSON
@@ -20,6 +22,7 @@ class ChatMessage {
           ? DateTime.parse(json['timestamp'])
           : DateTime.now(),
       isMarkdown: json['is_markdown'] ?? false,
+      data: json['data'] as Map<String, dynamic>?,
     );
   }
 
@@ -30,6 +33,7 @@ class ChatMessage {
       'is_user': isUser,
       'timestamp': timestamp.toIso8601String(),
       'is_markdown': isMarkdown,
+      'data': data,
     };
   }
 
@@ -39,12 +43,14 @@ class ChatMessage {
     bool? isUser,
     DateTime? timestamp,
     bool? isMarkdown,
+    Map<String, dynamic>? data,
   }) {
     return ChatMessage(
       text: text ?? this.text,
       isUser: isUser ?? this.isUser,
       timestamp: timestamp ?? this.timestamp,
       isMarkdown: isMarkdown ?? this.isMarkdown,
+      data: data ?? this.data,
     );
   }
 }

@@ -45,12 +45,27 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     });
   }
 
+  late HotelProvider _hotelProvider;
+  late RestaurantProvider _restaurantProvider;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _hotelProvider = context.read<HotelProvider>();
+    _restaurantProvider = context.read<RestaurantProvider>();
+  }
+
   @override
   void dispose() {
     _controller.dispose();
     _debounce?.cancel();
-    context.read<HotelProvider>().clearSearch();
-    context.read<RestaurantProvider>().clearSearch();
+    
+    // Defer clearing search to avoid modifying provider state during the widget tree's locked phase (unmounting)
+    Future.microtask(() {
+      _hotelProvider.clearSearch();
+      _restaurantProvider.clearSearch();
+    });
+    
     super.dispose();
   }
 

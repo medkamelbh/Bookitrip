@@ -9,7 +9,6 @@
       "circuits": "ツアー",
       "chatbot": "チャットボット",
       "plan_and_book": "計画と予約"
-
     },
     "sections": {
       "destinations": "目的地",
@@ -40,7 +39,6 @@
     "connection_error": "接続エラー",
     "data_unavailable": "データ利用不可",
     "loading_error": "読み込み中にエラーが発生しました。"
-
   },
   "drawer": {
     "settings": "設定",
@@ -58,7 +56,8 @@
     "choose_theme": "テーマを選択",
     "exit_title": "アプリを終了しますか？",
     "exit_message": "Tunisia Book を終了してもよろしいですか？",
-    "exit_confirm": "はい、終了"
+    "exit_confirm": "はい、終了",
+    "vehicles": "車両"
   },
   "language": "言語",
   "destinations": {
@@ -97,7 +96,6 @@
     "unknown_destination": "不明な目的地",
     "no_results": "ホテルが見つかりません",
     "try_different_search": "検索条件やフィルターを調整してください"
-
   },
   "restaurants": {
     "title": "レストラン",
@@ -263,6 +261,8 @@
     "error_server": "サーバーエラー"
   },
   "search": {
+    "reservation_tab": "予約",
+    "circuit_tab": "ツアー",
     "hotels": "ホテル",
     "restaurants": "レストラン",
     "transports": "交通",
@@ -275,7 +275,26 @@
     "transfert": "トランスファー",
     "taxi": "タクシー",
     "visit": "訪問",
-    "choose_circuit_type": "ツアータイプを選択"
+    "continue_btn": "続行",
+    "car_rental": "レンタカー",
+    "choose_circuit_type": "ツアータイプを選択",
+    "transfer_title": "送迎予約",
+    "transfer_subtitle": "数タップで乗車を予約",
+    "transfer_full_name": "氏名",
+    "transfer_email": "メール",
+    "transfer_phone": "電話番号",
+    "transfer_date": "日付",
+    "transfer_time": "時間",
+    "transfer_select_date": "日付を選択",
+    "transfer_select_time": "時間を選択",
+    "transfer_departure": "出発地住所",
+    "transfer_arrival": "到着地住所",
+    "transfer_confirm": "予約を確認",
+    "transfer_select_datetime": "日付と時間を選択してください",
+    "transfer_success": "予約が正常に送信されました！",
+    "transfer_persons": "人数",
+    "transfer_field_required": "この項目は必須です",
+    "location_voiture": "レンタカー"
   },
   "availability": {
     "searching": "検索中...",
@@ -317,5 +336,48 @@
     "edit_profile": "プロフィール編集",
     "change_password": "パスワード変更",
     "delete_account": "アカウント削除"
+  },
+  "vehicles": {
+    "title": "車両",
+    "brand": "ブランド",
+    "model": "モデル",
+    "registration": "登録",
+    "kilometers": "キロメートル",
+    "guarantee": "保証",
+    "guarantee_years": "{count} 年",
+    "status": "ステータス",
+    "status_active": "利用可能",
+    "status_inactive": "利用不可",
+    "starting_from": "〜から",
+    "per_day": "/日",
+    "reserve": "予約する",
+    "no_vehicles": "利用可能な車両がありません",
+    "no_vehicles_message": "現在利用可能な車両はありません。",
+    "loading": "車両を読み込み中...",
+    "error_loading": "車両の読み込みエラー",
+    "reservation_title": "車両予約",
+    "reservation_dates": "レンタル日",
+    "date_from": "開始日",
+    "date_to": "終了日",
+    "client_info": "顧客情報",
+    "first_name": "名",
+    "last_name": "姓",
+    "email": "メール",
+    "phone": "電話番号",
+    "cin": "ID/パスポート",
+    "address": "住所",
+    "price_per_day": "1日あたりの料金",
+    "total_price": "合計料金",
+    "days_count": "{count} 日",
+    "submit_reservation": "予約を確認する",
+    "reservation_success": "予約が成功しました！",
+    "reservation_error": "予約エラー",
+    "field_required": "このフィールドは必須です",
+    "invalid_email": "無効なメールアドレス",
+    "invalid_dates": "選択された日付は無効です",
+    "no_pricing": "この日付の料金は利用できません",
+    "select_dates": "日付を選択してください",
+    "year": "年",
+    "submitting": "送信中..."
   }
 }

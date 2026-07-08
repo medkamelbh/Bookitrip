@@ -1,1 +1,1 @@
-enum TransportType { bateaux, transfert, taxi }
+enum TransportType { bateaux, transfert, taxi,locationVoiture }

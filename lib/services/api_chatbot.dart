@@ -256,6 +256,7 @@ class ChatService {
                       ? _parseTimestamp(msg['timestamp'])
                       : DateTime.now(),
                   isMarkdown: !isUser,
+                  data: msg['data'] as Map<String, dynamic>?,
                 ),
               );
             }
@@ -289,6 +290,7 @@ class ChatService {
                       ? _parseTimestamp(msg['timestamp'])
                       : DateTime.now(),
                   isMarkdown: !isUser,
+                  data: msg['data'] as Map<String, dynamic>?,
                 ),
               );
             }

@@ -96,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen>
                     Image.asset(
                       'assets/images/logo_bookitrip.png',
                       fit: BoxFit.contain,
-                      height: 110,
+                      height: 95,
                     ),
                   ],
                 ),

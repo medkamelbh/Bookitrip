@@ -127,6 +127,10 @@ class _ReservationSearchWidgetState extends State<ReservationSearchWidget> {
 
       case 2: // Transports
         if (_selectedTransport == null) return;
+        if (_selectedTransport == TransportType.locationVoiture) {
+          context.pushNamed('vehicles');
+          return;
+        }
         _launchTransportUrl(_selectedTransport!);
         break;
     }

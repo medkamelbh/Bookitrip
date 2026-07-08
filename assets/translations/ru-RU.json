@@ -9,7 +9,6 @@
       "circuits": "Туры",
       "chatbot": "Чат-бот",
       "plan_and_book": "Планировать и бронировать"
-
     },
     "sections": {
       "destinations": "Направления",
@@ -40,7 +39,6 @@
     "connection_error": "Ошибка подключения",
     "data_unavailable": "Данные недоступны",
     "loading_error": "Произошла ошибка при загрузке."
-
   },
   "drawer": {
     "settings": "Настройки",
@@ -58,7 +56,8 @@
     "choose_theme": "Выбрать тему",
     "exit_title": "Выйти из приложения?",
     "exit_message": "Вы уверены, что хотите выйти из Tunisia Book?",
-    "exit_confirm": "Да, выйти"
+    "exit_confirm": "Да, выйти",
+    "vehicles": "Транспорт"
   },
   "language": "Язык",
   "destinations": {
@@ -97,7 +96,6 @@
     "unknown_destination": "Неизвестное направление",
     "no_results": "Отели не найдены",
     "try_different_search": "Попробуйте изменить параметры поиска или фильтры"
-
   },
   "restaurants": {
     "title": "Рестораны",
@@ -263,6 +261,8 @@
     "error_server": "Ошибка сервера"
   },
   "search": {
+    "reservation_tab": "Бронирование",
+    "circuit_tab": "Тур",
     "hotels": "Отели",
     "restaurants": "Рестораны",
     "transports": "Транспорт",
@@ -275,7 +275,26 @@
     "transfert": "Трансфер",
     "taxi": "Такси",
     "visit": "Посетить",
-    "choose_circuit_type": "Выберите тип тура"
+    "continue_btn": "Продолжить",
+    "car_rental": "Аренда авто",
+    "choose_circuit_type": "Выберите тип тура",
+    "transfer_title": "Бронирование трансфера",
+    "transfer_subtitle": "Забронируйте поездку в несколько кликов",
+    "transfer_full_name": "Полное имя",
+    "transfer_email": "Эл. почта",
+    "transfer_phone": "Телефон",
+    "transfer_date": "Дата",
+    "transfer_time": "Время",
+    "transfer_select_date": "Выбрать дату",
+    "transfer_select_time": "Выбрать время",
+    "transfer_departure": "Адрес отправления",
+    "transfer_arrival": "Адрес прибытия",
+    "transfer_confirm": "Подтвердить бронирование",
+    "transfer_select_datetime": "Пожалуйста, выберите дату и время",
+    "transfer_success": "Бронирование успешно отправлено!",
+    "transfer_persons": "Количество человек",
+    "transfer_field_required": "Это поле обязательно",
+    "location_voiture": "Аренда авто"
   },
   "availability": {
     "searching": "Поиск...",
@@ -317,5 +336,48 @@
     "edit_profile": "Редактировать профиль",
     "change_password": "Изменить пароль",
     "delete_account": "Удалить аккаунт"
+  },
+  "vehicles": {
+    "title": "Транспортные средства",
+    "brand": "Марка",
+    "model": "Модель",
+    "registration": "Регистрация",
+    "kilometers": "Километры",
+    "guarantee": "Гарантия",
+    "guarantee_years": "{count} лет",
+    "status": "Статус",
+    "status_active": "Доступно",
+    "status_inactive": "Недоступно",
+    "starting_from": "От",
+    "per_day": "/день",
+    "reserve": "Бронировать",
+    "no_vehicles": "Нет доступного транспорта",
+    "no_vehicles_message": "В данный момент нет доступного транспорта.",
+    "loading": "Загрузка транспорта...",
+    "error_loading": "Ошибка загрузки транспорта",
+    "reservation_title": "Бронирование транспорта",
+    "reservation_dates": "Даты аренды",
+    "date_from": "Дата начала",
+    "date_to": "Дата окончания",
+    "client_info": "Информация о клиенте",
+    "first_name": "Имя",
+    "last_name": "Фамилия",
+    "email": "Email",
+    "phone": "Телефон",
+    "cin": "Паспорт/ID",
+    "address": "Адрес",
+    "price_per_day": "Цена за день",
+    "total_price": "Итоговая цена",
+    "days_count": "{count} дней",
+    "submit_reservation": "Подтвердить бронирование",
+    "reservation_success": "Бронирование успешно!",
+    "reservation_error": "Ошибка бронирования",
+    "field_required": "Это поле обязательно",
+    "invalid_email": "Неверный email",
+    "invalid_dates": "Выбранные даты недействительны",
+    "no_pricing": "Цены недоступны на эти даты",
+    "select_dates": "Пожалуйста, выберите даты",
+    "year": "Год",
+    "submitting": "Отправка..."
   }
 }

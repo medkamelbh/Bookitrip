@@ -72,19 +72,13 @@ class _AcCalendarPickerState extends State<AcCalendarPicker> {
     final end = widget.endDate;
 
     if (start == null || (start != null && end != null)) {
-      // No selection yet OR both already chosen → begin a new selection
       widget.onStartDateSelected(day);
-      // Clear the end date by sending the same day as start
-      // The parent handles null-ing end when start changes
     } else {
-      // Start is set, end is not → set end date
       if (day.isBefore(start)) {
-        // Tapped before the start → swap: tapped day becomes start, old start becomes end
         widget.onStartDateSelected(day);
         widget.onEndDateSelected?.call(start);
       } else if (DateUtils.isSameDay(day, start)) {
-        // Same day tapped → treat as single-day range
-        widget.onEndDateSelected?.call(day);
+        return;
       } else {
         widget.onEndDateSelected?.call(day);
       }
@@ -196,10 +190,6 @@ class _AcCalendarPickerState extends State<AcCalendarPicker> {
                   !day.isAfter(end) &&
                   !isEndpoint;
 
-              // Determine shape for the range strip
-              // Start of range: round left corners, flat right
-              // End of range: flat left, round right corners
-              // Middle of range: no rounding
               BorderRadius borderRadius;
               if (isStart && isEnd) {
                 borderRadius = BorderRadius.circular(10);

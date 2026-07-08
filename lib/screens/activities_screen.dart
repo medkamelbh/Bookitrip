@@ -86,26 +86,6 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
             );
           }
 
-          if (provider.errorMessage != null) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.error_outline, size: 48, color: Colors.red[300]),
-                  const SizedBox(height: 10),
-                  Text(
-                    provider.errorMessage!,
-                    style: TextStyle(color: theme.text),
-                  ),
-                  TextButton(
-                    onPressed: () => provider.forceRefresh(),
-                    child: Text("activities.retry".tr()),
-                  ),
-                ],
-              ),
-            );
-          }
-
           final activities = provider.activities;
 
           return Padding(
@@ -118,54 +98,61 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
                   onChanged: (query) => provider.setSearchQuery(query),
                 ),
                 const SizedBox(height: 25),
-                Text(
-                  "activities.results".tr(
-                    namedArgs: {'count': activities.length.toString()},
-                  ),
-                  style: TextStyle(
-                    color: theme.text.withValues(alpha: 0.6),
-                    fontWeight: FontWeight.w300,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 15),
-
+                
                 // --- LIST STATE ---
                 Expanded(
                   child: activities.isEmpty
                       ? _buildEmptyState(theme, provider)
-                      : TransformableListView.builder(
-                    getTransformMatrix:
-                    ListTransformations.getMonumentTransformMatrix,
-                    itemCount: activities.length,
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.only(bottom: 40),
-                    itemBuilder: (context, index) {
-                      final activity = activities[index];
-                      final imageUrl = (activity.vignette?.isNotEmpty ??
-                          false)
-                          ? activity.vignette!
-                          : (activity.cover ?? "");
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "activities.results".tr(
+                                namedArgs: {'count': activities.length.toString()},
+                              ),
+                              style: TextStyle(
+                                color: theme.text.withValues(alpha: 0.6),
+                                fontWeight: FontWeight.w300,
+                                fontSize: 16,
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            Expanded(
+                              child: TransformableListView.builder(
+                                getTransformMatrix:
+                                ListTransformations.getMonumentTransformMatrix,
+                                itemCount: activities.length,
+                                physics: const BouncingScrollPhysics(),
+                                padding: const EdgeInsets.only(bottom: 40),
+                                itemBuilder: (context, index) {
+                                  final activity = activities[index];
+                                  final imageUrl = (activity.vignette?.isNotEmpty ??
+                                      false)
+                                      ? activity.vignette!
+                                      : (activity.cover ?? "");
 
-                      return SizedBox(
-                        height: activityCardHeight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 5),
-                          child: ActivityCardWidget(
-                            theme: theme,
-                            title: activity.getName(context.locale) ??
-                                'activities.untitled'.tr(),
-                            destId: activity.destinationId ?? "Tunisie",
-                            imgUrl: imageUrl,
-                            category: activity.getSubtype(context.locale),
-                            onTap: () {
-                              context.pushNamed('activityDetails', extra: activity);
-                            },
-                          ),
+                                  return SizedBox(
+                                    height: activityCardHeight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 5),
+                                      child: ActivityCardWidget(
+                                        theme: theme,
+                                        title: activity.getName(context.locale) ??
+                                            'activities.untitled'.tr(),
+                                        destId: activity.destinationId ?? "Tunisie",
+                                        imgUrl: imageUrl,
+                                        category: activity.getSubtype(context.locale),
+                                        onTap: () {
+                                          context.pushNamed('activityDetails', extra: activity);
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             ),
@@ -187,7 +174,8 @@ class _ActivitiesScreenState extends State<ActivitiesScreen> {
           ),
           const SizedBox(height: 16),
           Text(
-            "activities.check_connection".tr(),
+            (provider.errorMessage != null ? "common.check_connection" : "activities.check_connection").tr(),
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: theme.text.withValues(alpha: 0.6),
               fontSize: 16,

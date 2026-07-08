@@ -52,12 +52,15 @@ class ChatHelpers {
 
         final String botResponse = response['response'] ??
             'Désolé, je n\'ai pas compris.';
+        
+        final Map<String, dynamic>? botData = response['data'] as Map<String, dynamic>?;
 
         final botMessage = ChatMessage(
           text: botResponse,
           isUser: false,
           timestamp: DateTime.now(),
           isMarkdown: true,
+          data: botData,
         );
         onAddMessage(botMessage);
         onScrollToBottom();

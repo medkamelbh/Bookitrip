@@ -89,8 +89,8 @@ class _ReservationFormScreenState extends State<ReservationFormScreen> {
                 actions: [
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.of(dialogContext).pop(); // Dismiss the dialog
-                      context.go('/home'); // Go to home screen
+                      Navigator.of(dialogContext).pop(); 
+                      context.go('/home'); 
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.primary,
